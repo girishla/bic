@@ -12,21 +12,28 @@ var $ = require('gulp-load-plugins')();
 
 function webpackWrapper(watch, test, callback) {
   var webpackOptions = {
-    resolve: { extensions: ['', '.ts'] },
+    context: __dirname + "/..",
+    resolve: {extensions: ['', '.ts']},
     watch: watch,
     module: {
-      preLoaders: [{ test: /\.ts$/, exclude: /node_modules/, loader: 'tslint-loader'}],
-      loaders: [{ test: /\.ts$/, exclude: /node_modules/, loaders: ['ng-annotate', 'ts-loader']}]
+      preLoaders: [{test: /\.ts$/, exclude: /node_modules|.tmp/, loader: 'tslint-loader'}],
+      loaders: [{test: /\.ts$/, exclude: /node_modules|.tmp/, loaders: ['ng-annotate', 'ts-loader']},
+        {test: /\.css$/, loader: "style-loader!css-loader"},
+        {test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'file-loader?name=[path][name].[ext]'}]
     },
-    output: { filename: 'index.module.js' }
+    entry: {
+      console: "./src/app/index.module",
+      chatter: "./src/app/chatter.async.module"
+    },
+    output: {filename: "[name].module.js"}
   };
 
-  if(watch) {
+  if (watch) {
     webpackOptions.devtool = 'inline-source-map';
   }
 
-  var webpackChangeHandler = function(err, stats) {
-    if(err) {
+  var webpackChangeHandler = function (err, stats) {
+    if (err) {
       conf.errorHandler('Webpack')(err);
     }
     $.util.log(stats.toString({
@@ -36,14 +43,14 @@ function webpackWrapper(watch, test, callback) {
       version: false
     }));
     browserSync.reload();
-    if(watch) {
+    if (watch) {
       watch = false;
       callback();
     }
   };
 
-  var sources = [ path.join(conf.paths.src, '/app/index.module.ts') ];
-  
+  var sources = [path.join(conf.paths.src, '/app/index.module.ts')];
+
   if (test) {
     sources.push(path.join(conf.paths.src, '/app/**/*.spec.ts'));
   }
