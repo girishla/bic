@@ -1,0 +1,87 @@
+<md-content layout="column" layout-padding>
+  <md-content layout="row" layout-align='start center'>
+    <div layout="row">
+      <span ng-if="indexVM.results.hits.total" style="margin-left: 12px;margin-right: 12px;font-size: 12px">Showing {{((indexVM.page-1) * indexVM.pageSize)+1}} to {{indexVM.results.hits.total>indexVM.pageSize?indexVM.page * indexVM.pageSize:indexVM.results.hits.total}} of {{indexVM.results.hits.total}} Records</span>
+      <span flex></span>
+    </div>
+
+
+  </md-content>
+
+
+  <md-content layout="row" layout-align="center top">
+
+    <div flex layout-margin>
+      <div ng-if="indexVM.results.hits.total>indexVM.pageSize" layout='row'  layout-margin
+           layout-align='start center' ng-cloak>
+        <dir-pagination-controls class="disable-large" boundary-links="true" max-size="5"
+                                 template-url="app/uicore/components/paging/paging.tmpl.html"></dir-pagination-controls>
+        <md-input-container class="disable-large">
+          <label style="font-size: 12px;">Pg. Size</label>
+          <md-select ng-model="indexVM.pageSize">
+            <md-option ng-repeat="item in [5,10, 20, 50, 100]">{{item}}</md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container>
+          <label style="font-size: 12px;">Sort By</label>
+          <md-select ng-model="vm.sortBy"  esl-sort="vm.getSort()" esl-enabled="vm.sortBy">
+            <md-option ng-repeat="sortItem in ['Relevance','Newest First','Oldest First','Account','Product Family']"  >{{sortItem}}</md-option>
+          </md-select>
+        </md-input-container>
+
+      </div>
+      <div ng-if="!indexVM.results.hits.total" layout='row' layout-margin layout-align='start center'>
+        <span>No results containing all your search terms were found</span>
+      </div>
+
+      <md-list>
+        <md-list-item class="md-3-line"
+                      dir-paginate="item in indexVM.results.hits.hits | itemsPerPage: indexVM.pageSize"
+                      total-items="indexVM.results.hits.total>10000?10000:indexVM.results.hits.total"
+                      current-page="indexVM.page"
+                      ng-click="vm.showDetailsDialog($event,item)" layout-wrap>
+          <!-- <img ng-src="https://logo.clearbit.com/{{::item._source.domain}}" class="md-avatar" alt="{{::item._source.customerAccountName}}"/>-->
+          <div class="md-list-item-text">
+            <h3 style="color: rgb(0, 0, 0)">{{::item._source.customerAccountName}} <span style="font-size: 10px;">(Responded to NPS Survey on {{::item._source.surveyDate | date}})</span>
+            </h3>
+            <p ng-if="item.highlight.billingAccountId" ng-bind-html="item.highlight.billingAccountId[0]"></p>
+            <p ng-if="item.highlight.billingAccountName" ng-bind-html="item.highlight.billingAccountName[0]"></p>
+            <p ng-if="item.highlight.commentsText" ng-bind-html="'...' + item.highlight.commentsText[0]"></p>
+            <p ng-if="item.highlight.suggestionsToImproveText"
+               ng-bind-html="item.highlight.suggestionsToImproveText[0]"></p>
+            <p ng-if="!item.highlight && item._source.commentsText"> {{item._source.commentsText}}</p>
+            <p ng-if="!item.highlight && item._source.suggestionsToImproveText">
+              {{item._source.suggestionsToImproveText}}</p>
+          </div>
+
+          <div>
+            <md-icon style="color: limegreen;" md-font-icon="fa fa-smile-o fa-3"
+                     ng-show="item._source.rating > 8">
+              <md-tooltip>
+                {{item._source.rating}}
+              </md-tooltip>
+            </md-icon>
+            <md-icon style="color: red;" md-font-icon="fa fa-frown-o fa-3"
+                     ng-show="item._source.rating < 6">
+              <md-tooltip>
+                {{item._source.rating}}
+              </md-tooltip>
+            </md-icon>
+            <md-icon style="color: orange;" md-font-icon="fa fa-meh-o fa-3"
+                     ng-show="item._source.rating > 5 && item._source.rating < 9">
+              <md-tooltip>
+                {{item._source.rating}}
+              </md-tooltip>
+            </md-icon>
+          </div>
+
+        </md-list-item>
+
+      </md-list>
+
+    </div>
+
+  </md-content>
+
+</md-content>
+

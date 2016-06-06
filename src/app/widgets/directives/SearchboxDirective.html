@@ -1,0 +1,11 @@
+<md-input-container style="margin-bottom: 1px" layout-align="center center" class="md-block">
+  <label>Search...</label>
+  <md-icon md-font-icon="fa fa-search"></md-icon>
+  <!--<input type="text" esl-query="ejs.MatchQuery(['_all'], querystring).analyzer('english')" ng-model="querystring"
+         esl-enabled="querystring.length" name="searchstring"/>-->
+
+  <input ng-model-options="{ debounce: 500 }" type="text" esl-query="ejs.QueryStringQuery ( querystring ).fields (field).analyzer('english')" ng-model="querystring"
+         esl-enabled="querystring.length" name="searchstring"/>
+
+
+</md-input-container>

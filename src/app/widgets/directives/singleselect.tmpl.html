@@ -1,0 +1,29 @@
+<div esl-aggregation="ejs.TermsAggregation(name).field(field).size(10).order('_term','asc')">
+
+  <md-toolbar style="min-height:30px">
+    <h4 style="max-height:30px">Year</h4>
+  </md-toolbar>
+
+  <div layout="row" layout-wrap>
+    <section ng-if="aggResult.buckets.length" ng-repeat="bucket in aggResult.buckets"
+             esl-filter="ejs.TermsFilter(field, bucket.key)">
+      <md-button style="min-width:30px" ng-if="!filter.enabled" class="md-primary" ng-click="filter.enabled=true;"
+                 aria-label="select year">
+        {{bucket.key}}
+      </md-button>
+      <md-button style="min-width:30px;text-transform: lowercase" ng-if="filter.enabled" class="md-primary"
+                 ng-click="filter.enabled=false;"
+                 aria-label="undo year selection">
+        {{bucket.key}} <span
+        style="vertical-align: super;color: red;font-size: .83em ">x</span>
+      </md-button>
+
+    </section>
+
+
+    <div layout-margin><span ng-if="!aggResult.buckets.length"> No Results</span></div>
+  </div>
+
+
+
+</div>

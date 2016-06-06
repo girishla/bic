@@ -1,0 +1,139 @@
+<div class="dashboard-container overlay-10" layout="column">
+
+  <search-body esl-index="'nps'"
+               esl-highlight="ejs.Highlight(['commentsText','suggestionsToImproveText','billingAccountId','billingAccountName']).preTags('<mark>').postTags('</mark>')"
+               esl-enabled="true">
+
+
+    <div layout='row' layout-margin>
+      <esl-searchbox flex="80"
+                     field="['commentsText','suggestionsToImproveText','billingAccountId','billingAccountName']"></esl-searchbox>
+      <md-button layout-align="end center" class="md-icon-button toolbar-button disable-small"
+                 ng-click="vm.openSidebar('rightsidebar')"
+                 aria-label="search filters">
+        <md-icon md-font-icon="fa fa-filter"></md-icon>
+      </md-button>
+    </div>
+
+
+    <ng-include ng-if="'(max-width: 600px)' | matchMedia"
+                src="'app/dashboards/analytics/dashboard-search-mobile-sidenav.tmpl.html'"></ng-include>
+
+
+    <div layout="row" layout-xs="column" layout-margin layout-align="start start">
+
+      <div class="esl-dash-content" flex-gt-sm="66" flex="100" layout="column" layout-margin>
+
+        <!--  <esl-current-filters></esl-current-filters>-->
+
+
+        <md-tabs class="md-primary" md-selected="selectedTabIndex" md-stretch-tabs="always" md-dynamic-height>
+          <md-tab label="Summary">
+
+
+            <div class="drag-container" layout="row" layout-xs="column" layout-margin
+                 dragula='"drag-analytics-container"'>
+              <uicore-widget palette-background="grey:100" content-layout="row"
+                             content-layout-align="space-between center"
+                             content-padding>
+                <div>
+                  <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="fa fa-comments"></md-icon>
+                </div>
+
+                <div layout="column" layout-align="center end">
+                  <p class="md-display-3 font-weight-100 margin-top-0 margin-bottom-0"
+                     countupto="indexVM.results.hits.total || 0" duration="1.5" decimals="0"
+                     style="color: rgba(66,133,244,1)"></p>
+                  <p class="md-body-2 opacity-60 margin-top-0 margin-bottom-0" translate>Responses</p>
+                </div>
+              </uicore-widget>
+              <uicore-widget tile-nps-widget palette-background="grey:100" content-layout="row"
+                             content-layout-align="space-between center"
+                             content-padding>
+                <div>
+                  <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="fa fa-tachometer"></md-icon>
+                </div>
+                <div layout="column" layout-align="center end">
+                  <p class="md-display-3 font-weight-100 margin-top-0 margin-bottom-0" countupto="npsScore"
+                     duration="1.5" decimals="1" ng-style="npsScore>=0?{color:'green'}:{color:'red'}"></p>
+                  <p class="md-body-2 opacity-60 margin-top-0 margin-bottom-0">NPS Score</p>
+                </div>
+              </uicore-widget>
+
+            </div>
+
+
+            <div layout="row" layout-xs="column" layout-margin>
+
+              <aggr style="display:none"
+                    esl-aggregation="ejs.TermsAggregation('surveyYear_chart_aggr').field('surveyYear').size(10).order('_term','asc').agg(ejs.TermsAggregation ('surveyYear_chart_aggr_month' + '_count').field('surveyMonth').order('_term','asc'))">
+              </aggr>
+              <aggr style="display:none"
+                    esl-aggregation="ejs.TermsAggregation('category_chart_aggr').field('category').size(10)"></aggr>
+
+              <uicore-widget chartjs-line-widget title="Trend" subtitle="# Responses over time" content-layout="row"
+                             content-padding>
+                <canvas class="chart-line" chart-data="lineChart.data" chart-labels="lineChart.labels"
+                        chart-legend="true"
+                        chart-series="lineChart.series" chart-options="lineChart.options"></canvas>
+              </uicore-widget>
+              <uicore-widget chartjs-pie-widget title="Resp. Category" subtitle=""
+                             content-padding content-layout="row">
+                <canvas class="chart-doughnut" chart-data="pieChart.data" chart-legend="true"
+                        chart-labels="pieChart.labels" chart-colours="pieChart.colours"></canvas>
+              </uicore-widget>
+            </div>
+
+
+            <div layout="column" layout-margin>
+
+              <uicore-widget title="NPS Comments(Terms)">
+
+                <cloud-widget shape="rectangular" class="word-cloud" center="{x: 0.5, y:0.6}" id="commentsTerms_cloud" steps="7"
+                              field="'commentsTerms'"
+                              font-size="{from:0.05, to:0.02}"></cloud-widget>
+
+              </uicore-widget>
+
+
+              <uicore-widget title="Suggestions to Improve(Terms)">
+
+
+                <cloud-widget class="word-cloud" center="{x: 0.5, y:0.6}" id="suggestionsToImprove_cloud" steps="7"
+                              field="'suggestionsToImprove'"
+                              font-size="{from:0.05, to:0.02}"></cloud-widget>
+
+              </uicore-widget>
+
+
+
+            </div>
+
+          </md-tab>
+          <md-tab label="List">
+
+            <ng-include src="'app/dashboards/analytics/dashboard-search-result-list-view.tmpl.html'"></ng-include>
+
+          </md-tab>
+        </md-tabs>
+
+
+      </div>
+
+
+      <div flex="33" ng-if="'(min-width: 600px)' | matchMedia" class="content-wrapper disable-large">
+
+        <ng-include src="'app/dashboards/analytics/dashboard-search-sidenav-contents.tmpl.html'"></ng-include>
+
+      </div>
+
+
+    </div>
+
+
+  </search-body>
+
+
+</div>
+
+

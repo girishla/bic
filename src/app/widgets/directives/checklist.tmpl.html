@@ -1,0 +1,23 @@
+<div esl-aggregation="ejs.TermsAggregation(agg_name).field(field).size(size)" ng-cloak>
+  <md-toolbar class="md-default" style="min-height:30px">
+    <h4 style="max-height:30px">{{field | camelCaseToHuman | titlecase}}</h4>
+  </md-toolbar>
+
+
+  <div layout-margin>
+    <md-input-container ng-if="aggResult.buckets.length" class="md-block">
+      <md-checkbox class="md-accent es-search-facet-checklist" ng-repeat="bucket in aggResult.buckets"
+                   esl-filter="ejs.TermsFilter(field, bucket.key)" ng-model="filter.enabled"
+                   aria-label="Primary Checkbox">
+        {{bucket.key}} ({{bucket.doc_count}})
+      </md-checkbox>
+      <span flex> </span>
+      <md-button style="text-transform: none" ng-hide="!more" class="md-primary" ng-click="size=size+5"><a>Show more..</a></md-button>
+    </md-input-container>
+
+    <span ng-if="!aggResult.buckets.length"> No Results</span>
+  </div>
+
+  <md-divider></md-divider>
+
+</div>

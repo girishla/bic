@@ -1,0 +1,61 @@
+
+  <div class="dashboard-container overlay-10 padded-content-page md-sidenav-push-in-target" layout="column">
+    <div class="drag-container" layout="row" layout-xs="column" layout-margin dragula='"drag-analytics-container"'>
+      <uicore-widget palette-background="indigo:500" content-layout="row" content-layout-align="space-between center"
+                     content-padding>
+        <div>
+          <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="fa fa-comments"></md-icon>
+        </div>
+        <div layout="column" layout-align="center end">
+          <p class="md-display-3 font-weight-100 margin-top-0 margin-bottom-0" countupto="15" decimals="1"></p>
+          <p class="md-body-2 opacity-60 margin-top-0 margin-bottom-0">NPS Score</p>
+        </div>
+      </uicore-widget>
+      <uicore-widget palette-background="teal:500" content-layout="row" content-layout-align="space-between center"
+                     content-padding>
+        <div>
+          <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="fa fa-thumbs-up"></md-icon>
+        </div>
+        <div layout="column" layout-align="center end">
+          <p class="md-display-3 font-weight-100 margin-top-0 margin-bottom-0" countupto="300" decimals="0"></p>
+          <p class="md-body-2 opacity-60 margin-top-0 margin-bottom-0" translate>Promoters</p>
+        </div>
+      </uicore-widget>
+      <uicore-widget palette-background="deep-orange:500" content-layout="row"
+                     content-layout-align="space-between center"
+                     content-padding>
+        <div>
+          <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="fa fa-meh-o"></md-icon>
+        </div>
+        <div layout="column" layout-align="center end">
+          <p class="md-display-3 font-weight-100 margin-top-0 margin-bottom-0 text-ellipsis" countupto="100"
+             decimals="0"></p>
+          <p class="md-body-2 opacity-60 margin-top-0 margin-bottom-0">Passives</p>
+        </div>
+      </uicore-widget>
+      <uicore-widget palette-background="red:500" content-layout="row"
+                     content-layout-align="space-between center"
+                     content-padding>
+        <div>
+          <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="fa fa-thumbs-down"></md-icon>
+        </div>
+        <div layout="column" layout-align="center end">
+          <p class="md-display-3 font-weight-100 margin-top-0 margin-bottom-0 text-ellipsis" countupto="36"
+             decimals="0"></p>
+          <p class="md-body-2 opacity-60 margin-top-0 margin-bottom-0">Detractors</p>
+        </div>
+      </uicore-widget>
+    </div>
+
+
+  </div>
+
+
+  <div layout="row" layout-xs="column" layout-margin>
+    <uicore-widget chartjs-line-widget title="NPS Trend" subtitle="11/03/15 - 11/4/15" content-layout="row" content-padding>
+      <canvas class="chart-line" chart-data="lineChart.data" chart-labels="lineChart.labels" chart-legend="true" chart-series="lineChart.series" chart-options="lineChart.options"></canvas>
+    </uicore-widget>
+    <uicore-widget chartjs-pie-widget title="Promoters Passives Detractors" subtitle="11/03/15 - 11/4/15" content-padding content-layout="row">
+      <canvas class="chart-doughnut" chart-data="pieChart.data" chart-legend="true" chart-labels="pieChart.labels"></canvas>
+    </uicore-widget>
+  </div>

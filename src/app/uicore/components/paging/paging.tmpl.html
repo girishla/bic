@@ -1,0 +1,34 @@
+<div layout="row" class="uicore-paging" layout-align="center">
+
+  <ul layout="row" ng-if="1 < pages.length || !autoHide">
+
+    <li ng-if="boundaryLinks">
+      <md-button ng-disabled="pagination.current == 1"
+                 class="md-raised uicore-paging-button" ng-click="setCurrent(1)">&laquo;</md-button>
+    </li>
+    <li ng-if="directionLinks">
+      <md-button class="md-raised uicore-paging-button" ng-disabled="pagination.current == 1"
+                 ng-click="setCurrent(pagination.current - 1)">
+        <a href="">&lsaquo;</a>
+      </md-button>
+    </li>
+    <li ng-repeat="pageNumber in pages track by tracker(pageNumber, $index)">
+      <md-button class="md-raised uicore-paging-button" ng-class="{ 'md-primary' : pagination.current == pageNumber}"
+                 ng-disabled="pageNumber == '...'"
+                 ng-click="setCurrent(pageNumber)">{{ pageNumber }}
+      </md-button>
+    </li>
+
+    <li ng-if="directionLinks">
+      <md-button class="md-raised uicore-paging-button" ng-disabled="pagination.current == pagination.last"
+                 ng-click="setCurrent(pagination.current + 1)">&rsaquo;</md-button>
+    </li>
+    <li ng-if="boundaryLinks">
+      <md-button class="md-raised uicore-paging-button" ng-disabled="pagination.current == pagination.last"
+                 ng-click="setCurrent(pagination.last)">&raquo;</md-button>
+    </li>
+  </ul>
+
+</div>
+
+

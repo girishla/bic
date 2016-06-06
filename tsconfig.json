@@ -1,0 +1,12 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5"
+  },
+  "exclude": [
+    "bower_components",
+    "node_modules",
+    "typings"
+  ]
+}

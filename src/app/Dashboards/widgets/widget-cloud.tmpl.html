@@ -1,0 +1,22 @@
+
+<div>
+
+  <div  layout="row" layout-wrap esl-aggregation="ejs.TermsAggregation(field + '_cloud_aggr').field(field).size(20)">
+
+    <div  id="{{field}}_cloud_{{bucket.key}}" ng-repeat="bucket in aggResult.buckets"
+                esl-filter="ejs.TermsFilter(field, bucket.key)">
+
+        <md-button style="min-width:40px;text-transform: uppercase;" ng-if="filter.enabled"
+                   ng-click="filter.enabled=false;"
+                   aria-label="undo selection">
+          <a>{{bucket.key}}</a> <span
+          style="vertical-align: super;color: red;font-size: .83em ">x</span>
+        </md-button>
+
+      <span  class="wordcloud_word"  id="{{field}}_cloud_word_{{bucket.key}}" ng-click="filter.enabled=true;"></span>
+
+    </div>
+  </div>
+
+
+</div>

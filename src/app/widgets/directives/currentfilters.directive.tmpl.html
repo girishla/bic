@@ -1,0 +1,21 @@
+<div>
+
+<!--
+  <md-toolbar style="min-height:30px">
+    <h4 style="max-height:30px">Current Filter Selections</h4>
+  </md-toolbar>
+-->
+
+  <div ng-if="filters.length>0" layout="row" layout-wrap>
+    <md-button ng-repeat="filter in filters" style="min-width:30px;text-transform: none;cursor:default" class="md-default md-raised"
+               aria-label="undo year selection">
+      <span style="font-size: 12px" ng-repeat="(filterkey, filtervalue) in filter">{{filterkey | camelCaseToHuman | titlecase}} = {{filtervalue}}</span>
+<!--      <span style="vertical-align: super;color: red;font-size: .83em ">x</span>-->
+    </md-button>
+
+  </div>
+  <div layout-margin><span style="font-size: 12px" ng-if="filters.length==0"> No Current Filters</span></div>
+
+
+
+</div>

@@ -1,0 +1,39 @@
+html, body {
+  height: 100%;
+}
+
+// import animate scss
+@import "animatewithsass/animate.scss";
+
+
+// variables
+@import "scss/variables";
+
+// core
+
+@import "scss/contextual";
+@import "scss/dialogs";
+@import "scss/material-overrides";
+@import "scss/print";
+@import "scss/reset";
+@import "scss/social";
+@import "scss/tables";
+@import "scss/typography";
+@import "scss/utilities";
+
+// components
+
+@import "scss/components/footer.scss";
+@import "scss/components/loader.scss";
+@import "scss/components/menu.scss";
+@import "scss/components/notifications-panel.scss";
+@import "scss/components/table.scss";
+@import "scss/components/toolbar.scss";
+@import "scss/components/widget.scss";
+@import "scss/components/wizard.scss";
+
+// directives
+
+// layouts
+@import "scss/layouts/default.scss";
+@import "scss/layouts/states/uicore.scss";

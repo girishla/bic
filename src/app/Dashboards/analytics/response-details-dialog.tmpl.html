@@ -1,0 +1,20 @@
+<md-dialog>
+  <md-toolbar md-theme="{{uicoreSkin.elements.toolbar}}">
+    <div class="md-toolbar-tools">
+      <h2 flex>
+        <span translate>Response Details</span>
+      </h2>
+      <md-button class="md-icon-button" aria-label="Settings">
+        <md-icon md-font-icon="zmdi zmdi-close" ng-click="closeDialog()"></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content class="md-dialog-content">
+    <ng-include src="'app/dashboards/analytics/response-details-table.tmpl.html'">
+    </ng-include>
+  </md-dialog-content>
+
+</md-dialog>
+
+
+

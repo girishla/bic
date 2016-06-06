@@ -1,0 +1,1038 @@
+[11:21:18] Using gulpfile C:\working\latest\yo\gulpfile.js
+[11:21:18] Starting 'scripts'...
+[11:21:19] Starting 'styles'...
+[11:21:19] 'styles' errored after 252 μs
+[11:21:19] TypeError: Cannot read property 'src' of undefined
+    at buildStyles (C:\working\latest\yo\gulp\styles.js:34:10)
+    at Gulp.<anonymous> (C:\working\latest\yo\gulp\styles.js:22:10)
+    at module.exports (C:\working\latest\yo\node_modules\gulp\node_modules\orchestrator\lib\runTask.js:34:7)
+    at Gulp.Orchestrator._runTask (C:\working\latest\yo\node_modules\gulp\node_modules\orchestrator\index.js:273:3)
+    at Gulp.Orchestrator._runStep (C:\working\latest\yo\node_modules\gulp\node_modules\orchestrator\index.js:214:10)
+    at Gulp.Orchestrator.start (C:\working\latest\yo\node_modules\gulp\node_modules\orchestrator\index.js:134:8)
+    at C:\Users\LAKSHMG4\AppData\Roaming\npm\node_modules\gulp\bin\gulp.js:129:20
+    at nextTickCallbackWith0Args (node.js:420:9)
+    at process._tickCallback (node.js:349:13)
+    at Function.Module.runMain (module.js:443:11)
+    at startup (node.js:139:18)
+    at node.js:968:3
+[11:21:28] Time: 8939ms
+          Asset    Size  Chunks             Chunk Names
+index.module.js  146 kB       0  [emitted]  main
+
+WARNING in ./src/app/index.module.ts
+[5, 8]: " should be '
+[6, 8]: " should be '
+[7, 8]: " should be '
+[8, 8]: " should be '
+[9, 8]: " should be '
+[10, 8]: " should be '
+[11, 28]: " should be '
+[14, 26]: " should be '
+[15, 29]: " should be '
+[16, 23]: " should be '
+[17, 26]: " should be '
+[18, 36]: " should be '
+[19, 33]: " should be '
+[20, 28]: " should be '
+[21, 33]: " should be '
+[22, 33]: " should be '
+[8, 29]: missing semicolon
+[9, 32]: missing semicolon
+[10, 40]: missing semicolon
+[24, 28]: missing whitespace
+
+
+WARNING in ./src/app/filters/filters.ts
+[1, 38]: missing semicolon
+[2, 44]: missing semicolon
+[3, 42]: missing semicolon
+[4, 50]: missing semicolon
+[5, 42]: missing semicolon
+[6, 50]: missing semicolon
+
+
+WARNING in ./src/app/directives/directives.ts
+[1, 36]: " should be '
+[2, 31]: " should be '
+[3, 34]: " should be '
+[4, 29]: " should be '
+[5, 30]: " should be '
+[6, 33]: " should be '
+[7, 33]: " should be '
+[8, 30]: " should be '
+[9, 29]: " should be '
+[10, 28]: " should be '
+[11, 34]: " should be '
+[12, 34]: " should be '
+[13, 37]: " should be '
+[14, 37]: " should be '
+[28, 40]: missing whitespace
+[29, 40]: missing whitespace
+[30, 43]: missing whitespace
+[31, 43]: missing whitespace
+
+
+WARNING in ./src/app/services/services.ts
+[1, 30]: " should be '
+
+
+WARNING in ./src/app/uicore/uicore.module.ts
+[1, 8]: " should be '
+[2, 8]: " should be '
+[3, 8]: " should be '
+[4, 8]: " should be '
+[5, 7]: " should be '
+[6, 8]: " should be '
+[7, 44]: " should be '
+[8, 25]: " should be '
+[9, 27]: " should be '
+[10, 31]: " should be '
+[11, 25]: " should be '
+[12, 30]: " should be '
+[5, 31]: missing semicolon
+[6, 32]: missing semicolon
+
+
+WARNING in ./src/app/dashboards/dashboards.module.ts
+[1, 26]: " should be '
+[2, 42]: " should be '
+
+
+WARNING in ./src/app/config/config.chartjs.ts
+[5, 11]: comment must start with lowercase letter
+[4, 55]: expected parameter: 'ChartJsProvider' to have a typedef
+[21, 27]: missing whitespace
+[21, 28]: missing whitespace
+
+
+WARNING in ./src/app/config/config.uicore.layout.ts
+[2, 61]: expected parameter: 'uicoreLayoutProvider' to have a typedef
+
+
+WARNING in ./src/app/config/config.uicore.settings.ts
+[2, 66]: expected parameter: 'uicoreSettingsProvider' to have a typedef
+[2, 87]: expected parameter: 'uicoreRouteProvider' to have a typedef
+
+
+WARNING in ./src/app/config/config.uicore.themes.ts
+[48, 5]: comment must start with lowercase letter
+[55, 5]: comment must start with lowercase letter
+[74, 5]: comment must start with lowercase letter
+[93, 5]: comment must start with lowercase letter
+[112, 5]: comment must start with lowercase letter
+[129, 5]: comment must start with lowercase letter
+[148, 5]: comment must start with lowercase letter
+[170, 5]: comment must start with lowercase letter
+[184, 5]: comment must start with lowercase letter
+[2, 59]: expected parameter: '$mdThemingProvider' to have a typedef
+[2, 82]: expected parameter: 'uicoreThemingProvider' to have a typedef
+[2, 103]: expected parameter: 'uicoreSkinsProvider' to have a typedef
+
+
+WARNING in ./src/app/config/value.googlechart.ts
+[1, 32]: missing whitespace
+
+
+WARNING in ./src/app/error-page.controller.ts
+[2, 52]: expected parameter: '$state' to have a typedef
+
+
+WARNING in ./src/app/config/config.route.ts
+[4, 7]: comment must start with lowercase letter
+[3, 55]: expected parameter: '$stateProvider' to have a typedef
+[3, 75]: expected parameter: '$urlRouterProvider' to have a typedef
+
+
+WARNING in ./src/app/layouts/footer/footer.controller.ts
+[2, 60]: expected parameter: 'uicoreLayout' to have a typedef
+[2, 76]: expected parameter: 'uicoreSettings' to have a typedef
+
+
+WARNING in ./src/app/layouts/loader/loader.controller.ts
+[2, 62]: expected parameter: 'uicoreSettings' to have a typedef
+
+
+WARNING in ./src/app/filters/MapFilter.ts
+[26, 21]: unused variable: 'ret'
+[8, 32]: " should be '
+[32, 14]: missing semicolon
+[31, 37]: expected parameter: 'el' to have a typedef
+[26, 25]: missing whitespace
+
+
+WARNING in ./src/app/filters/CachedFilter.ts
+[1, 7]: comment must start with lowercase letter
+[2, 7]: comment must start with lowercase letter
+[15, 14]: missing semicolon
+[6, 27]: missing whitespace
+
+
+WARNING in ./src/app/filters/RoundFilter.ts
+[8, 14]: missing semicolon
+[3, 27]: missing whitespace
+
+
+WARNING in ./src/app/filters/PageRangeFilter.ts
+[4, 19]: comment must start with lowercase letter
+[5, 19]: comment must start with lowercase letter
+[23, 1]: trailing whitespace
+[19, 14]: missing semicolon
+[12, 34]: == should be ===
+[14, 34]: == should be ===
+
+
+WARNING in ./src/app/filters/RangeFilter.ts
+[13, 1]: trailing whitespace
+[4, 25]: missing radix parameter
+[9, 14]: missing semicolon
+[3, 27]: missing whitespace
+[3, 38]: missing whitespace
+
+
+WARNING in ./src/app/filters/TimestampFilter.ts
+[10, 1]: trailing whitespace
+[6, 14]: missing semicolon
+[4, 27]: missing whitespace
+
+
+WARNING in ./src/app/directives/AggregationDirective.ts
+[1, 41]: " should be '
+[12, 64]: " should be '
+[22, 72]: " should be '
+[27, 14]: missing semicolon
+[11, 46]: missing whitespace
+[11, 59]: missing whitespace
+[11, 100]: missing whitespace
+[12, 85]: missing whitespace
+[17, 55]: missing whitespace
+
+
+WARNING in ./src/app/directives/FilterDirective.ts
+[1, 32]: " should be '
+[10, 49]: " should be '
+[20, 58]: " should be '
+[25, 6]: missing semicolon
+[5, 19]: missing whitespace
+[9, 38]: missing whitespace
+[9, 51]: missing whitespace
+[9, 78]: missing whitespace
+[9, 94]: missing whitespace
+[10, 70]: missing whitespace
+[15, 40]: missing whitespace
+
+
+WARNING in ./src/app/directives/HighlightDirective.ts
+[1, 35]: " should be '
+[11, 52]: " should be '
+[21, 64]: " should be '
+[25, 6]: missing semicolon
+[5, 19]: missing whitespace
+[10, 38]: missing whitespace
+[10, 51]: missing whitespace
+[10, 78]: missing whitespace
+[10, 97]: missing whitespace
+[11, 73]: missing whitespace
+[16, 40]: missing whitespace
+
+
+WARNING in ./src/app/directives/HostDirective.ts
+[1, 34]: " should be '
+[15, 14]: missing semicolon
+[9, 46]: missing whitespace
+[9, 59]: missing whitespace
+[9, 101]: missing whitespace
+[10, 61]: missing whitespace
+
+
+WARNING in ./src/app/directives/IndexDirective.ts
+[1, 31]: " should be '
+[14, 6]: missing semicolon
+[4, 19]: missing whitespace
+[9, 38]: missing whitespace
+[9, 51]: missing whitespace
+[9, 78]: missing whitespace
+[9, 93]: missing whitespace
+[10, 41]: missing whitespace
+
+
+WARNING in ./src/app/directives/InvertedDirective.ts
+[11, 14]: missing semicolon
+[8, 46]: missing whitespace
+[8, 59]: missing whitespace
+[8, 86]: missing whitespace
+[8, 99]: missing whitespace
+[9, 53]: missing whitespace
+[10, 56]: missing whitespace
+
+
+WARNING in ./src/app/directives/QueryDirective.ts
+[1, 35]: " should be '
+[9, 58]: " should be '
+[19, 68]: " should be '
+[24, 14]: missing semicolon
+[9, 104]: missing whitespace
+[8, 46]: missing whitespace
+[8, 59]: missing whitespace
+[8, 102]: missing whitespace
+[9, 79]: missing whitespace
+[14, 52]: missing whitespace
+
+
+WARNING in ./src/app/directives/SortDirective.ts
+[1, 30]: " should be '
+[11, 47]: " should be '
+[21, 54]: " should be '
+[26, 6]: missing semicolon
+[5, 19]: missing whitespace
+[10, 38]: missing whitespace
+[10, 51]: missing whitespace
+[10, 78]: missing whitespace
+[10, 92]: missing whitespace
+[11, 68]: missing whitespace
+[16, 40]: missing whitespace
+
+
+WARNING in ./src/app/directives/VarDirective.ts
+[9, 1]: trailing whitespace
+[20, 14]: missing semicolon
+[4, 30]: missing whitespace
+[11, 38]: missing whitespace
+[11, 51]: missing whitespace
+[13, 69]: missing whitespace
+[13, 81]: missing whitespace
+
+
+WARNING in ./src/app/services/ElasticService.ts
+[8, 9]: Declaration of public static member variable not allowed to appear after declaration of private instance member variable
+[2, 1]: trailing whitespace
+[1, 13]: unused variable: 'services'
+[1, 28]: " should be '
+[22, 34]: " should be '
+[4, 23]: missing whitespace
+[5, 27]: missing whitespace
+[6, 22]: missing whitespace
+[9, 31]: missing whitespace
+[9, 44]: missing whitespace
+[14, 29]: missing whitespace
+
+
+WARNING in ./src/app/widgets/directives/ChecklistDirective.ts
+[6, 3]: comment must start with lowercase letter
+[7, 3]: comment must start with lowercase letter
+[23, 7]: comment must start with lowercase letter
+[1, 27]: " should be '
+[2, 23]: " should be '
+[18, 57]: " should be '
+[18, 66]: " should be '
+[19, 63]: " should be '
+[19, 70]: " should be '
+[21, 6]: missing semicolon
+[11, 22]: missing whitespace
+[12, 19]: missing whitespace
+[17, 30]: missing whitespace
+[17, 43]: missing whitespace
+[17, 70]: missing whitespace
+
+
+WARNING in ./src/app/widgets/directives/SearchboxDirective.ts
+[1, 3]: comment must start with lowercase letter
+[2, 3]: comment must start with lowercase letter
+[20, 7]: comment must start with lowercase letter
+[3, 27]: " should be '
+[16, 57]: " should be '
+[18, 6]: missing semicolon
+[8, 22]: missing whitespace
+[10, 19]: missing whitespace
+[15, 30]: missing whitespace
+[15, 43]: missing whitespace
+[15, 70]: missing whitespace
+
+
+WARNING in ./src/app/widgets/directives/SingleselectDirective.ts
+[4, 7]: comment must start with lowercase letter
+[5, 7]: comment must start with lowercase letter
+[1, 27]: " should be '
+[2, 23]: " should be '
+[15, 69]: " should be '
+[15, 78]: " should be '
+[16, 75]: " should be '
+[16, 82]: " should be '
+[18, 14]: missing semicolon
+[28, 19]: missing semicolon
+[8, 28]: missing whitespace
+[14, 40]: missing whitespace
+[14, 53]: missing whitespace
+
+
+WARNING in ./src/app/widgets/directives/SimplePagingDirective.ts
+[2, 7]: comment must start with lowercase letter
+[3, 7]: comment must start with lowercase letter
+
+
+WARNING in ./src/app/uicore/layouts/layouts.module.ts
+[1, 35]: " should be '
+[2, 31]: " should be '
+[3, 37]: " should be '
+
+
+WARNING in ./src/app/uicore/components/components.module.ts
+[1, 34]: " should be '
+[2, 32]: " should be '
+[3, 26]: " should be '
+[4, 27]: " should be '
+[5, 35]: " should be '
+[6, 28]: " should be '
+[7, 39]: " should be '
+[8, 42]: " should be '
+[9, 24]: " should be '
+[10, 25]: " should be '
+[11, 20]: " should be '
+[12, 38]: " should be '
+[13, 23]: " should be '
+[14, 23]: " should be '
+[15, 32]: " should be '
+[16, 35]: " should be '
+[17, 36]: " should be '
+
+
+WARNING in ./src/app/uicore/directives/directives.module.ts
+[2, 23]: " should be '
+[3, 31]: " should be '
+[4, 26]: " should be '
+[5, 29]: " should be '
+
+
+WARNING in ./src/app/uicore/profiler/profiler.module.ts
+[2, 28]: " should be '
+
+
+WARNING in ./src/app/uicore/themes/themes.module.ts
+[1, 27]: " should be '
+[2, 29]: " should be '
+[8, 32]: missing semicolon
+
+
+WARNING in ./src/app/uicore/layouts/layouts.provider.ts
+[41, 5]: comment must start with lowercase letter
+[1, 1]: expected an assignment or function call
+[1, 13]: missing semicolon
+[29, 33]: expected parameter: 'name' to have a typedef
+[33, 33]: expected parameter: 'name' to have a typedef
+[33, 40]: expected parameter: 'value' to have a typedef
+[43, 28]: expected parameter: 'name' to have a typedef
+[43, 35]: expected parameter: 'value' to have a typedef
+[47, 41]: expected parameter: 'event' to have a typedef
+[47, 50]: expected parameter: 'toState' to have a typedef
+[49, 57]: expected parameter: 'option' to have a typedef
+[65, 40]: expected parameter: '$rootScope' to have a typedef
+[65, 54]: expected parameter: 'uicoreLayout' to have a typedef
+
+
+WARNING in ./src/app/uicore/router/router.provider.ts
+[6, 5]: comment must start with lowercase letter
+[24, 5]: comment must start with lowercase letter
+[16, 26]: expected parameter: 'title' to have a typedef
+[20, 34]: expected parameter: 'separator' to have a typedef
+
+
+WARNING in ./src/app/uicore/router/router.run.ts
+[4, 56]: expected parameter: '$rootScope' to have a typedef
+[4, 65]: expected parameter: '$window' to have a typedef
+[4, 73]: expected parameter: '$state' to have a typedef
+[4, 82]: expected parameter: '$filter' to have a typedef
+[4, 92]: expected parameter: '$timeout' to have a typedef
+[4, 105]: expected parameter: 'uicoreRoute' to have a typedef
+[4, 131]: expected parameter: 'uicoreBreadcrumbsService' to have a typedef
+[19, 58]: expected parameter: 'crumb' to have a typedef
+
+
+WARNING in ./src/app/uicore/uicore.run.ts
+[1, 13]: missing semicolon
+[3, 48]: expected parameter: '$rootScope' to have a typedef
+[3, 58]: expected parameter: '$timeout' to have a typedef
+[3, 67]: expected parameter: '$window' to have a typedef
+
+
+WARNING in ./src/app/directives/OrFilterDirective.ts
+[10, 108]: block is empty
+[2, 1]: trailing whitespace
+[1, 38]: " should be '
+[12, 14]: missing semicolon
+[10, 46]: missing whitespace
+[10, 59]: missing whitespace
+[10, 103]: missing whitespace
+
+
+WARNING in ./src/app/uicore/config.route.ts
+[5, 54]: expected parameter: '$stateProvider' to have a typedef
+[16, 55]: expected parameter: '$templateRequest' to have a typedef
+[16, 69]: expected parameter: 'uicoreLayout' to have a typedef
+[21, 53]: expected parameter: 'uicoreLayout' to have a typedef
+[27, 55]: expected parameter: '$templateRequest' to have a typedef
+[27, 69]: expected parameter: 'uicoreLayout' to have a typedef
+[32, 53]: expected parameter: 'uicoreLayout' to have a typedef
+[38, 55]: expected parameter: '$templateRequest' to have a typedef
+[38, 69]: expected parameter: 'uicoreLayout' to have a typedef
+[43, 53]: expected parameter: 'uicoreLayout' to have a typedef
+[49, 55]: expected parameter: '$templateRequest' to have a typedef
+[49, 69]: expected parameter: 'uicoreLayout' to have a typedef
+[54, 53]: expected parameter: 'uicoreLayout' to have a typedef
+
+
+WARNING in ./src/app/uicore/settings.provider.ts
+[5, 5]: comment must start with lowercase letter
+[41, 5]: comment must start with lowercase letter
+[21, 35]: expected parameter: 'newLanguage' to have a typedef
+[25, 24]: expected parameter: 'logo' to have a typedef
+[29, 24]: expected parameter: 'name' to have a typedef
+[33, 29]: expected parameter: 'copy' to have a typedef
+[37, 30]: expected parameter: 'version' to have a typedef
+
+
+WARNING in ./src/app/dashboards/dashboards.config.ts
+[2, 55]: expected parameter: '$stateProvider' to have a typedef
+[2, 75]: expected parameter: 'uicoreMenuProvider' to have a typedef
+
+
+WARNING in ./src/app/dashboards/analytics/dashboard-analytics.controller.ts
+[2, 63]: expected parameter: '$scope' to have a typedef
+[2, 73]: expected parameter: '$timeout' to have a typedef
+[2, 83]: expected parameter: '$mdToast' to have a typedef
+[2, 95]: expected parameter: '$rootScope' to have a typedef
+[2, 103]: expected parameter: '$state' to have a typedef
+
+
+WARNING in ./src/app/controllers/FilterController.ts
+[12, 3]: Declaration of public static member variable not allowed to appear after declaration of private instance member variable
+[2, 23]: " should be '
+[1, 42]: missing semicolon
+[28, 48]: expected parameter: 'newVal' to have a typedef
+[28, 56]: expected parameter: 'oldVal' to have a typedef
+[34, 47]: expected parameter: 'newVal' to have a typedef
+[34, 55]: expected parameter: 'oldVal' to have a typedef
+[5, 10]: missing whitespace
+[5, 19]: missing whitespace
+[5, 32]: missing whitespace
+[10, 17]: missing whitespace
+[14, 22]: missing whitespace
+
+
+WARNING in ./src/app/controllers/AggregationController.ts
+[17, 3]: Declaration of public static member variable not allowed to appear after declaration of private instance member variable
+[69, 3]: Declaration of public instance member function not allowed to appear after declaration of private instance member function
+[83, 3]: Declaration of private static member function not allowed to appear after declaration of public instance member function
+[1, 27]: " should be '
+[2, 26]: " should be '
+[3, 23]: " should be '
+[60, 86]: " should be '
+[62, 21]: " should be '
+[95, 83]: " should be '
+[100, 50]: " should be '
+[10, 4]: missing semicolon
+[60, 68]: == should be ===
+[60, 83]: == should be ===
+[62, 18]: == should be ===
+[95, 22]: != should be !==
+[95, 110]: != should be !==
+[25, 49]: expected parameter: 'newVal' to have a typedef
+[25, 57]: expected parameter: 'oldVal' to have a typedef
+[34, 56]: expected parameter: 'newVal' to have a typedef
+[34, 64]: expected parameter: 'oldVal' to have a typedef
+[60, 60]: expected parameter: 'key' to have a typedef
+[95, 13]: expected parameter: 'val' to have a typedef
+[6, 13]: missing whitespace
+[7, 15]: missing whitespace
+[8, 9]: missing whitespace
+[9, 16]: missing whitespace
+[14, 17]: missing whitespace
+[15, 28]: missing whitespace
+[19, 22]: missing whitespace
+[70, 18]: missing whitespace
+[73, 27]: missing whitespace
+[73, 34]: missing whitespace
+[83, 44]: missing whitespace
+[87, 48]: missing whitespace
+[87, 64]: missing whitespace
+[87, 81]: missing whitespace
+[87, 88]: missing whitespace
+[105, 33]: missing whitespace
+[105, 40]: missing whitespace
+
+
+WARNING in ./src/app/controllers/HighlightController.ts
+[11, 9]: Declaration of public static member variable not allowed to appear after declaration of private instance member variable
+[37, 9]: Declaration of public instance member function not allowed to appear after declaration of private instance member function
+[8, 37]: missing whitespace
+[12, 45]: missing whitespace
+[2, 31]: " should be '
+[19, 62]: expected parameter: 'newVal' to have a typedef
+[19, 70]: expected parameter: 'oldVal' to have a typedef
+
+
+WARNING in ./src/app/controllers/IndexController.ts
+[79, 43]: comment must start with lowercase letter
+[111, 7]: comment must start with a space
+[15, 3]: Declaration of public instance member variable not allowed to appear after declaration of private instance member variable
+[46, 3]: Declaration of public static member variable not allowed to appear after declaration of public instance member function
+[124, 3]: Declaration of private instance member variable not allowed to appear after declaration of private instance member function
+[162, 3]: Declaration of public instance member function not allowed to appear after declaration of private instance member function
+[1, 31]: " should be '
+[3, 32]: " should be '
+[4, 25]: " should be '
+[5, 30]: " should be '
+[5, 58]: missing semicolon
+[57, 20]: missing semicolon
+[68, 20]: missing semicolon
+[72, 20]: missing semicolon
+[181, 102]: != should be !==
+[11, 14]: missing whitespace
+[13, 22]: missing whitespace
+[17, 18]: missing whitespace
+[31, 27]: missing whitespace
+[48, 22]: missing whitespace
+[48, 36]: missing whitespace
+[48, 64]: missing whitespace
+[48, 72]: missing whitespace
+[48, 99]: missing whitespace
+[124, 25]: missing whitespace
+[125, 26]: missing whitespace
+[127, 23]: missing whitespace
+[150, 35]: missing whitespace
+[154, 13]: missing whitespace
+[162, 30]: missing whitespace
+[168, 36]: missing whitespace
+[172, 13]: missing whitespace
+[180, 25]: missing whitespace
+[180, 55]: missing whitespace
+
+
+WARNING in ./src/app/controllers/HostController.ts
+[11, 3]: Declaration of public static member variable not allowed to appear after declaration of private instance member variable
+[30, 3]: Declaration of public instance member function not allowed to appear after declaration of private instance member function
+[1, 27]: " should be '
+[5, 8]: missing whitespace
+[9, 17]: missing whitespace
+[13, 22]: missing whitespace
+
+
+WARNING in ./src/app/controllers/QueryController.ts
+[12, 3]: Declaration of public static member variable not allowed to appear after declaration of private instance member variable
+[1, 27]: " should be '
+[2, 23]: " should be '
+[19, 47]: expected parameter: 'newVal' to have a typedef
+[19, 55]: expected parameter: 'oldVal' to have a typedef
+[25, 45]: expected parameter: 'newVal' to have a typedef
+[25, 53]: expected parameter: 'oldVal' to have a typedef
+[6, 9]: missing whitespace
+[6, 17]: missing whitespace
+[6, 30]: missing whitespace
+[10, 17]: missing whitespace
+[14, 22]: missing whitespace
+
+
+WARNING in ./src/app/controllers/SortController.ts
+[10, 3]: Declaration of public static member variable not allowed to appear after declaration of private instance member variable
+[38, 3]: Declaration of public instance member function not allowed to appear after declaration of private instance member function
+[1, 27]: " should be '
+[19, 49]: expected parameter: 'newVal' to have a typedef
+[19, 57]: expected parameter: 'oldVal' to have a typedef
+[4, 11]: missing whitespace
+[4, 18]: missing whitespace
+[4, 31]: missing whitespace
+[8, 17]: missing whitespace
+[12, 22]: missing whitespace
+
+
+WARNING in ./src/app/controllers/OrFilterController.ts
+[6, 3]: Declaration of public static member variable not allowed to appear after declaration of private instance member variable
+[1, 32]: " should be '
+[4, 17]: missing whitespace
+[8, 22]: missing whitespace
+
+
+WARNING in ./src/app/uicore/layouts/default/default-layout.controller.ts
+[17, 48]: comment must start with a space
+[15, 58]: expected parameter: '$scope' to have a typedef
+[15, 68]: expected parameter: '$element' to have a typedef
+[15, 78]: expected parameter: '$timeout' to have a typedef
+[15, 87]: expected parameter: '$window' to have a typedef
+[15, 101]: expected parameter: 'uicoreLayout' to have a typedef
+[26, 15]: missing whitespace
+[30, 19]: missing whitespace
+[35, 15]: missing whitespace
+[39, 19]: missing whitespace
+
+
+WARNING in ./src/app/widgets/directives/directives.ts
+[4, 5]: comment must start with a space
+[9, 3]: comment must start with a space
+[10, 3]: comment must start with a space
+[5, 35]: missing whitespace
+
+
+WARNING in ./src/app/util/AngularTool.ts
+[1, 7]: comment must start with lowercase letter
+[7, 41]: != should be !==
+[5, 51]: expected parameter: 'attrName' to have a typedef
+[5, 56]: expected parameter: 'key' to have a typedef
+[6, 52]: missing whitespace
+
+
+WARNING in ./src/app/uicore/layouts/states/uicore/uicore.controller.ts
+[24, 48]: comment must start with a space
+[15, 55]: expected parameter: '$scope' to have a typedef
+[15, 67]: expected parameter: '$rootScope' to have a typedef
+[15, 77]: expected parameter: '$timeout' to have a typedef
+[15, 95]: expected parameter: '$templateRequest' to have a typedef
+[15, 105]: expected parameter: '$compile' to have a typedef
+[15, 115]: expected parameter: '$element' to have a typedef
+[15, 124]: expected parameter: '$window' to have a typedef
+[15, 138]: expected parameter: 'uicoreLayout' to have a typedef
+[15, 159]: expected parameter: 'uicoreLoaderService' to have a typedef
+[38, 52]: expected parameter: 'viewName' to have a typedef
+[43, 40]: expected parameter: 'template' to have a typedef
+[55, 35]: expected parameter: 'event' to have a typedef
+[55, 45]: expected parameter: 'isActive' to have a typedef
+[73, 43]: expected parameter: '$event' to have a typedef
+[73, 53]: expected parameter: 'viewName' to have a typedef
+[79, 42]: expected parameter: '$event' to have a typedef
+[79, 52]: expected parameter: 'viewName' to have a typedef
+[30, 15]: missing whitespace
+[65, 15]: missing whitespace
+[80, 15]: missing whitespace
+[87, 15]: missing whitespace
+[91, 15]: missing whitespace
+
+
+WARNING in ./src/app/uicore/components/breadcrumbs/breadcrumbs.service.ts
+[2, 46]: expected parameter: '$rootScope' to have a typedef
+[15, 25]: expected parameter: 'item' to have a typedef
+
+
+WARNING in ./src/app/uicore/components/footer/footer.controller.ts
+[4, 48]: expected parameter: 'uicoreSettings' to have a typedef
+[4, 62]: expected parameter: 'uicoreLayout' to have a typedef
+
+
+WARNING in ./src/app/uicore/layouts/default/default-content.directive.ts
+[3, 5]: comment must start with lowercase letter
+[5, 5]: comment must start with lowercase letter
+[2, 53]: expected parameter: '$rootScope' to have a typedef
+[2, 63]: expected parameter: '$compile' to have a typedef
+[2, 81]: expected parameter: '$templateRequest' to have a typedef
+[2, 95]: expected parameter: 'uicoreLayout' to have a typedef
+[14, 23]: expected parameter: '$scope' to have a typedef
+[14, 33]: expected parameter: '$element' to have a typedef
+[33, 35]: expected parameter: 'template' to have a typedef
+
+
+WARNING in ./src/app/uicore/components/loader/loader-service.ts
+[5, 52]: expected parameter: '$rootScope' to have a typedef
+[19, 37]: expected parameter: 'setActive' to have a typedef
+
+
+WARNING in ./src/app/uicore/components/menu/menu.directive.ts
+[18, 54]: comment must start with a space
+[5, 46]: expected parameter: '$location' to have a typedef
+[5, 58]: expected parameter: '$mdTheming' to have a typedef
+[5, 73]: expected parameter: 'uicoreTheming' to have a typedef
+[16, 23]: expected parameter: '$scope' to have a typedef
+[16, 33]: expected parameter: '$element' to have a typedef
+[28, 48]: expected parameter: 'uicoreMenu' to have a typedef
+
+
+WARNING in ./src/app/uicore/components/menu/menu.provider.ts
+[6, 5]: comment must start with lowercase letter
+[44, 5]: comment must start with lowercase letter
+[37, 9]: misplaced 'else'
+[13, 24]: expected parameter: 'item' to have a typedef
+[17, 28]: expected parameter: 'state' to have a typedef
+[17, 36]: expected parameter: 'params' to have a typedef
+[27, 35]: expected parameter: 'menu' to have a typedef
+[27, 42]: expected parameter: 'state' to have a typedef
+[27, 50]: expected parameter: 'params' to have a typedef
+[27, 63]: expected parameter: 'isChildren' to have a typedef
+
+
+WARNING in ./src/app/uicore/components/menu/menu-item.directive.ts
+[38, 9]: misplaced 'else'
+[22, 48]: expected parameter: '$scope' to have a typedef
+[22, 60]: expected parameter: '$mdSidenav' to have a typedef
+[22, 68]: expected parameter: '$state' to have a typedef
+[22, 77]: expected parameter: '$filter' to have a typedef
+[22, 103]: expected parameter: 'uicoreBreadcrumbsService' to have a typedef
+[33, 55]: expected parameter: 'event' to have a typedef
+[33, 61]: expected parameter: 'item' to have a typedef
+[33, 67]: expected parameter: 'open' to have a typedef
+[56, 56]: expected parameter: 'event' to have a typedef
+[56, 65]: expected parameter: 'toState' to have a typedef
+[56, 75]: expected parameter: 'toParams' to have a typedef
+[62, 35]: expected parameter: 'param1' to have a typedef
+[62, 43]: expected parameter: 'param2' to have a typedef
+[62, 36]: missing whitespace
+
+
+WARNING in ./src/app/uicore/components/notifications-panel/notifications-panel.controller.ts
+[5, 60]: expected parameter: '$scope' to have a typedef
+[5, 67]: expected parameter: '$http' to have a typedef
+[5, 79]: expected parameter: '$mdSidenav' to have a typedef
+[5, 87]: expected parameter: '$state' to have a typedef
+[5, 99]: expected parameter: 'API_CONFIG' to have a typedef
+[153, 61]: expected parameter: '$event' to have a typedef
+[153, 66]: expected parameter: 'tab' to have a typedef
+[161, 28]: expected parameter: 'data' to have a typedef
+
+
+WARNING in ./src/app/uicore/components/table/table.directive.ts
+[80, 7]: misplaced 'else'
+[5, 44]: expected parameter: '$filter' to have a typedef
+[18, 23]: expected parameter: '$scope' to have a typedef
+[18, 33]: expected parameter: '$element' to have a typedef
+[18, 40]: expected parameter: 'attrs' to have a typedef
+[30, 53]: expected parameter: 'column' to have a typedef
+[36, 41]: expected parameter: 'resetPage' to have a typedef
+[51, 39]: expected parameter: 'field' to have a typedef
+[61, 43]: expected parameter: 'field' to have a typedef
+[61, 54]: expected parameter: 'orderDown' to have a typedef
+[65, 41]: expected parameter: 'field' to have a typedef
+[76, 43]: expected parameter: 'column' to have a typedef
+[76, 52]: expected parameter: 'content' to have a typedef
+[105, 37]: expected parameter: 'page' to have a typedef
+
+
+WARNING in ./src/app/uicore/components/table/table-cell-image.filter.ts
+[1, 43]: expected parameter: '$sce' to have a typedef
+[6, 30]: expected parameter: 'value' to have a typedef
+
+
+WARNING in ./src/app/uicore/components/widget/widget.directive.ts
+[5, 5]: comment must start with lowercase letter
+[11, 5]: comment must start with lowercase letter
+[13, 5]: comment must start with lowercase letter
+[4, 43]: expected parameter: '$mdTheming' to have a typedef
+[31, 23]: expected parameter: '$scope' to have a typedef
+[31, 33]: expected parameter: '$element' to have a typedef
+[31, 40]: expected parameter: 'attrs' to have a typedef
+[56, 40]: expected parameter: '$event' to have a typedef
+[73, 32]: expected parameter: 'menu' to have a typedef
+[77, 38]: expected parameter: 'loading' to have a typedef
+
+
+WARNING in ./src/app/uicore/components/wizard/wizard.directive.ts
+[6, 5]: comment must start with lowercase letter
+[8, 5]: comment must start with lowercase letter
+[88, 9]: for (... in ...) statements must be filtered with an if statement
+[20, 33]: expected parameter: '$scope' to have a typedef
+[20, 43]: expected parameter: '$timeout' to have a typedef
+[40, 25]: expected parameter: 'index' to have a typedef
+[58, 28]: expected parameter: 'step' to have a typedef
+[72, 29]: expected parameter: 'form' to have a typedef
+
+
+WARNING in ./src/app/uicore/components/toolbars/toolbar.controller.ts
+[4, 56]: expected parameter: '$scope' to have a typedef
+[4, 67]: expected parameter: '$injector' to have a typedef
+[4, 79]: expected parameter: '$rootScope' to have a typedef
+[4, 89]: expected parameter: '$mdMedia' to have a typedef
+[4, 97]: expected parameter: '$state' to have a typedef
+[4, 107]: expected parameter: '$element' to have a typedef
+[4, 116]: expected parameter: '$filter' to have a typedef
+[4, 125]: expected parameter: '$mdUtil' to have a typedef
+[4, 137]: expected parameter: '$mdSidenav' to have a typedef
+[4, 147]: expected parameter: '$mdToast' to have a typedef
+[4, 157]: expected parameter: '$timeout' to have a typedef
+[4, 168]: expected parameter: '$document' to have a typedef
+[4, 194]: expected parameter: 'uicoreBreadcrumbsService' to have a typedef
+[4, 210]: expected parameter: 'uicoreSettings' to have a typedef
+[4, 224]: expected parameter: 'uicoreLayout' to have a typedef
+[21, 29]: expected parameter: 'navID' to have a typedef
+[27, 39]: expected parameter: 'languageCode' to have a typedef
+[47, 38]: expected parameter: 'tab' to have a typedef
+
+
+WARNING in ./src/app/uicore/components/table/table-start-from.filter.ts
+[3, 1]: trailing whitespace
+[9, 30]: expected parameter: 'input' to have a typedef
+[9, 37]: expected parameter: 'start' to have a typedef
+
+
+WARNING in ./src/app/uicore/components/wizard/wizard-form.directive.ts
+[6, 5]: comment must start with lowercase letter
+[19, 22]: expected parameter: 'scope' to have a typedef
+[19, 31]: expected parameter: 'element' to have a typedef
+[19, 38]: expected parameter: 'attrs' to have a typedef
+[19, 47]: expected parameter: 'require' to have a typedef
+
+
+WARNING in ./src/app/uicore/components/leftsidenav/leftsidenav.controller.ts
+[3, 64]: expected parameter: 'uicoreSettings' to have a typedef
+[3, 78]: expected parameter: 'uicoreLayout' to have a typedef
+
+
+WARNING in ./src/app/uicore/components/rightsidenav/rightsidenav.controller.ts
+[3, 57]: expected parameter: '$scope' to have a typedef
+[3, 64]: expected parameter: '$http' to have a typedef
+[3, 76]: expected parameter: '$mdSidenav' to have a typedef
+[3, 84]: expected parameter: '$state' to have a typedef
+[3, 96]: expected parameter: 'API_CONFIG' to have a typedef
+[151, 66]: expected parameter: '$event' to have a typedef
+[151, 71]: expected parameter: 'tab' to have a typedef
+[159, 33]: expected parameter: 'data' to have a typedef
+[15, 15]: missing whitespace
+[20, 15]: missing whitespace
+[25, 15]: missing whitespace
+[31, 11]: missing whitespace
+[38, 15]: missing whitespace
+[43, 15]: missing whitespace
+[49, 11]: missing whitespace
+[56, 15]: missing whitespace
+[61, 15]: missing whitespace
+[66, 15]: missing whitespace
+[71, 15]: missing whitespace
+[76, 15]: missing whitespace
+[90, 15]: missing whitespace
+[94, 15]: missing whitespace
+[99, 11]: missing whitespace
+[105, 15]: missing whitespace
+[109, 15]: missing whitespace
+[122, 15]: missing whitespace
+[126, 15]: missing whitespace
+[131, 11]: missing whitespace
+[137, 15]: missing whitespace
+[141, 15]: missing whitespace
+[160, 38]: missing whitespace
+
+
+WARNING in ./src/app/uicore/directives/countupto.directive.ts
+[6, 5]: comment must start with lowercase letter
+[11, 5]: comment must start with lowercase letter
+[44, 56]: missing radix parameter
+[53, 47]: != should be !==
+[5, 44]: expected parameter: '$timeout' to have a typedef
+[23, 23]: expected parameter: '$scope' to have a typedef
+[23, 33]: expected parameter: '$element' to have a typedef
+[23, 40]: expected parameter: 'attrs' to have a typedef
+[52, 49]: expected parameter: 'value' to have a typedef
+[52, 59]: expected parameter: 'oldValue' to have a typedef
+
+
+WARNING in ./src/app/uicore/directives/palette-background.directive.ts
+[6, 5]: comment must start with lowercase letter
+[11, 5]: comment must start with lowercase letter
+[3, 1]: trailing whitespace
+[5, 56]: expected parameter: 'uicoreTheming' to have a typedef
+[19, 23]: expected parameter: '$scope' to have a typedef
+[19, 33]: expected parameter: '$element' to have a typedef
+[19, 40]: expected parameter: 'attrs' to have a typedef
+
+
+WARNING in ./src/app/uicore/directives/same-password.directive.ts
+[6, 5]: comment must start with lowercase letter
+[14, 5]: comment must start with lowercase letter
+[17, 5]: comment must start with lowercase letter
+[29, 22]: expected parameter: 'scope' to have a typedef
+[29, 31]: expected parameter: 'element' to have a typedef
+[29, 38]: expected parameter: 'attrs' to have a typedef
+[29, 47]: expected parameter: 'ngModel' to have a typedef
+
+
+WARNING in ./src/app/uicore/themes/skins.provider.ts
+[80, 5]: for (... in ...) statements must be filtered with an if statement
+[2, 49]: expected parameter: '$mdThemingProvider' to have a typedef
+[2, 72]: expected parameter: 'uicoreThemingProvider' to have a typedef
+[8, 23]: expected parameter: 'id' to have a typedef
+[8, 29]: expected parameter: 'name' to have a typedef
+[19, 26]: expected parameter: 'id' to have a typedef
+[31, 78]: expected parameter: 'cookies' to have a typedef
+[47, 40]: expected parameter: 'skinCookie' to have a typedef
+[64, 24]: expected parameter: 'id' to have a typedef
+[64, 30]: expected parameter: 'name' to have a typedef
+[64, 50]: expected parameter: '$mdThemingProvider' to have a typedef
+[64, 73]: expected parameter: 'uicoreThemingProvider' to have a typedef
+[71, 46]: expected parameter: 'element' to have a typedef
+[72, 65]: expected parameter: 'themeName' to have a typedef
+[102, 42]: expected parameter: '$rootScope' to have a typedef
+[102, 55]: expected parameter: 'uicoreSkins' to have a typedef
+
+
+WARNING in ./src/app/uicore/profiler/profiler.config.ts
+[8, 5]: comment must start with lowercase letter
+[5, 60]: expected parameter: 'digestHudProvider' to have a typedef
+
+
+WARNING in ./src/app/uicore/directives/theme-background.directive.ts
+[6, 5]: comment must start with lowercase letter
+[10, 5]: comment must start with lowercase letter
+[22, 54]: comment must start with a space
+[5, 54]: expected parameter: '$mdTheming' to have a typedef
+[5, 69]: expected parameter: 'uicoreTheming' to have a typedef
+[18, 23]: expected parameter: '$scope' to have a typedef
+[18, 33]: expected parameter: '$element' to have a typedef
+[18, 40]: expected parameter: 'attrs' to have a typedef
+
+
+WARNING in ./src/app/uicore/components/loader/loader.directive.ts
+[17, 43]: expected parameter: '$rootScope' to have a typedef
+[17, 64]: expected parameter: 'uicoreLoaderService' to have a typedef
+[17, 81]: expected parameter: 'uicoreSettings' to have a typedef
+
+
+WARNING in ./src/app/uicore/themes/theming.provider.ts
+[3, 51]: expected parameter: '$mdThemingProvider' to have a typedef
+[7, 26]: expected parameter: 'name' to have a typedef
+[21, 38]: expected parameter: 'themeName' to have a typedef
+[24, 41]: expected parameter: 'themeName' to have a typedef
+[24, 53]: expected parameter: 'intentName' to have a typedef
+[24, 58]: expected parameter: 'hue' to have a typedef
+[32, 35]: expected parameter: 'name' to have a typedef
+[35, 47]: expected parameter: 'paletteName' to have a typedef
+[35, 52]: expected parameter: 'hue' to have a typedef
+[49, 27]: expected parameter: 'name' to have a typedef
+[57, 48]: expected parameter: 'colorType' to have a typedef
+[58, 70]: expected parameter: 'paletteName' to have a typedef
+[58, 76]: expected parameter: 'hues' to have a typedef
+[70, 31]: expected parameter: 'isDark' to have a typedef
+
+
+WARNING in ./src/app/util/EjsTool.ts
+[7, 94]: == should be ===
+[2, 45]: missing whitespace
+[6, 32]: missing whitespace
+[6, 45]: missing whitespace
+
+
+WARNING in ./src/app/util/SimpleSet.ts
+[10, 13]: == should be ===
+[2, 18]: missing whitespace
+[4, 25]: missing whitespace
+[8, 21]: missing whitespace
+[15, 24]: missing whitespace
+
+
+WARNING in ./src/app/util/FilterCollection.ts
+[1, 29]: " should be '
+[2, 26]: " should be '
+[5, 24]: missing whitespace
+[9, 26]: missing whitespace
+[13, 26]: missing whitespace
+[13, 31]: missing whitespace
+
+
+WARNING in ./src/app/util/EjsCollection.ts
+[1, 23]: " should be '
+[13, 13]: == should be ===
+[4, 21]: missing whitespace
+[5, 23]: missing whitespace
+[7, 28]: missing whitespace
+[11, 24]: missing whitespace
+[18, 27]: missing whitespace
+
+
+ERROR in ./src/app/uicore/components/components.module.ts
+(27,27): error TS2345: Argument of type '() => void' is not assignable to parameter of type 'IServiceProvider'.
+  Property '$get' is missing in type '() => void'.
+
+ERROR in ./src/app/uicore/uicore.module.ts
+(25,29): error TS2345: Argument of type '() => void' is not assignable to parameter of type 'IServiceProvider'.
+  Property '$get' is missing in type '() => void'.
+[11:21:28] Finished 'scripts' after 9.43 s

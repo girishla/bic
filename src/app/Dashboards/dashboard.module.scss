@@ -1,0 +1,160 @@
+// Dashboard
+
+/* hi-res laptops and desktops */
+@media (min-width: 800px) {
+  .disable-small {
+    display: none;
+  }
+
+  .es-search-facet-checklist{
+
+    min-width: 120px;
+    margin-bottom: 3px;
+
+  }
+
+  .es-search-facet-checklist span {
+
+    font-size: 12px;
+
+  }
+
+  .word-cloud {
+    min-width:600px;
+    width: 100%;
+    height: 350px;
+  }
+
+  .wordcloud_word:hover{
+
+    cursor:pointer;
+
+  }
+
+
+
+}
+
+@media (max-width: 800px) {
+  .disable-large {
+    display: none;
+  }
+
+  #cloud-dynamic-search {
+    min-width:250px;
+    width: 100%;
+    height: 250px;
+  }
+
+
+}
+
+/* ----------- iPhone 5 and 5S ----------- */
+@media screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) {
+
+  .disable-large {
+    display: none;
+  }
+
+  #cloud-dynamic-search {
+    min-width:250px;
+    width: 100%;
+    height: 250px;
+  }
+
+}
+
+
+
+
+// Dashboard Container
+.dashboard-container {
+
+
+  md-toolbar h4 {
+
+    font-size: 16px;
+    text-align: center;
+
+  }
+
+/*  md-input-container{
+
+    margin: 0px 0;
+
+  }*/
+
+  .layout-margin {
+    margin: 0px;
+  }
+
+  // until layout is fixed in material we need to add this
+  // https://github.com/angular/material/issues/5014
+  .layout-margin > .widget {
+    margin: 8px;
+  }
+
+  mark {
+    background-color: transparent;
+    color: blue;
+  }
+
+  .md-table-page-nav {
+    margin-left: 32px;
+    .md-button {
+      margin: 0;
+    }
+  }
+
+  md-list-item {
+    border: 1px solid lightgrey;
+
+  }
+
+  .paging {
+
+    li {
+      float: left;
+      border: 1px;
+      border-color: black;
+    }
+
+    li a {
+      color: black;
+      font-size: 12px;
+      border: 1px solid black;
+      padding: 10px 10px;
+    }
+
+  }
+
+}
+
+// - Chart Container
+.dashboard-fullwidth-chart {
+  .chart-container {
+    position: relative;
+    left: -5px;
+    bottom: -5px;
+    width: calc(100% + 10px);
+  }
+}
+
+.dashboard-no-bar-tabs {
+  md-tabs-wrapper {
+    display: none;
+  }
+}
+
+.google-chart {
+  height: 100%;
+  width: 100%;
+}
+
+// Social Dashboard
+.tabs-tall {
+  md-pagination-wrapper, md-tabs-canvas {
+    height: 72px;
+  }
+
+}
