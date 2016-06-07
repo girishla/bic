@@ -7,6 +7,8 @@ var conf = require('./conf');
 var browserSync = require('browser-sync');
 var webpack = require('webpack-stream');
 
+
+
 var $ = require('gulp-load-plugins')();
 
 
@@ -16,10 +18,10 @@ function webpackWrapper(watch, test, callback) {
     resolve: {extensions: ['', '.ts']},
     watch: watch,
     module: {
-      preLoaders: [{test: /\.ts$/, exclude: /node_modules|.tmp/, loader: 'tslint-loader'}],
-      loaders: [{test: /\.ts$/, exclude: /node_modules|.tmp/, loaders: ['ng-annotate', 'ts-loader']},
-        {test: /\.css$/, loader: "style-loader!css-loader"},
-        {test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'file-loader?name=[path][name].[ext]'}]
+      preLoaders: [{test: /\.ts$/, exclude: /node_modules/, loader: 'tslint-loader'}],
+      loaders: [{test: /\.ts$/, exclude: /node_modules|cli.d.ts/, loaders: ['ng-annotate', 'ts-loader']},
+        {test: /\.css$/, loader: "style-loader!css-loader?-url"},
+        {test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000'}]
     },
     entry: {
       console: "./src/app/index.module",
@@ -27,6 +29,7 @@ function webpackWrapper(watch, test, callback) {
     },
     output: {filename: "[name].module.js"}
   };
+
 
   if (watch) {
     webpackOptions.devtool = 'inline-source-map';
@@ -60,6 +63,8 @@ function webpackWrapper(watch, test, callback) {
     .pipe(gulp.dest(path.join(conf.paths.tmp, '/serve/app')));
 }
 
+
+
 gulp.task('scripts', function () {
   return webpackWrapper(false, false);
 });
@@ -75,3 +80,6 @@ gulp.task('scripts:test', function () {
 gulp.task('scripts:test-watch', ['scripts'], function (callback) {
   return webpackWrapper(true, true, callback);
 });
+
+
+

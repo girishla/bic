@@ -14,6 +14,7 @@ export interface IIndexViewModel {
   aggregationProviders:SimpleSet;
   filters:FilterCollection;
   highlight:any;
+  getFilters:()=>any;
   loaded:boolean;
   loading:boolean;
   page:number;
@@ -25,3 +26,4 @@ export interface IIndexViewModel {
   error:any;
   autoLoad:boolean;
 }
+

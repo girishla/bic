@@ -5,8 +5,22 @@ declare var require: {
 };
 
 
-require("../../bower_components/angular-chart.js/dist/angular-chart.css");
-require("../../bower_components/font-awesome/css/font-awesome.css");
+
+
+
+require.ensure(["../../bower_components/font-awesome/css/font-awesome.css"],()=>{
+
+
+
+console.log('done')
+
+
+
+
+
+});
+
+
 
 
 

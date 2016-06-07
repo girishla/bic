@@ -3,7 +3,10 @@ import {IIndexViewModel} from "./IIndexScope";
 import {FilterCollection} from "../util/FilterCollection";
 import {SimpleSet} from "../util/SimpleSet";
 import {ElasticService} from "../services/ElasticService"
-import * as _ from "../../../bower_components/lodash"
+import * as _ from "lodash"
+
+
+
 
 
 export class IndexController {
@@ -13,6 +16,7 @@ export class IndexController {
   private $rootScope:ng.IRootScopeService;
 
   public filters = new FilterCollection();
+
 
   public indexVM:IIndexViewModel = {
     host: null,
@@ -58,7 +62,6 @@ export class IndexController {
       });
 
     })
-
 
 
     return filters;

@@ -1,5 +1,5 @@
 
-import * as _ from "../../../../bower_components/lodash"
+import * as _ from "lodash"
 
 
 

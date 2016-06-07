@@ -23,9 +23,9 @@ export default angular
     'ui.router'
   ])
   .run(layoutRunner)
-  .provider('uicoreLayout', layoutProvider)
+  .provider('uicoreLayout',layoutProvider )
   .run(runFunction)
-  .provider('uicoreRoute', routeProvider)
+  .provider('uicoreRoute',routeProvider)
   .run(runFunctionRouter)
   .config(routeConfig)
   .provider('uicoreSettings', settingsProvider)

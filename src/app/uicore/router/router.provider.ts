@@ -1,31 +1,30 @@
-'use strict';
-
-
 /* @ngInject */
-export default    function routeProvider() {
+import IServiceProvider = angular.IServiceProvider;
+export default    class routeProvider implements IServiceProvider {
   // Provider
-  var settings = {
+  settings = {
     docTitle: '',
     separator: ''
   };
 
-  this.setTitle = setTitle;
-  this.setSeparator = setSeparator;
-  this.$get = routeHelper;
+  $get = this.routeHelper;
 
-  function setTitle(title) {
-    settings.docTitle = title;
+  setTitle(title) {
+    this.settings.docTitle = title;
   }
 
-  function setSeparator(separator) {
-    settings.separator = separator;
+  setSeparator(separator) {
+    this.settings.separator = separator;
   }
 
   // Service
-  function routeHelper() {
+  routeHelper() {
     return {
-      title: settings.docTitle,
-      separator: settings.separator
+      title: this.settings.docTitle,
+      separator: this.settings.separator
     };
   }
 }
+
+
+

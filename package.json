@@ -51,6 +51,7 @@
     "tslint-loader": "~1.0.2",
     "typescript": "~1.6.2",
     "typings": "~0.7.9",
+    "typings-core": "^1.0.1",
     "uglify-save-license": "~0.4.1",
     "url-loader": "^0.5.7",
     "webpack-stream": "~2.1.1",

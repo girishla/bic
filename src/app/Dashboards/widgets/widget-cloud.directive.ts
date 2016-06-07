@@ -8,6 +8,7 @@ interface iJQCloud extends JQuery {
   jQCloud:any;
 }
 
+
 /* @ngInject */
 export default    function cloudWidget($parse) {
   // Usage:
@@ -15,7 +16,7 @@ export default    function cloudWidget($parse) {
   // Creates:
   //
 
-  var directive:{restrict:string; templateUrl:string; replace:boolean; link:(($scope, $elem, $attr, widgetCtrl)=>any)};
+  var directive:{restrict:string; templateUrl:string;scope:boolean; replace:boolean; link:(($scope, $elem, $attr, widgetCtrl)=>any)};
   var defaults = jQuery.fn.jQCloud.defaults.get(),
     jqcOptions = [];
 
@@ -25,6 +26,7 @@ export default    function cloudWidget($parse) {
     }
   }
 
+  
 
   directive = {
     restrict: 'E',
@@ -125,7 +127,7 @@ export default    function cloudWidget($parse) {
 
       $scope.removeWord = function (word) {
 
-        $scope.words.splice(_.findIndex($scope.words, (item)=> item.text == word), 1);
+        $scope.words.splice(_.findIndex($scope.words, (item:any)=> item.text == word), 1);
 
 
       }
