@@ -7,11 +7,8 @@ import "font-awesome/css/font-awesome.css";
 import BootstrapService from "./chatter/chatter-bootstrap.service";
 
 
-
-
-console.log('all loaded fine 101');
-
-
+console.log('all loaded fine 104');
+console.log('all loaded fine 116');
 
 
 BootstrapService.boot();

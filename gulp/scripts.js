@@ -13,6 +13,7 @@ var $ = require('gulp-load-plugins')();
 
 function webpackWrapper(watch, test, callback) {
   var webpackOptions = {
+    quiet: true,
     context: __dirname + "/..",
     resolve: {
       extensions: ['', '.ts','.js'],
@@ -21,10 +22,13 @@ function webpackWrapper(watch, test, callback) {
     },
     watch: watch,
     module: {
-      preLoaders: [{test: /\.ts$/, exclude: /node_modules/, loader: 'tslint-loader'}],
-      loaders: [{test: /\.ts$/, exclude: /node_modules|cli.d.ts/, loaders: ['ng-annotate', 'ts-loader']},
+/*      preLoaders: [{test: /\.ts$/, exclude: /node_modules/, loader: 'tslint-loader'}],*/
+      loaders: [{test: /\.ts$/, exclude: /node_modules|cli.d.ts/, loaders: ['ng-annotate', 'ts-loader?ignoreWarnings=true']},
         {test: /\.css$/, loader: "style-loader!css-loader?-url"},
         {test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000'}]
+    },
+    tslint: {
+      emitErrors: true,
     },
     entry: {
       console: "./src/app/index.module",
