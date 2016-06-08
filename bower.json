@@ -40,7 +40,8 @@
     "material-design-iconfont": "^0.0.2",
     "angularjs-camelCase-human": "^1.0.0",
     "angularUtils-pagination": "angular-utils-pagination#^0.11.1",
-    "lodash": "^4.12.0"
+    "lodash": "^4.12.0",
+    "cryptojslib": "~3.1.2"
   },
   "overrides": {
     "elasticsearch": {
@@ -76,6 +77,11 @@
       "main": [
         "ng-file-upload-shim.js",
         "ng-file-upload.js"
+      ]
+    },
+    "cryptojslib": {
+      "main": [
+        "rollups/sha1.js"
       ]
     }
   },

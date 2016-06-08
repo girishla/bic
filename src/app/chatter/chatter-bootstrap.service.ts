@@ -15,10 +15,12 @@ export default class BootstrapService {
 
 
   //This is the main method to load all dependencies & start the bootstrap process
-  public static boot(dependencies:string[]):Boolean {
+  public static boot():Boolean {
     if ((!BootstrapService.chatterLoaded) && (!BootstrapService.chatterLoading)) { //chatter.module Loaded for the first time - Load JS and CSS files
       BootstrapService.chatterLoading = true;
-      require(dependencies, function () {
+      BootstrapService.initOBIMetadataAndBootstrap();
+
+/*      require(dependencies, function () {
           if ((typeof obips != 'undefined')) {
             console.log('inside OBI - Manually bootstrapping angular');
             BootstrapService.initOBIMetadataAndBootstrap();
@@ -27,7 +29,7 @@ export default class BootstrapService {
             angular.bootstrap(document, ['chatter.module']);
           }
         }
-      );
+      );*/
     }
     return true;
   }

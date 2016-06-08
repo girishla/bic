@@ -8,14 +8,17 @@ var browserSync = require('browser-sync');
 var webpack = require('webpack-stream');
 
 
-
 var $ = require('gulp-load-plugins')();
 
 
 function webpackWrapper(watch, test, callback) {
   var webpackOptions = {
     context: __dirname + "/..",
-    resolve: {extensions: ['', '.ts']},
+    resolve: {
+      extensions: ['', '.ts','.js'],
+      modulesDirectories: ['node_modules', 'bower_components'],
+      alias: {jquery: "jquery/src/jquery"}
+    },
     watch: watch,
     module: {
       preLoaders: [{test: /\.ts$/, exclude: /node_modules/, loader: 'tslint-loader'}],
@@ -25,9 +28,9 @@ function webpackWrapper(watch, test, callback) {
     },
     entry: {
       console: "./src/app/index.module",
-      chatter: "./src/app/chatter.async.module"
+      chatter: "./src/app/chatter-async.module"
     },
-    output: {filename: "[name].module.js"}
+    output: {filename: "[name].module.js", publicPath: "http://localhost:3000/app/"}
   };
 
 
@@ -52,7 +55,10 @@ function webpackWrapper(watch, test, callback) {
     }
   };
 
-  var sources = [path.join(conf.paths.src, '/app/index.module.ts')];
+
+  var sources = [path.join(conf.paths.src, '/app/chatter-async.module.ts')];
+
+  //var sources = [path.join(conf.paths.src, '/app/index.module.ts'),path.join(conf.paths.src, '/app/chatter-async.module.ts')];
 
   if (test) {
     sources.push(path.join(conf.paths.src, '/app/**/*.spec.ts'));
@@ -62,7 +68,6 @@ function webpackWrapper(watch, test, callback) {
     .pipe(webpack(webpackOptions, null, webpackChangeHandler))
     .pipe(gulp.dest(path.join(conf.paths.tmp, '/serve/app')));
 }
-
 
 
 gulp.task('scripts', function () {
