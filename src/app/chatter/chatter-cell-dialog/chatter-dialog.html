@@ -1,0 +1,54 @@
+
+
+
+
+
+<!--Lightning seems to use the Use tag and it causes CORS issues from inside OBI. Pls see https://css-tricks.com/svg-use-external-source/-->
+<!--utility sprite-->
+<ng-include
+  ng-src="{{vm.utilitySpriteUrl}}">
+</ng-include>
+
+<!--doctype sprite-->
+<ng-include
+  ng-src="{{vm.doctypeSpriteUrl}}">
+</ng-include>
+
+
+<md-dialog  aria-label="Chatter" flex="50" flex-sm="80" ng-cloak>
+  <form>
+<!--
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>BI Chatter</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <i class="material-icons">clear</i>
+        </md-button>
+      </div>
+    </md-toolbar>
+-->
+
+
+    <md-dialog-content class="chatter-dialog-content">
+
+      <div class="md-dialog-content">
+
+        <chatter-feed feed-context="dialogCtrl.feedContext">
+        </chatter-feed>
+
+      </div>
+
+    </md-dialog-content>
+
+    <md-dialog-actions class="chatter-dialog-actions" layout="row">
+      <md-button href="https://en.wikipedia.org/wiki/Conversation" target="_blank" md-autofocus>
+        Help: How do I start a Chatter Conversation?
+      </md-button>
+      <span flex></span>
+      <md-button ng-click="dialogCtrl.answer('Done')" style="margin-right:20px;">
+        Done
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

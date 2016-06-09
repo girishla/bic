@@ -22,20 +22,6 @@ export default class BootstrapService {
     if ((!BootstrapService.chatterLoaded) && (!BootstrapService.chatterLoading)) { //chatter.module Loaded for the first time - Load JS and CSS files
       BootstrapService.chatterLoading = true;
       BootstrapService.initOBIMetadataAndBootstrap();
-
-
-
-
-/*      require(dependencies, function () {
-          if ((typeof obips != 'undefined')) {
-            console.log('inside OBI - Manually bootstrapping angular');
-            BootstrapService.initOBIMetadataAndBootstrap();
-          } else {
-            console.log('outside OBI - Manually bootstrapping angular');
-            angular.bootstrap(document, ['chatter.module']);
-          }
-        }
-      );*/
     }
     return true;
   }
@@ -101,7 +87,22 @@ export default class BootstrapService {
       console.log('New - Attempt to attach angular to page content DIV');
       angular.bootstrap(BootstrapService.chatterBaseJQElement, ['chatter.module']);
       console.log('Angular Bootstraped: ' + 'chatter.module');
-    } else {
+
+      //moved here from else block
+      var injector = angular.element(BootstrapService.chatterBaseJQElement).injector()
+      var compileService = injector.get('$compile');
+      angular.forEach($("[viewtype='tableView']"), function (value, key) {
+        //Return if the directive is already compiled and linked.(if the searchId(sid) is associated to the table then it is already linked)
+        if (value.getAttribute('sid')) return;
+        value.setAttribute('obi-table', 'true');
+        var scope = ((angular.element(value).scope()));
+        var linkFn = compileService(value, scope);
+        console.log('In bootstrapApp(): linking mutated DOM with scope...');
+        linkFn(scope);
+      })
+
+
+    } /*else {
       //Angular is already bootstrapped but the views might have been re-rendered by OBI. This requires a re-compile of the views with the existing scope.
       //This is a more performant alternative to re-bootstrapping the entire App.
       var injector = angular.element(BootstrapService.chatterBaseJQElement).injector()
@@ -115,7 +116,7 @@ export default class BootstrapService {
         console.log('In bootstrapApp(): linking mutated DOM with scope...');
         linkFn(scope);
       });
-    }
+    }*/
     BootstrapService.chatterBooting = false;
 
   }
@@ -135,8 +136,9 @@ export default class BootstrapService {
 
     //In Dashboard Mode
     if (targetViewElementArray.length < 1) {
-      targetViewElementArray = $('.ViewContainer');
+     // targetViewElementArray = $('.ViewContainer');
 
+      targetViewElementArray = $("[viewtype='tableView']")
     }
 
     $.each(targetViewElementArray, function (viewIdx, viewElement) {
@@ -147,9 +149,9 @@ export default class BootstrapService {
       var newScope:any;
       var observer = new MutationObserver(function (mutations:any) {
 
-        console.log('in Mutation Processor');
-
-         console.log(mutations);
+        // console.log('in Mutation Processor');
+        //
+        //  console.log(mutations);
 
         // console.log('mutated ' + viewElement.getAttribute('id'));
         var table = viewElement;

@@ -1,0 +1,81 @@
+.chatter-topics {
+
+  margin-bottom: 20px;
+
+}
+
+.chatter-topics .md-menu {
+
+  padding: 0px;
+
+}
+
+/*************ng-Animate classes BEGIN****************/
+
+
+.chatter-topics.ng-move,
+.chatter-topics.ng-enter,
+.chatter-topics.ng-leave,
+.chatter-comments.ng-move,
+.chatter-comments.ng-enter,
+.chatter-comments.ng-leave {
+  -webkit-transition: all linear 0.5s;
+  transition: all linear 0.5s;
+}
+
+.chatter-topics.ng-leave.ng-leave-active,
+.chatter-topics.ng-move,
+.chatter-topics.ng-enter,
+.chatter-comments.ng-leave.ng-leave-active,
+.chatter-comments.ng-move,
+.chatter-comments.ng-enter {
+  opacity: 0;
+}
+
+.chatter-topics.ng-leave,
+.chatter-topics.ng-move.ng-move-active,
+.chatter-topics.ng-enter.ng-enter-active,
+.chatter-comments.ng-leave,
+.chatter-comments.ng-move.ng-move-active,
+.chatter-comments.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+
+
+
+/*************ng-Animate classes END****************/
+
+
+
+.slds-comment__replies .slds-comment__content{
+
+background-color: #ededed;
+
+}
+
+
+
+.chatter-new-topic {
+  border: 1px solid rgb(216, 221, 230);
+  display: block;
+  margin-bottom: 20px;
+}
+
+.chatter-new-topic .md-tab {
+  text-transform: none
+}
+
+.chatter-new-topic .slds-is-active .share-button {
+  margin-top: 10px;
+}
+/*
+
+.slds-comment__replies .slds-comment {
+
+  background-color: #f1f1f1;
+  padding: 3px !important;
+  border: 2px solid white;
+
+}
+
+*/

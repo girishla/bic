@@ -1,0 +1,53 @@
+<div class="chatter-new-topic">
+
+
+  <md-tabs md-dynamic-height md-border-bottom>
+    <md-tab label="Post">
+      <md-content class="md-padding">
+
+
+        <div class="slds-publisher slds-publisher--discussion"
+             ng-class="{'slds-is-active': chatterNewTopicCtrl.isActive, 'slds-has-focus':chatterNewTopicCtrl.hasFocus}">
+          <dl class="slds-list--horizontal slds-publisher__toggle-visibility">
+            <dt class="slds-list__item slds-text-body--small">To:</dt>
+            <dd class="slds-list__item">All Followers</dd>
+          </dl>
+        <textarea ng-focus="chatterNewTopicCtrl.isActive=true" ng-blur="chatterNewTopicCtrl.hasFocus=false"
+                  ng-keyup="chatterNewTopicCtrl.hasFocus=true" ng-model="chatterNewTopicCtrl.topicText"
+                  class="slds-publisher__input slds-textarea slds-text-longform"
+                  placeholder="Start a new Conversation…"></textarea>
+          <div class="slds-attachments"></div>
+
+          <div class="slds-publisher__actions slds-grid slds-grid--align-spread">
+            <ul class="slds-grid slds-publisher__toggle-visibility">
+              <li>
+                <button class="slds-button slds-button--icon-container">
+                  <svg aria-hidden="true" class="slds-button__icon">
+                    <use xlink:href="#adduser"></use>
+                  </svg>
+                  <span class="slds-assistive-text">Add User</span>
+                </button>
+              </li>
+              <li>
+                <button class="slds-button slds-button--icon-container">
+                  <svg aria-hidden="true" class="slds-button__icon">
+                    <use xlink:href="#attach"></use>
+                  </svg>
+                  <span class="slds-assistive-text">Attach a file</span>
+                </button>
+              </li>
+            </ul>
+
+            <button disabled="" ng-click="chatterNewTopicCtrl.createTopic(chatterNewTopicCtrl.topicText)"
+                    ng-class="{'share-button': chatterNewTopicCtrl.isActive}"
+                    class="slds-button slds-button--brand share-button">Share
+            </button>
+
+          </div>
+        </div>
+
+
+      </md-content>
+    </md-tab>
+  </md-tabs>
+</div>

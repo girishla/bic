@@ -1,0 +1,56 @@
+<div class="chatter-comment slds-media slds-comment slds-hint-parent">
+  <div class="slds-media__figure">
+
+    <div class="slds-avatar slds-avatar--circle slds-avatar--small">
+      <a href="javascript:void(0)" title="Jenna Davis">
+        <img
+          src="//localhost:3000/bower_components/salesforce-lightning-design-system/assets/images/avatar2.jpg"
+          alt="Jenna Davis"/>
+      </a>
+    </div>
+  </div>
+  <div class="slds-media__body">
+    <div class="slds-grid slds-grid--align-spread slds-has-flexi-truncate">
+      <p class="slds-truncate"><a href="javascript:void(0)" title="Jenna Davis">Jenna Davis</a> -
+        <span class="slds-text-body--small">16hr Ago</span>
+      </p>
+
+
+      <!--Added Material Design Menu-->
+      <md-menu md-position-mode="target-right target">
+        <button ng-click="$mdOpenMenu($event)"
+                class="slds-button slds-button--icon-border-filled slds-button--icon-x-small slds-shrink-none">
+          <svg aria-hidden="true"
+               class="slds-button__icon slds-button__icon--hint slds-button__icon--small">
+            <use xlink:href="#down"></use>
+
+          </svg>
+          <span class="slds-assistive-text">Show More</span>
+        </button>
+
+        <md-menu-content width="2">
+          <md-menu-item>
+            <md-button ng-click="chatterCommentCtrl.deleteComment()"><span md-menu-align-target="">Delete</span>
+            </md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+
+
+    </div>
+    <div class="slds-comment__content slds-text-longform">
+      <!--<p><a href="javascript:void(0)" title="Jason Rodgers">@Jason Rodgers</a>{{chatterCommentCtrl.commentData.text}}-->
+
+      <p>{{chatterCommentCtrl.commentData.text}}
+
+
+      </p>
+    </div>
+    <ul class="slds-list--horizontal slds-has-dividers slds-text-body--small">
+      <li class="slds-list__item"><a href="javascript:void(0)" title="Like this item">Like</a>
+      </li>
+      <li class="slds-list__item">13 Likes</li>
+    </ul>
+  </div>
+</div>
+

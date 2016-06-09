@@ -33,7 +33,10 @@ function browserSyncInit(baseDir, browser) {
    *
    * For more details and option, https://github.com/chimurai/http-proxy-middleware/blob/v0.9.0/README.md
    */
-   server.middleware = proxyMiddleware('/nps', {target: 'http://localhost:9200', changeOrigin: true});
+   server.middleware = [proxyMiddleware('/nps', {target: 'http://localhost:9200', changeOrigin: true}),function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    next();
+  }];
 
   browserSync.instance = browserSync.init({
     startPath: '/',
