@@ -8,12 +8,12 @@ import BootstrapService from "./chatter/chatter-bootstrap.service";
 
 
 console.log('all loaded fine 104');
-console.log('all loaded fine 116');
+console.log('all loaded fine 990');
 
+setTimeout(function(){ BootstrapService.boot();}, 2000);
 
-BootstrapService.boot();
-
-
+// window.bootstrapChatter=BootstrapService.boot;
+//
 
 
 

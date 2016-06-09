@@ -288,6 +288,8 @@ export default function BIGateService($http, $q) {
 
       });
 
+
+
       return $q.all(allReportXMLPromises);
 
     },
@@ -299,10 +301,16 @@ export default function BIGateService($http, $q) {
 
       return $q(function (resolve, reject) {
 
-        var inst = new obips.ReportMetadata();
+        //11.1.1.7
+        //var inst = new obips.ReportMetadata();
+
+        //11.1.1.9
+        var inst=obips.ReportMetadata.GetInstance(false);
 
         inst.loadReportMetadata(reportXML, function (response) {
 
+
+        console.log('loadReportMetadataResponse',response)
 
           var colMap = [];
 
@@ -349,7 +357,7 @@ export default function BIGateService($http, $q) {
           resolve(reportMetadata);
 
 
-        })
+        },{displayValueLookup:true})
 
 
       });
@@ -392,6 +400,8 @@ export default function BIGateService($http, $q) {
 
     getContextHash: function (elementID) {
 
+
+
       //return default Context if not within OBI
       if (!(typeof obips)) {
 
@@ -404,6 +414,7 @@ export default function BIGateService($http, $q) {
         }
 
       }
+
 
 
       var contextHash = {};
@@ -464,13 +475,13 @@ export default function BIGateService($http, $q) {
 
       }
 
-      return contextHash
+      return <any>contextHash
     }//End Function getcontextHash
 
 
   };
 
 
-  
+
   return gateInstance;
 }

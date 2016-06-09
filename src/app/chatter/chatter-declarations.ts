@@ -3,4 +3,6 @@ interface Window {
   MutationObserver: any,
   WebKitMutationObserver:any,
   MozMutationObserver:any
+  bootstrapChatter:()=>boolean;
 }
+

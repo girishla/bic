@@ -30,10 +30,10 @@ function webpackWrapper(watch, test, callback) {
     tslint: {
       emitErrors: true,
     },
-    entry: {
-      console: "./src/app/index.module",
-      chatter: "./src/app/chatter-async.module"
-    },
+    // entry: {
+    //   console: "./src/app/index.module",
+    //   chatter: "./src/app/chatter-async.module"
+    // },
     output: {filename: "[name].module.js", publicPath: "http://localhost:3000/app/"}
   };
 
@@ -62,7 +62,7 @@ function webpackWrapper(watch, test, callback) {
 
   var sources = [path.join(conf.paths.src, '/app/chatter-async.module.ts')];
 
-  //var sources = [path.join(conf.paths.src, '/app/index.module.ts'),path.join(conf.paths.src, '/app/chatter-async.module.ts')];
+  // var sources = [path.join(conf.paths.src, '/app/index.module.ts'),path.join(conf.paths.src, '/app/chatter-async.module.ts')];
 
   if (test) {
     sources.push(path.join(conf.paths.src, '/app/**/*.spec.ts'));

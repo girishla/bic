@@ -16,9 +16,15 @@ export default class BootstrapService {
 
   //This is the main method to load all dependencies & start the bootstrap process
   public static boot():Boolean {
+
+    console.log('in boot');
+
     if ((!BootstrapService.chatterLoaded) && (!BootstrapService.chatterLoading)) { //chatter.module Loaded for the first time - Load JS and CSS files
       BootstrapService.chatterLoading = true;
       BootstrapService.initOBIMetadataAndBootstrap();
+
+
+
 
 /*      require(dependencies, function () {
           if ((typeof obips != 'undefined')) {
@@ -38,13 +44,21 @@ export default class BootstrapService {
   //Load OBI report metadata into an angular constant/value and then bootstrap
   public static initOBIMetadataAndBootstrap():void {
 
+    console.info('in initOBIMetadataAndBootstrap');
+
     var initInjector = angular.injector(["ng", "chatter.module"]);
     var BIGate:any = initInjector.get("BIGate");
     BootstrapService.chatterLoading = true;
     var contextCollection = BIGate.getViewDataReferences();
     var allReportsPromises = BIGate.getAllReportsXML();
+
+
     allReportsPromises.then(function (responses:any) {
       var allMetadataPromises = BIGate.getAllReportsMetadata(responses);
+
+
+      console.log('allMetadataPromises',allMetadataPromises);
+
       allMetadataPromises.then(function (metaDataResponses:any) {
         console.info('Report metadata loaded for ' + metaDataResponses.length + ' Reports.');
         console.log(metaDataResponses);
@@ -109,20 +123,35 @@ export default class BootstrapService {
 
   public static observeSensitiveDOMChanges():void {
 
+
+
+
     if ((!BootstrapService.chatterLoaded) || BootstrapService.chatterLoading || BootstrapService.chatterBooting) return;
     BootstrapService.chatterLoading = true;
     var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
+
     //In Analysis Mode
     var targetViewElementArray = $(document).find('div[id^=tableView]');
+
     //In Dashboard Mode
     if (targetViewElementArray.length < 1) {
       targetViewElementArray = $('.ViewContainer');
+
     }
+
     $.each(targetViewElementArray, function (viewIdx, viewElement) {
+
+
+
+
       var newScope:any;
       var observer = new MutationObserver(function (mutations:any) {
-        console.log(mutations);
-        console.log('mutated ' + viewElement.getAttribute('id'));
+
+        console.log('in Mutation Processor');
+
+         console.log(mutations);
+
+        // console.log('mutated ' + viewElement.getAttribute('id'));
         var table = viewElement;
         //TODO Fine-tune performance - to handle only specific DOM mutations
         if (!table.getAttribute('sid') || (!($(viewElement).find('td[id^=e_saw]')[0].getAttribute('obi-table-cell') == 'true'))) {
@@ -143,7 +172,8 @@ export default class BootstrapService {
       });
 
       observer.observe(viewElement, {
-        childList: true
+        childList: true,
+        subtree:true
       });
 
     })
