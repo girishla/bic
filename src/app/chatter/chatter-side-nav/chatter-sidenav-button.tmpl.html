@@ -1,0 +1,27 @@
+<style>
+
+  .obiSideNavButton {
+    position: fixed;
+    float: right;
+    bottom: 30px;;
+    right: 30px;
+  }
+
+  .obiSideNavButton .material-icons{
+    vertical-align: middle;
+  }
+
+
+</style>
+
+<div class="obiSideNavButton" ng-cloak>
+  <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+    <md-button class="md-fab md-primary" ng-click="sideNavButtonCtrl.openSideNav()" aria-label="Comment">
+      <md-icon md-font-icon="fa fa-comments"></md-icon>
+<!--      <i class="material-icons">comment</i>-->
+
+    </md-button>
+  </section>
+</div>
+
+

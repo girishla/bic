@@ -16,6 +16,9 @@ import TopicApi from "./chatter-feed/services/chatter-topic-api.service";
 import TopicService from "./chatter-feed/services/chatter-feed-topic.service";
 import ChatterConfig from "./chatter.config";
 import ToArrayFilter from "./util/chatter-util-to-array.filter";
+import {SidenavPushInDirective, ObiSideNavDirective} from "./chatter-side-nav/chatter-obi-sidenav.directive";
+import ObiSideNavButtonDirective from "./chatter-side-nav/chatter-obi-sidenav-button.directive";
+import AppUIStateFactory from "./chatter-app-state.service";
 
 
 export default angular
@@ -33,6 +36,10 @@ export default angular
   .directive('chatterNewTopic', ChatterNewTopicDirective.factory())
   .directive('chatterTopic', ChatterTopicDirective.factory())
   .directive('chatterTopics', ChatterTopicsDirective.factory())
+  .directive('sidenavPushIn', SidenavPushInDirective)
+  .directive('obiSideNav', ObiSideNavDirective)
+  .factory('AppUIState', AppUIStateFactory)
+  .directive('obiSideNavButton', ['AppUIState',ObiSideNavButtonDirective])
   .factory('CommentApi', CommentApi)
   .factory('TopicCommentApi', TopicCommentApi)
   .factory('Socket',Socket)
