@@ -30,7 +30,7 @@ export default class ChatterTopicsDirective implements ng.IDirective {
   //require = 'ngModel';
   controller=ChatterTopicsDirectiveController;
   controllerAs='chatterTopicsCtrl';
-  templateUrl = 'http://localhost:3000/app/chatter/chatter-feed/chatter-topics.html';
+  templateUrl = 'http://localhost:3000/app/chatter/chatter-feed/chatter-feed-topics.html';
 
 
   constructor(private TopicService: any) {

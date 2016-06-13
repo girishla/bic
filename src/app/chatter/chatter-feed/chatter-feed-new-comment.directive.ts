@@ -43,7 +43,7 @@ export default class ChatterNewCommentDirective implements ng.IDirective {
   restrict = 'E';
   controller = ChatterNewCommentDirectiveController;
   controllerAs = 'chatterNewCommentCtrl';
-  templateUrl = 'http://localhost:3000/app/chatter/chatter-feed/chatter-new-comment.html';
+  templateUrl = 'http://localhost:3000/app/chatter/chatter-feed/chatter-feed-new-comment.html';
 
   link = function (scope:ng.IScope, element:ng.IAugmentedJQuery, attrs:ng.IAttributes, ctrl:IChatterNewCommentDirectiveController) {
 

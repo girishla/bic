@@ -7,3 +7,4 @@ coverage/
 dist/
 .tmp/backup/
 src/*.js
+vendor-components/

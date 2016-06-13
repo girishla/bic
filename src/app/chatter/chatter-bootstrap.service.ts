@@ -78,8 +78,12 @@ export default class BootstrapService {
     if (!(BootstrapService.chatterBaseJQElement.getAttribute('obi-chatter-enable'))) {
       //attach chatter directive - this will make angular loop through table elements and attach further directives
       BootstrapService.chatterBaseJQElement.setAttribute('obi-chatter-enable', 'true');
+
       BootstrapService.dashboardContentJQElement = $('.DashboardPageContentDiv');
       BootstrapService.dashboardContentJQElement.addClass('md-sidenav-push-in-target');
+
+      //se the css scope used in the slds scoped version
+      // BootstrapService.dashboardContentJQElement.addClass('biview');
       //$('.DashboardPageContentDiv').append("<div obi-fab-menu='true'></div>");
       BootstrapService.dashboardContentJQElement.append("<div obi-side-nav-button='true'></div>");
       BootstrapService.dashboardContentJQElement.after("<div obi-side-nav='true'></div>");

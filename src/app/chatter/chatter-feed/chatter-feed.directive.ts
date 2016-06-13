@@ -1,5 +1,6 @@
-declare var CryptoJS: any;
+ var SHA1 = require("crypto-js/sha1")
 
+// declare var SHA1: any;
 
 interface IChatterFeedDirectiveController {
   // specify exposed controller methods and properties here
@@ -20,9 +21,9 @@ class ChatterFeedDirectiveController implements IChatterFeedDirectiveController 
   constructor(private TopicService: any) {
 
     //apply a sha1 hash to all contexts
-    this.feedContext.level1ContextHash=this.feedContext.level1Context?CryptoJS.SHA1(JSON.stringify(this.feedContext.level1Context)).toString():this.feedContext.level1Context;
-    this.feedContext.level2ContextHash=this.feedContext.level2Context?CryptoJS.SHA1(JSON.stringify(this.feedContext.level2Context)).toString():this.feedContext.level2Context;
-    this.feedContext.level3ContextHash=this.feedContext.level3Context?CryptoJS.SHA1(JSON.stringify(this.feedContext.level3Context)).toString():this.feedContext.level3Context;
+    this.feedContext.level1ContextHash=this.feedContext.level1Context?SHA1(JSON.stringify(this.feedContext.level1Context)).toString():this.feedContext.level1Context;
+    this.feedContext.level2ContextHash=this.feedContext.level2Context?SHA1(JSON.stringify(this.feedContext.level2Context)).toString():this.feedContext.level2Context;
+    this.feedContext.level3ContextHash=this.feedContext.level3Context?SHA1(JSON.stringify(this.feedContext.level3Context)).toString():this.feedContext.level3Context;
 
 
   }

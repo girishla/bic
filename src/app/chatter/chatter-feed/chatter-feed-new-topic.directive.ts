@@ -53,7 +53,7 @@ export default class ChatterNewTopicDirective implements ng.IDirective {
   restrict = 'E';
   controller = ChatterNewTopicDirectiveController;
   controllerAs = 'chatterNewTopicCtrl';
-  templateUrl = 'http://localhost:3000/app/chatter/chatter-feed/chatter-new-topic.html';
+  templateUrl = 'http://localhost:3000/app/chatter/chatter-feed/chatter-feed-new-topic.html';
   scope = {
     feedContext: '='
   };

@@ -31,7 +31,7 @@ export default class ChatterCommentDirective implements ng.IDirective {
   restrict = 'E';
   controller = ChatterCommentDirectiveController;
   controllerAs = 'chatterCommentCtrl';
-  templateUrl = 'http://localhost:3000/app/chatter/chatter-feed/chatter-comment.html';
+  templateUrl = 'http://localhost:3000/app/chatter/chatter-feed/chatter-feed-comment.html';
   scope = {
     commentData: '='
   };

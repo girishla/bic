@@ -1,5 +1,7 @@
+import * as lodash from "lodash"
 
-   export default function TopicService($rootScope, $q, TopicApi, CommentApi,TopicCommentApi, Socket, lodash) {
+
+   export default function TopicService($rootScope, $q, TopicApi, CommentApi,TopicCommentApi, Socket) {
       // here we use a simple in memory cache in order to keep actual data synced up in the client
       var cache = {};
 
@@ -17,6 +19,7 @@
 
         return cache[data.id];
       };
+
 
 
       var Topic = function (data) {

@@ -14,10 +14,13 @@ import {TopicCommentApi, CommentApi} from "./chatter-feed/services/chatter-feed-
 import Socket from "./chatter-feed/services/chatter-feed-socket.service";
 import TopicApi from "./chatter-feed/services/chatter-topic-api.service";
 import TopicService from "./chatter-feed/services/chatter-feed-topic.service";
+import ChatterConfig from "./chatter.config";
+import ToArrayFilter from "./util/chatter-util-to-array.filter";
 
 
 export default angular
-  .module('chatter.module', ['ngAria', 'ngAnimate', 'ngMaterial'])
+  .module('chatter.module', ['ngAria', 'ngAnimate', 'ngMaterial','ngResource','btford.socket-io'])
+  .config(ChatterConfig)
   .factory('BIGate', BIGateService)
   .factory('CellContext', CellContext)
   .directive("obiTable", ['BIGate', 'metaDataResponses', '$compile', 'CellContext', OBITableDirective])
@@ -34,7 +37,8 @@ export default angular
   .factory('TopicCommentApi', TopicCommentApi)
   .factory('Socket',Socket)
   .factory('TopicApi',TopicApi)
-  .factory('TopicService', ['$rootScope', '$q', 'TopicApi', 'CommentApi','TopicCommentApi', 'Socket', 'lodash',TopicService])
+  .factory('TopicService', ['$rootScope', '$q', 'TopicApi', 'CommentApi','TopicCommentApi', 'Socket',TopicService])
+  .filter('toArray',ToArrayFilter)
 
 
 

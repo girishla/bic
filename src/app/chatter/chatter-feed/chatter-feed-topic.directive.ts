@@ -26,7 +26,7 @@ export default class ChatterTopicDirective implements ng.IDirective {
   restrict = 'E';
   controller = ChatterTopicDirectiveController;
   controllerAs = 'chatterTopicCtrl';
-  templateUrl = 'http://localhost:3000/app/chatter/chatter-feed/chatter-topic.html';
+  templateUrl = 'http://localhost:3000/app/chatter/chatter-feed/chatter-feed-topic.html';
   scope = {
     topicData: '='
   };

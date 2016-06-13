@@ -6,12 +6,12 @@
 <!--Lightning seems to use the Use tag and it causes CORS issues from inside OBI. Pls see https://css-tricks.com/svg-use-external-source/-->
 <!--utility sprite-->
 <ng-include
-  ng-src="{{vm.utilitySpriteUrl}}">
+  src="'http://localhost:3000/app/chatter/chatter-cell-dialog/utility-sprite.html'">
 </ng-include>
 
 <!--doctype sprite-->
 <ng-include
-  ng-src="{{vm.doctypeSpriteUrl}}">
+  src="'http://localhost:3000/app/chatter/chatter-cell-dialog/doctype-sprite.html'">
 </ng-include>
 
 
@@ -30,7 +30,7 @@
 -->
 
 
-    <md-dialog-content class="chatter-dialog-content">
+    <md-dialog-content class="biview chatter-dialog-content">
 
       <div class="md-dialog-content">
 

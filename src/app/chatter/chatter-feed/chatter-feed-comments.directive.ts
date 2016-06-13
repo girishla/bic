@@ -25,7 +25,7 @@ export default class ChatterCommentsDirective implements ng.IDirective {
   //require = 'ngModel';
   controller=ChatterCommentsDirectiveController;
   controllerAs='chatterCommentsCtrl';
-  templateUrl = 'http://localhost:3000/app/chatter/chatter-feed/chatter-Comments.html';
+  templateUrl = 'http://localhost:3000/app/chatter/chatter-feed/chatter-feed-comments.html';
   scope = {
     comments: '=',
     topicId:'='
