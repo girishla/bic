@@ -95,7 +95,7 @@ function ChatterCellController($scope, $mdDialog, $mdMedia) {
 
       templateUrl: "http://localhost:3000/app/chatter/chatter-cell-dialog/chatter-dialog.html",
       /*parent: angular.element(angular.element(document.getElementById('d:dashboard~p:2i41s4pgps2jop6q~r:gvf5n0lc1ns2vva2~v:compoundView!1ViewContainer'))),*/
-      parent: angular.element('#DashboardPageContentDiv'),
+      parent: angular.element('.ComponentHeader'),
       targetEvent: ev,
       clickOutsideToClose: true,
       fullscreen: $mdMedia('sm') && $scope.dialogCustomFullscreen,

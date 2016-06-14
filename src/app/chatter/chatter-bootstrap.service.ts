@@ -71,7 +71,7 @@ export default class BootstrapService {
     if ((!BootstrapService.chatterLoaded) || BootstrapService.chatterLoading || BootstrapService.chatterBooting) return;
 
     BootstrapService.chatterBooting = true;
-    BootstrapService.chatterBaseJQElement = $('#PageContentOuterDiv')[0];
+    BootstrapService.chatterBaseJQElement = $('.ComponentHeader')[0];
     /*var pageContentDiv = BootstrapService.chatterBaseJQElement[0];*/
     //Bootstrap if not already.
     //The First analysis object to set this attribute will have to responsibility of bootstrapping the entire app into context
@@ -79,14 +79,18 @@ export default class BootstrapService {
       //attach chatter directive - this will make angular loop through table elements and attach further directives
       BootstrapService.chatterBaseJQElement.setAttribute('obi-chatter-enable', 'true');
 
-      BootstrapService.dashboardContentJQElement = $('.DashboardPageContentDiv');
-      BootstrapService.dashboardContentJQElement.addClass('md-sidenav-push-in-target');
+      // BootstrapService.dashboardContentJQElement = $('.DashboardPageContentDiv');
+
+
+      BootstrapService.dashboardContentJQElement = $('.ComponentHeader');
+
+      BootstrapService.dashboardContentJQElement.find('.DashboardPageContentDiv').addClass('md-sidenav-push-in-target');
 
       //se the css scope used in the slds scoped version
       // BootstrapService.dashboardContentJQElement.addClass('biview');
       //$('.DashboardPageContentDiv').append("<div obi-fab-menu='true'></div>");
       BootstrapService.dashboardContentJQElement.append("<div obi-side-nav-button='true'></div>");
-      BootstrapService.dashboardContentJQElement.after("<div obi-side-nav='true'></div>");
+      BootstrapService.dashboardContentJQElement.find('.DashboardPageContentDiv').after("<div obi-side-nav='true'></div>");
       //  pageContentDiv.setAttribute('obi-fab-menu', 'true');
       console.log('New - Attempt to attach angular to page content DIV');
       angular.bootstrap(BootstrapService.chatterBaseJQElement, ['chatter.module']);
