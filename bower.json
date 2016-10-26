@@ -29,7 +29,7 @@
     "animatewithsass": "~3.2.2",
     "countUp.js": "1.6.1",
     "font-awesome": "~4.5.0",
-    "jquery": "~2.2.1",
+    "jquery": "1.11.3",
     "material-design-iconic-font": "~2.2.0",
     "textAngular": "~1.5.0",
     "weather-icons": "https://github.com/chk1/weather-icons.git#master",

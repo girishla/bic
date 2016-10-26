@@ -22,7 +22,6 @@ export default function BIGateService($http, $q) {
     //Gets a list of Reports and their catalogPaths and SearchIds. Note that the SearchIds are session tokens and are only valid for a presentation services session.
     getReportsFromStateXML: function () {
 
-
       var reports = [];
 
 

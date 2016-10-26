@@ -3,7 +3,7 @@ import {IIndexViewModel} from "./IIndexScope";
 import {FilterCollection} from "../util/FilterCollection";
 import {SimpleSet} from "../util/SimpleSet";
 import {ElasticService} from "../services/ElasticService"
-import * as _ from "lodash"
+//import * as _ from "lodash"
 
 
 

@@ -1,6 +1,6 @@
 // declare var jQCloud;
 
-import * as _ from "lodash";
+//import * as _ from "lodash";
 import {AngularTool} from "../../util/AngularTool";
 
 interface iJQCloud extends JQuery {
