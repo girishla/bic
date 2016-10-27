@@ -2,7 +2,7 @@
 
 import "jquery"
 import "angular/angular.js";
-// import "font-awesome/css/font-awesome.css";
+import "font-awesome/scss/font-awesome.scss";
 import "angular-material/angular-material.js"
 import "angular-animate/angular-animate.js"
 import "angular-aria/angular-aria.js"
@@ -10,12 +10,16 @@ import "angular-resource"
 import "angular-socket-io/socket.js"
 import "./chatter/chatter.module";
 import "./chatter/chatter-feed/chatter-feed.scss"
+import "angular-material/angular-material.css"
 import "salesforce-lightning-design-system-scoped/assets/styles/salesforce-lightning-design-system-vf.css"
+
+setTimeout(function(){ BootstrapService.boot();}, 1000);
+
+
 
 import BootstrapService from "./chatter/chatter-bootstrap.service";
 
 
-setTimeout(function(){ BootstrapService.boot();}, 1000);
 
 // window.bootstrapChatter=BootstrapService.boot;
 //

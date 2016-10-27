@@ -1,5 +1,5 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-// "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\git-bash.exe"
-
+    "typescript.check.workspaceVersion": false
+    // "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\git-bash.exe"
 }

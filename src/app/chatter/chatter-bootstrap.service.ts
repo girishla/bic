@@ -147,10 +147,10 @@ export default class BootstrapService {
      // targetViewElementArray = $('.ViewContainer');
 
       targetViewElementArray = $("[viewtype='tableView']")
+    //  targetViewElementArray = $(".ViewContainer")
     }
 
     $.each(targetViewElementArray, function (viewIdx, viewElement) {
-
 
 
 
@@ -159,7 +159,7 @@ export default class BootstrapService {
 
         // console.log('in Mutation Processor');
         //
-        //  console.log(mutations);
+         console.log(mutations);
 
         // console.log('mutated ' + viewElement.getAttribute('id'));
         var table = viewElement;
