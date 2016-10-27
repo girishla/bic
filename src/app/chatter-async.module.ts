@@ -13,6 +13,8 @@ import "./chatter/chatter-feed/chatter-feed.scss"
 import "angular-material/angular-material.css"
 import "salesforce-lightning-design-system-scoped/assets/styles/salesforce-lightning-design-system-vf.css"
 
+
+
 setTimeout(function(){ BootstrapService.boot();}, 1000);
 
 

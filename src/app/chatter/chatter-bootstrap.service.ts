@@ -103,6 +103,7 @@ export default class BootstrapService {
         //Return if the directive is already compiled and linked.(if the searchId(sid) is associated to the table then it is already linked)
         if (value.getAttribute('sid')) return;
         value.setAttribute('obi-table', 'true');
+        $(value).addClass('bic');
         var scope = ((angular.element(value).scope()));
         var linkFn = compileService(value, scope);
         console.log('In bootstrapApp(): linking mutated DOM with scope...');
@@ -135,12 +136,13 @@ export default class BootstrapService {
     var newScope: any;
     var table = viewElement;
     //TODO Fine-tune performance - to handle only specific DOM mutations
-    if (!table.getAttribute('sid') || (!($(viewElement).find('td[id^=e_saw]')[0].getAttribute('obi-table-cell') == 'true'))) {
+    if (!table.getAttribute('sid') || (!($(viewElement).find('td[id^=e_saw]').hasClass("ng-scope")))) {
 
       //Recompile to cater to the changes
       var injector = angular.element(BootstrapService.chatterBaseJQElement).injector();
       var compileService = injector.get('$compile');
       table.setAttribute('obi-table', 'true');
+      $(table).addClass('bic');
       if (newScope) {
         newScope.$destroy();
       }
@@ -150,7 +152,6 @@ export default class BootstrapService {
       console.log('linking mutated DOM with scope...');
       linkFn(newScope);
     }
-
 
 
   }

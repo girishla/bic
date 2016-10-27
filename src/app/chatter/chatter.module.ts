@@ -10,24 +10,25 @@ import ChatterNewCommentDirective from "./chatter-feed/chatter-feed-new-comment.
 import ChatterNewTopicDirective from "./chatter-feed/chatter-feed-new-topic.directive";
 import ChatterTopicDirective from "./chatter-feed/chatter-feed-topic.directive";
 import ChatterTopicsDirective from "./chatter-feed/chatter-feed-topics.directive";
-import {TopicCommentApi, CommentApi} from "./chatter-feed/services/chatter-feed-comment-api.service";
+import { TopicCommentApi, CommentApi } from "./chatter-feed/services/chatter-feed-comment-api.service";
 import Socket from "./chatter-feed/services/chatter-feed-socket.service";
 import TopicApi from "./chatter-feed/services/chatter-topic-api.service";
 import TopicService from "./chatter-feed/services/chatter-feed-topic.service";
 import ChatterConfig from "./chatter.config";
 import ToArrayFilter from "./util/chatter-util-to-array.filter";
-import {SidenavPushInDirective, ObiSideNavDirective} from "./chatter-side-nav/chatter-obi-sidenav.directive";
+import { SidenavPushInDirective, ObiSideNavDirective } from "./chatter-side-nav/chatter-obi-sidenav.directive";
 import ObiSideNavButtonDirective from "./chatter-side-nav/chatter-obi-sidenav-button.directive";
 import AppUIStateFactory from "./chatter-app-state.service";
-
+import * as popover from "angular-ui-bootstrap/src/popover"
+import PopoverAutoclose from "./util/chatter-popover-auto-close.directive"
 
 export default angular
-  .module('chatter.module', ['ngAria', 'ngAnimate', 'ngMaterial','ngResource','btford.socket-io'])
+  .module('chatter.module', ['ngAria', 'ngAnimate', 'ngMaterial', 'ngResource', 'btford.socket-io', popover])
   .config(ChatterConfig)
   .factory('BIGate', BIGateService)
   .factory('CellContext', CellContext)
   .directive("obiTable", ['BIGate', 'metaDataResponses', '$compile', 'CellContext', OBITableDirective])
-  .directive('obiTableCell', ['$parse', CellDirective])
+  .directive('obiTableCell', ['$parse','$compile', CellDirective])
   .controller('chatterDialogController', ['$mdDialog', '$sce', 'context', ChatterDialogController])
   .directive('chatterFeed', ChatterFeedDirective.factory())
   .directive('chatterComment', ChatterCommentDirective.factory())
@@ -38,15 +39,20 @@ export default angular
   .directive('chatterTopics', ChatterTopicsDirective.factory())
   .directive('sidenavPushIn', SidenavPushInDirective)
   .directive('obiSideNav', ObiSideNavDirective)
+  .directive('popoverAutoclose', PopoverAutoclose)
   .factory('AppUIState', AppUIStateFactory)
-  .directive('obiSideNavButton', ['AppUIState',ObiSideNavButtonDirective])
+  .directive('obiSideNavButton', ['AppUIState', ObiSideNavButtonDirective])
   .factory('CommentApi', CommentApi)
   .factory('TopicCommentApi', TopicCommentApi)
-  .factory('Socket',Socket)
-  .factory('TopicApi',TopicApi)
-  .factory('TopicService', ['$rootScope', '$q', 'TopicApi', 'CommentApi','TopicCommentApi', 'Socket',TopicService])
-  .filter('toArray',ToArrayFilter)
-
+  .factory('Socket', Socket)
+  .factory('TopicApi', TopicApi)
+  .factory('TopicService', ['$rootScope', '$q', 'TopicApi', 'CommentApi', 'TopicCommentApi', 'Socket', TopicService])
+  .filter('toArray', ToArrayFilter)
+  .config(['$uibTooltipProvider', function ($uibTooltipProvider) {
+    $uibTooltipProvider.setTriggers({
+      'click' : 'hidecellpopover'
+    });
+  }]);
 
 
 
