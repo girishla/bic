@@ -29,7 +29,7 @@
         });
         attrs.$set('sid', viewReport[0].searchId);
 
-        var currentTableCells = tElement.find('td[id^=e_saw]');
+        var currentTableCells = tElement.find('td[id^=e_saw],td[id^=db_saw]');
 
         //do nothing and return if already compiled
         if (!(currentTableCells.attr('obi-table-cell') == 'true')) {

@@ -1,4 +1,4 @@
-declare var obips:any;//Global defined by OBI JS
+declare var obips: any;//Global defined by OBI JS
 
 
 //Bootstrap Class with static methods - singleton implementation
@@ -7,15 +7,15 @@ export default class BootstrapService {
 
   //service semaphores to control processing sequence.
   //These are needed because several analysis objects may attempt to bootstrap the app at the same time and one will be allowed
-  static chatterLoaded:Boolean = false;
-  static chatterLoading:Boolean = false;
-  static chatterBooting:Boolean = false;
-  static chatterBaseJQElement:HTMLElement;
-  static dashboardContentJQElement:JQuery;
+  static chatterLoaded: Boolean = false;
+  static chatterLoading: Boolean = false;
+  static chatterBooting: Boolean = false;
+  static chatterBaseJQElement: HTMLElement;
+  static dashboardContentJQElement: JQuery;
 
 
   //This is the main method to load all dependencies & start the bootstrap process
-  public static boot():Boolean {
+  public static boot(): Boolean {
 
     console.log('in boot');
 
@@ -28,24 +28,24 @@ export default class BootstrapService {
 
 
   //Load OBI report metadata into an angular constant/value and then bootstrap
-  public static initOBIMetadataAndBootstrap():void {
+  public static initOBIMetadataAndBootstrap(): void {
 
     console.info('in initOBIMetadataAndBootstrap');
 
     var initInjector = angular.injector(["ng", "chatter.module"]);
-    var BIGate:any = initInjector.get("BIGate");
+    var BIGate: any = initInjector.get("BIGate");
     BootstrapService.chatterLoading = true;
     var contextCollection = BIGate.getViewDataReferences();
     var allReportsPromises = BIGate.getAllReportsXML();
 
 
-    allReportsPromises.then(function (responses:any) {
+    allReportsPromises.then(function (responses: any) {
       var allMetadataPromises = BIGate.getAllReportsMetadata(responses);
 
 
-      console.log('allMetadataPromises',allMetadataPromises);
+      console.log('allMetadataPromises', allMetadataPromises);
 
-      allMetadataPromises.then(function (metaDataResponses:any) {
+      allMetadataPromises.then(function (metaDataResponses: any) {
         console.info('Report metadata loaded for ' + metaDataResponses.length + ' Reports.');
         console.log(metaDataResponses);
         var mergedCollection = BIGate.getMergedContextCollection(metaDataResponses, contextCollection);
@@ -65,7 +65,7 @@ export default class BootstrapService {
 
   }
 
-  private static bootstrapApp():void {
+  private static bootstrapApp(): void {
 
     //Semaphore logic to habdle multiple analysis trying to bootstrap at the same time. One one is allowed to - and that becomes elected as the master analysis.
     if ((!BootstrapService.chatterLoaded) || BootstrapService.chatterLoading || BootstrapService.chatterBooting) return;
@@ -99,7 +99,7 @@ export default class BootstrapService {
       //moved here from else block
       var injector = angular.element(BootstrapService.chatterBaseJQElement).injector()
       var compileService = injector.get('$compile');
-      angular.forEach($("[viewtype='tableView']"), function (value, key) {
+      angular.forEach($("[viewtype='tableView'],[viewtype='pivotTableView']"), function (value, key) {
         //Return if the directive is already compiled and linked.(if the searchId(sid) is associated to the table then it is already linked)
         if (value.getAttribute('sid')) return;
         value.setAttribute('obi-table', 'true');
@@ -130,7 +130,32 @@ export default class BootstrapService {
   }
 
 
-  public static observeSensitiveDOMChanges():void {
+  public static processMutations(viewElement): void {
+
+    var newScope: any;
+    var table = viewElement;
+    //TODO Fine-tune performance - to handle only specific DOM mutations
+    if (!table.getAttribute('sid') || (!($(viewElement).find('td[id^=e_saw]')[0].getAttribute('obi-table-cell') == 'true'))) {
+
+      //Recompile to cater to the changes
+      var injector = angular.element(BootstrapService.chatterBaseJQElement).injector();
+      var compileService = injector.get('$compile');
+      table.setAttribute('obi-table', 'true');
+      if (newScope) {
+        newScope.$destroy();
+      }
+      var scope = ((angular.element(table).scope()));
+      newScope = scope.$new();
+      var linkFn = compileService(table, newScope);
+      console.log('linking mutated DOM with scope...');
+      linkFn(newScope);
+    }
+
+
+
+  }
+
+  public static observeSensitiveDOMChanges(): void {
 
 
 
@@ -139,54 +164,34 @@ export default class BootstrapService {
     BootstrapService.chatterLoading = true;
     var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
 
-    //In Analysis Mode
-    var targetViewElementArray = $(document).find('div[id^=tableView]');
+    //Setup Observers for entire views
 
-    //In Dashboard Mode
-    if (targetViewElementArray.length < 1) {
-     // targetViewElementArray = $('.ViewContainer');
+    var targetSectionArray = $(document).find('.SectionDiv');
 
-      targetViewElementArray = $("[viewtype='tableView']")
-    //  targetViewElementArray = $(".ViewContainer")
-    }
+    $.each(targetSectionArray, function (viewIdx, targetView) {
 
-    $.each(targetViewElementArray, function (viewIdx, viewElement) {
+      var viewObserver = new MutationObserver(function (mutations: any) {
+
+        //console.log(mutations);
+
+        $.each($(targetView).find("[viewtype='tableView'],[viewtype='pivotTableView']"), function (viewIdx, viewElement) {
+
+          // console.log('mutated ' + viewElement.getAttribute('id'));
+          BootstrapService.processMutations(viewElement);
+
+        })
 
 
-
-      var newScope:any;
-      var observer = new MutationObserver(function (mutations:any) {
-
-        // console.log('in Mutation Processor');
-        //
-         console.log(mutations);
-
-        // console.log('mutated ' + viewElement.getAttribute('id'));
-        var table = viewElement;
-        //TODO Fine-tune performance - to handle only specific DOM mutations
-        if (!table.getAttribute('sid') || (!($(viewElement).find('td[id^=e_saw]')[0].getAttribute('obi-table-cell') == 'true'))) {
-
-          //Recompile to cater to the changes
-          var injector = angular.element(BootstrapService.chatterBaseJQElement).injector();
-          var compileService = injector.get('$compile');
-          table.setAttribute('obi-table', 'true');
-          if (newScope) {
-            newScope.$destroy();
-          }
-          var scope = ((angular.element(table).scope()));
-          newScope = scope.$new();
-          var linkFn = compileService(table, newScope);
-          console.log('linking mutated DOM with scope...');
-          linkFn(newScope);
-        }
       });
 
-      observer.observe(viewElement, {
+      viewObserver.observe(targetView, {
         childList: true,
-        subtree:true
+        subtree: true
       });
 
-    })
+
+
+    });
 
     BootstrapService.chatterLoading = false;
 

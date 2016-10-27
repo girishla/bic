@@ -388,12 +388,12 @@ export default function BIGateService($http, $q) {
 
     getReportIdFromElement: function (element) {
 
-      return $(element).closest("[vid*='tableView']").attr('vid');
+      return $(element).closest("[vid*='tableView'],[vid*='pivotTableView']").attr('vid');
 
     },
     getReportIdFromCell: function (elementId) {
 
-      return $('#' + elementId).closest("[vid*='tableView']").attr('vid');
+      return $('#' + elementId).closest("[vid*='tableView'],[vid*='pivotTableView']").attr('vid');
 
     },
 
