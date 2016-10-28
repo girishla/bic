@@ -36,8 +36,10 @@ export default class BootstrapService {
     var BIGate: any = initInjector.get("BIGate");
     BootstrapService.chatterLoading = true;
     var contextCollection = BIGate.getViewDataReferences();
-    var allReportsPromises = BIGate.getAllReportsXML();
 
+    console.log(contextCollection);
+
+    var allReportsPromises = BIGate.getAllReportsXML();
 
     allReportsPromises.then(function (responses: any) {
       var allMetadataPromises = BIGate.getAllReportsMetadata(responses);
@@ -135,7 +137,14 @@ export default class BootstrapService {
 
     var newScope: any;
     var table = viewElement;
-    //TODO Fine-tune performance - to handle only specific DOM mutations
+    
+    
+    //Reextract Prompts for Mutation Processing because Prompts could have changed
+    // var initInjector = angular.injector(["ng", "chatter.module"]);
+    // var BIGate: any = initInjector.get("BIGate");
+    // BIGate.instancePromptMap=BIGate.resetPrompts();
+
+
     if (!table.getAttribute('sid') || (!($(viewElement).find('td[id^=e_saw]')[0].getAttribute("obi-table-cell")=="true"))) {
 
       //Recompile to cater to the changes

@@ -5,10 +5,29 @@ declare var obips;
 
 declare var CryptoJS;
 import "cryptojslib/rollups/sha1.js"
-
+import * as _ from "lodash"
+import { demapify } from 'es6-mapify'
 
 export default function BIGateService($http, $q) {
 
+  var Map = <any>require('es6-map');
+
+
+  var getDashboardPrompts = function () {
+
+    var promptNotifierJQE = $("span[id^=bicprompt]");
+    var dashboardPrompts = new Map();
+    $.each(promptNotifierJQE, function (elemIndex) {
+      dashboardPrompts.set($(this).attr('id'), $(this).text())
+    })
+
+
+    console.log('before return dashboardPrompts');
+    console.log(dashboardPrompts);
+
+    return dashboardPrompts;
+
+  }
 
   var gateInstance = {
 
@@ -16,8 +35,17 @@ export default function BIGateService($http, $q) {
     currentDashPath: saw.session.SessionInfos().portalPath,
     currentUser: saw.session.SessionInfos().user,
     currentStateXML: saw.getXmlIsland("idClientStateXml", null, null, true),
+    instancePromptMap: getDashboardPrompts(),
 
     baseURL: saw.getBaseURL(),
+
+
+    resetPrompts: function () {
+
+      gateInstance.instancePromptMap = getDashboardPrompts();
+
+    },
+
 
     //Gets a list of Reports and their catalogPaths and SearchIds. Note that the SearchIds are session tokens and are only valid for a presentation services session.
     getReportsFromStateXML: function () {
@@ -57,6 +85,9 @@ export default function BIGateService($http, $q) {
 
       var contextCollection = [];
       var contextMeasures = {};
+
+      //Reset prompts in case user changed values
+      gateInstance.resetPrompts();
 
       //Collect Data references for Table views
       $.each($("td[id*=tableView] .PTChildPivotTable table[id*='saw']"), function (viewIndex, view) {
@@ -109,7 +140,8 @@ export default function BIGateService($http, $q) {
               element: elementId,
               columnId: columnId,
               columnValue: currentColValue,
-              refs: contextRefs
+              refs: contextRefs,
+              filters: demapify(gateInstance.instancePromptMap)
             })
 
           }
@@ -176,7 +208,8 @@ export default function BIGateService($http, $q) {
             element: elementId,
             columnId: columnId,
             columnValue: columnValue,
-            refs: contextRefs
+            refs: contextRefs,
+            filters: demapify(gateInstance.instancePromptMap)
           })
 
 
@@ -212,8 +245,9 @@ export default function BIGateService($http, $q) {
     getMergedContextCollection: function (metaData, contextCollection) {
 
 
-      var mergedContextCollection=[];
-      mergedContextCollection=angular.copy(contextCollection,mergedContextCollection)
+      var mergedContextCollection = [];
+      //mergedContextCollection=angular.copy(contextCollection,mergedContextCollection)
+      mergedContextCollection = _.cloneDeep(contextCollection);
 
       //Loop through Context collection which contains all Table and pivot measure elements. For each measure element, try and match it to the metadata column ids from all the reports. If there is a match, copy it over.
       angular.forEach(mergedContextCollection, function (collectionItem, index) {
@@ -267,7 +301,7 @@ export default function BIGateService($http, $q) {
           console.log(response);
 
 
-          resolve({report: report, xml: response})
+          resolve({ report: report, xml: response })
 
 
         }, function (errResponse) {
@@ -304,12 +338,12 @@ export default function BIGateService($http, $q) {
         //var inst = new obips.ReportMetadata();
 
         //11.1.1.9
-        var inst=obips.ReportMetadata.GetInstance(false);
+        var inst = obips.ReportMetadata.GetInstance(false);
 
         inst.loadReportMetadata(reportXML, function (response) {
 
 
-        console.log('loadReportMetadataResponse',response)
+          console.log('loadReportMetadataResponse', response)
 
           var colMap = [];
 
@@ -350,13 +384,13 @@ export default function BIGateService($http, $q) {
             analysisPath: reportDetails.analysisPath,
             reportId: reportDetails.reportId,
             searchId: reportDetails.searchId,
-            currentDashboard:gateInstance.currentDashPath
+            currentDashboard: gateInstance.currentDashPath
           }
 
           resolve(reportMetadata);
 
 
-        },{displayValueLookup:true})
+        }, { displayValueLookup: true })
 
 
       });
@@ -470,7 +504,7 @@ export default function BIGateService($http, $q) {
         heading: ((sawColumn.querySelector('columnHeading caption text') && sawColumn.querySelector('columnHeading caption text').innerHTML) || (sawColumn.querySelector('columnFormula expr').innerHTML)),
         currentRowColumns: currentRowColumns,
         value: edgeCoords.element.textContent,
-        SHA1:CryptoJS.SHA1(JSON.stringify(contextHash)).toString()
+        SHA1: CryptoJS.SHA1(JSON.stringify(contextHash)).toString()
 
       }
 

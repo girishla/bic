@@ -4,7 +4,9 @@ export default function CellContext(metaDataResponses, BIGate) {
     getContextCollection: function () {
 
       var contextCollection = BIGate.getViewDataReferences();
+
       var mergedCollection = BIGate.getMergedContextCollection(metaDataResponses, contextCollection)
+
 
       return mergedCollection;
 

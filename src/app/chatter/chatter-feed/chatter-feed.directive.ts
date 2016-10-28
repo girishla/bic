@@ -24,6 +24,7 @@ class ChatterFeedDirectiveController implements IChatterFeedDirectiveController 
     this.feedContext.level1ContextHash=this.feedContext.level1Context?SHA1(JSON.stringify(this.feedContext.level1Context)).toString():this.feedContext.level1Context;
     this.feedContext.level2ContextHash=this.feedContext.level2Context?SHA1(JSON.stringify(this.feedContext.level2Context)).toString():this.feedContext.level2Context;
     this.feedContext.level3ContextHash=this.feedContext.level3Context?SHA1(JSON.stringify(this.feedContext.level3Context)).toString():this.feedContext.level3Context;
+    this.feedContext.level4ContextHash=this.feedContext.level4Context?SHA1(JSON.stringify(this.feedContext.level4Context)).toString():this.feedContext.level4Context;
 
 
   }

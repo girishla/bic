@@ -49,6 +49,7 @@ export function ObiSideNavDirective() {
         level1Context: BIGate.currentDashPath,
         level2Context: '',
         level3Context: '',
+        level4Context: '',
         contextDisplayData: {}
 
       }

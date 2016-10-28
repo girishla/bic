@@ -5,14 +5,13 @@ export default function ChatterCellPopoverDirective($parse, $compile, $timeout) 
     return {
         restrict: 'EA',
         scope: {
-          //  context: '&'
+            //  context: '&'
         },
         transclude: true,
         template: '<a href uib-popover-template="\'http://localhost:3000/app/chatter/chatter-cell-popover/chatter-cell-popover.html\'" popover-trigger="\'showcellpopover\'" popover-placement="right" ng-transclude></a>',
-    //NB need to escape the single quote here ^    and here ^
-    
+
         controller: OBIChatterCellPopoverDirectiveController,
-        require: ['^obiTableCell','obiTableCellPopover'],
+        require: ['^obiTableCell', 'obiTableCellPopover'],
         controllerAs: 'cellPopoverCtrl',
         bindToController: true,
         compile: function (tElm, tAttrs) {
@@ -21,38 +20,26 @@ export default function ChatterCellPopoverDirective($parse, $compile, $timeout) 
 
                 var timer;
 
-
                 elm.on("mouseenter", function (e) {
-                    console.log('in mouseenter')
-                    //controller.showCellPopover(e);
-                    console.log(e.target)
-                    //$(event.target).trigger('click');
-
-                controllers[1].context=controllers[0].context;
-                console.log('context')
-                console.log(controllers[0].context);
-
-
+                    controllers[1].context = controllers[0].context;
                     timer = $timeout(function () {
                         $(e.target).trigger('showcellpopover');
                     }, 500);
 
                 })
 
-
                 elm.on("mouseleave", function (e) {
-                    console.log('in mouseleaveeeeee')
-                    //controller.hideCellPopover(e);
-                    console.log(e.target)
 
                     $timeout.cancel(timer);
+                    //in cases where the user hovers the cell and leaves
                     $(e.target).trigger('hidecellpopover');
+                    //In cases where the user hovers over the popover and leaves
                     $(e.target).closest('obi-table-cell-popover').children().trigger('hidecellpopover');
 
-                    
+
                 })
 
-                
+
 
             };
         }
@@ -67,20 +54,17 @@ function ChatterCellPopoverController($scope, $mdDialog, $mdMedia, $timeout, $sc
 
     $scope.dialogStatus = '  ';
     $scope.dialogCustomFullscreen = $mdMedia('sm');
-    //    vm.templateUrl='http://localhost:3000/app/chatter/chatter-cell-popover/chatter-cell-popover.html';
     vm.htmlPopover = $sce.trustAsHtml('<b style="color: red">I can</b> have <div class="label label-success">HTML</div> content');
 
-    // vm.test="Gila";
 
     function init() {
         //Do any init activities - if any
-        vm.test = "Girish";
 
     }
 
     init();
 
-
+/*
     vm.showCellPopover = function (event) {
 
         console.log(event.target)
@@ -89,8 +73,6 @@ function ChatterCellPopoverController($scope, $mdDialog, $mdMedia, $timeout, $sc
         timer = $timeout(function () {
             $(event.target).trigger('showcellpopover');
         }, 500);
-
-
 
     }
 
@@ -107,13 +89,11 @@ function ChatterCellPopoverController($scope, $mdDialog, $mdMedia, $timeout, $sc
         // }, 3000);
 
     }
+*/
 
 
 
     vm.showChatterDialog = function (ev) {
-
-        console.log(ev);
-
 
         $mdDialog.show({
             controller: 'chatterDialogController',
@@ -121,7 +101,6 @@ function ChatterCellPopoverController($scope, $mdDialog, $mdMedia, $timeout, $sc
             bindToController: true,
 
             templateUrl: "http://localhost:3000/app/chatter/chatter-cell-dialog/chatter-dialog.html",
-            /*parent: angular.element(angular.element(document.getElementById('d:dashboard~p:2i41s4pgps2jop6q~r:gvf5n0lc1ns2vva2~v:compoundView!1ViewContainer'))),*/
             parent: angular.element('.ComponentHeader'),
             targetEvent: ev,
             clickOutsideToClose: true,
@@ -131,7 +110,7 @@ function ChatterCellPopoverController($scope, $mdDialog, $mdMedia, $timeout, $sc
             }
         })
             .then(function (answer) {
-                $scope.dialogStatus = 'You said the information was "' + answer + '".';
+                $scope.dialogStatus = 'Dialog status: "' + answer + '".';
             }, function () {
                 $scope.dialogStatus = 'You cancelled the dialog.';
             });
