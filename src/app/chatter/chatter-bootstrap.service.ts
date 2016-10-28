@@ -136,7 +136,7 @@ export default class BootstrapService {
     var newScope: any;
     var table = viewElement;
     //TODO Fine-tune performance - to handle only specific DOM mutations
-    if (!table.getAttribute('sid') || (!($(viewElement).find('td[id^=e_saw]').hasClass("ng-scope")))) {
+    if (!table.getAttribute('sid') || (!($(viewElement).find('td[id^=e_saw]')[0].getAttribute("obi-table-cell")=="true"))) {
 
       //Recompile to cater to the changes
       var injector = angular.element(BootstrapService.chatterBaseJQElement).injector();

@@ -1,4 +1,4 @@
-export default function PopoverAutoclose($timeout) {
+export default function PopoverContent($timeout) {
 
   return {
     restrict: 'A',

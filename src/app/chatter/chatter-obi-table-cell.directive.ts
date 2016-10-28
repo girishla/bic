@@ -1,6 +1,6 @@
 export default function CellDirective($parse, $compile) {
 
-  var OBITableCellDirectiveController = ['$scope', '$mdDialog', '$mdMedia','$timeout', ChatterCellController];
+  var OBITableCellDirectiveController = ['$scope', '$mdDialog', '$mdMedia', '$timeout', '$sce', ChatterCellController];
 
   return {
     restrict: 'EA', //Default in 1.3+
@@ -13,17 +13,18 @@ export default function CellDirective($parse, $compile) {
     bindToController: true,
     compile: function (tElm, tAttrs) {
 
-      tElm.removeAttr('obi-table-cell'); // necessary to avoid infinite compile loop
+      //tElm.removeAttr('obi-table-cell'); // necessary to avoid infinite compile loop
       var cellContents = tElm.html();
-      tElm.empty().append("<div>" + cellContents + "</div>")
-      var popoverElem = tElm.find('div')
-      popoverElem.attr('uib-popover', 'I am on mouse enter!');
-      //popoverElem.attr('popover-trigger', "'mouseenter'");
-      //popoverElem.attr('popover-autoclose', '2000');
-      var fn = $compile(tElm);
-      var exp = $parse('cellCtrl.showChatterDialog($event)');
-      var expPopover=$parse('cellCtrl.showCellPopover($event)')
-
+      tElm.empty().append("<obi-table-cell-popover context='cellCtrl.context'>" + cellContents + "</obi-table-cell-popover>")
+      //var popoverElem = tElm.find('div')
+      //popoverElem.attr('uib-popover', 'I am on mouse enter!');
+      //popoverElem.attr('popover-trigger', "'showcellpopover'");
+      //popoverElem.attr('popover-placement', 'right');
+      //popoverElem.attr('uib-popover-template', "'http://localhost:3000/app/chatter/chatter-cell-popover/chatter-cell-popover.html'")
+     // var fn = $compile(tElm);
+      //var exp = $parse('cellCtrl.showChatterDialog($event)');
+      //var expPopover = $parse('cellCtrl.showCellPopover($event)')
+      //var expHidePopover = $parse('cellCtrl.hideCellPopover($event)')
 
       return function (scope, elm, attr, controllers) {
 
@@ -35,15 +36,26 @@ export default function CellDirective($parse, $compile) {
         //Copy viewId over to the cell
         cellController.viewId = tableController.viewId;
 
-        elm.on('dblclick', function (e) {
-          exp(scope,{$event: e});
-        });
+        // elm.on('dblclick', function (e) {
+        //   exp(scope, { $event: e });
+        // });
 
-        elm.on( "click", function(e){
-          expPopover(scope,{$event: e});
-        } )
 
-        var context = $.grep(contextCollection, function (e:any) {
+
+        // elm.on("mouseenter", function (e) {
+
+        //   console.log(e);
+
+        //   expPopover(scope, { $event: e });
+        // })
+
+
+        // elm.on("mouseleave", function (e) {
+        //   expHidePopover(scope, { $event: e });
+        // })
+
+
+        var context = $.grep(contextCollection, function (e: any) {
           return e.element == elm.attr('Id');
         });
 
@@ -53,7 +65,7 @@ export default function CellDirective($parse, $compile) {
           cellController.setCellType('Measure');
 
           //Check if Topics exist and place cell Marker;
-          elm.css({backgroundColor: 'red'});
+          elm.css({ backgroundColor: 'red' });
 
         } else {
           cellController.setCellType('Dimension');
@@ -62,19 +74,23 @@ export default function CellDirective($parse, $compile) {
         cellController.setReportContext(tableController.getReportContext());
         //console.log($parse('cellCtrl.elemId')(scope));
 
-        fn(scope);
+       // fn(scope);
       };
     }
   };
 }
 
 
-function ChatterCellController($scope, $mdDialog, $mdMedia,$timeout) {
+function ChatterCellController($scope, $mdDialog, $mdMedia, $timeout, $sce) {
 
   var vm = this;
+  var timer;
 
   $scope.dialogStatus = '  ';
   $scope.dialogCustomFullscreen = $mdMedia('sm');
+
+  // vm.test="Gila";
+
 
   vm.setContext = function (context, reportContext) {
     vm.cellContextInfo = context;
@@ -94,23 +110,40 @@ function ChatterCellController($scope, $mdDialog, $mdMedia,$timeout) {
 
   function init() {
     //Do any init activities - if any
-
+    $scope.test = "Girish";
 
   }
 
   init();
 
 
-  vm.showCellPopover=function(event){
+  vm.showCellPopover = function (event) {
 
     console.log(event.target)
     //$(event.target).trigger('click');
-    //Close the info again
-    $timeout(function () {
-      $(event.target).trigger('hidecellpopover');
-    }, 3000);
-    
+
+    timer = $timeout(function () {
+      $(event.target).trigger('showcellpopover');
+    }, 500);
+
+
+
   }
+
+
+  vm.hideCellPopover = function (event) {
+
+    console.log(event.target)
+
+    $timeout.cancel(timer);
+    $(event.target).trigger('hidecellpopover');
+    //Close the info again
+    // $timeout(function () {
+    //   $(event.target).trigger('hidecellpopover');
+    // }, 3000);
+
+  }
+
 
 
   vm.showChatterDialog = function (ev) {
@@ -144,6 +177,9 @@ function ChatterCellController($scope, $mdDialog, $mdMedia,$timeout) {
       $scope.dialogCustomFullscreen = (sm === true);
     });
   };
+
+  $scope.showChatterDialog = vm.showChatterDialog;
+
 }
 
 

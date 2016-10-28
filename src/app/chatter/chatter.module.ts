@@ -2,6 +2,7 @@ import BIGateService from "./chatter-bigate.service";
 import OBITableDirective from "./chatter-obi-table.directive";
 import CellContext from "./chatter-cell-context.service";
 import CellDirective from "./chatter-obi-table-cell.directive";
+import CellPopoverDirective from "./chatter-cell-popover/chatter-cell-popover.directive";
 import ChatterDialogController from "./chatter-cell-dialog/chatter-cell-dialog.controller";
 import ChatterFeedDirective from "./chatter-feed/chatter-feed.directive";
 import ChatterCommentDirective from "./chatter-feed/chatter-feed-comment.directive";
@@ -20,7 +21,7 @@ import { SidenavPushInDirective, ObiSideNavDirective } from "./chatter-side-nav/
 import ObiSideNavButtonDirective from "./chatter-side-nav/chatter-obi-sidenav-button.directive";
 import AppUIStateFactory from "./chatter-app-state.service";
 import * as popover from "angular-ui-bootstrap/src/popover"
-import PopoverAutoclose from "./util/chatter-popover-auto-close.directive"
+import PopoverContent from "./util/chatter-popover-auto-close.directive"
 
 export default angular
   .module('chatter.module', ['ngAria', 'ngAnimate', 'ngMaterial', 'ngResource', 'btford.socket-io', popover])
@@ -29,6 +30,7 @@ export default angular
   .factory('CellContext', CellContext)
   .directive("obiTable", ['BIGate', 'metaDataResponses', '$compile', 'CellContext', OBITableDirective])
   .directive('obiTableCell', ['$parse','$compile', CellDirective])
+  .directive('obiTableCellPopover', ['$parse','$compile','$timeout', CellPopoverDirective])
   .controller('chatterDialogController', ['$mdDialog', '$sce', 'context', ChatterDialogController])
   .directive('chatterFeed', ChatterFeedDirective.factory())
   .directive('chatterComment', ChatterCommentDirective.factory())
@@ -39,7 +41,7 @@ export default angular
   .directive('chatterTopics', ChatterTopicsDirective.factory())
   .directive('sidenavPushIn', SidenavPushInDirective)
   .directive('obiSideNav', ObiSideNavDirective)
-  .directive('popoverAutoclose', PopoverAutoclose)
+  //.directive('popoverAutoclose', PopoverContent)
   .factory('AppUIState', AppUIStateFactory)
   .directive('obiSideNavButton', ['AppUIState', ObiSideNavButtonDirective])
   .factory('CommentApi', CommentApi)
@@ -50,7 +52,7 @@ export default angular
   .filter('toArray', ToArrayFilter)
   .config(['$uibTooltipProvider', function ($uibTooltipProvider) {
     $uibTooltipProvider.setTriggers({
-      'click' : 'hidecellpopover'
+      'showcellpopover' : 'hidecellpopover'
     });
   }]);
 
