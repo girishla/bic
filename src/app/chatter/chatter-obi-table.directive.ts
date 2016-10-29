@@ -41,15 +41,6 @@ export default function OBITableDirective(BIGate, metaDataResponses, $compile) {
 
           tableCell.attr('obi-table-cell', 'true');
 
-          // var cellContents = tableCell.html();
-          // tableCell.empty().append("<div>" + cellContents + "</div>")
-          // var popoverElem = tableCell.find('div')
-
-          // popoverElem.attr('uib-popover', 'I appeared on mouse enter!');
-          // popoverElem.attr('popover-trigger', "'mouseenter'");
-          // popoverElem.attr('popover-autoclose','2000');
-
-          // currentTableCells.append('<button uib-popover="I appeared on mouse enter!" popover-trigger="\'mouseenter\'" type="button" class="btn btn-default">Mouseenter</button>')
         }
       })
 

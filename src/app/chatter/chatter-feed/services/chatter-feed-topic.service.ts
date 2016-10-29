@@ -5,6 +5,7 @@ import * as lodash from "lodash"
       // here we use a simple in memory cache in order to keep actual data synced up in the client
       var cache = {};
 
+
       var initObject = function (data) {
 
         if (cache[data.id]) {
@@ -28,6 +29,13 @@ import * as lodash from "lodash"
 
 
       Topic.getAll = function (options) {
+
+        if (!lodash.isEmpty(cache)) {
+          console.log('Cache ALready Exists. Returning Cached Topics.')
+          return $q.when(cache);
+        }
+
+
         var apiResult = TopicApi.query({sort: 'id DESC'}).$promise.then(function (Topics) {
           angular.copy({}, cache);
 

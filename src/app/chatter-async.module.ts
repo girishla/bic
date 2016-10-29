@@ -11,7 +11,7 @@ import "angular-socket-io/socket.js"
 import "./chatter/chatter.module";
 import "./chatter/chatter-feed/chatter-feed.scss"
 import "angular-material/angular-material.css"
-import "salesforce-lightning-design-system-scoped/assets/styles/salesforce-lightning-design-system-vf.css"
+import "salesforce-lightning-design-system-scoped/scss/index-vf.scss"
 
 
 

@@ -6,11 +6,11 @@ declare var obips;
 declare var CryptoJS;
 import "cryptojslib/rollups/sha1.js"
 import * as _ from "lodash"
-import { demapify } from 'es6-mapify'
+//import { demapify } from 'es6-mapify'
 
 export default function BIGateService($http, $q) {
 
-  var Map = <any>require('es6-map');
+  var Map = <any>require('es6-map/polyfill');;
 
 
   var getDashboardPrompts = function () {
@@ -141,7 +141,7 @@ export default function BIGateService($http, $q) {
               columnId: columnId,
               columnValue: currentColValue,
               refs: contextRefs,
-              filters: demapify(gateInstance.instancePromptMap)
+              filters: gateInstance.instancePromptMap
             })
 
           }
@@ -209,7 +209,7 @@ export default function BIGateService($http, $q) {
             columnId: columnId,
             columnValue: columnValue,
             refs: contextRefs,
-            filters: demapify(gateInstance.instancePromptMap)
+            filters: gateInstance.instancePromptMap
           })
 
 

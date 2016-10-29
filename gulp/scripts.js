@@ -25,7 +25,7 @@ function webpackWrapper(watch, test, callback) {
 /*      preLoaders: [{test: /\.ts$/, exclude: /node_modules/, loader: 'tslint-loader'}],*/
       loaders: [{test: /\.ts$/, exclude: /node_modules|bower_components|cli.d.ts/, loaders: ['ng-annotate', 'ts-loader?ignoreWarnings=true']},
         {test: /\.css$/, loader: "style-loader!css-loader?-url"},
-        {test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000'},
+        {test: /\.(png|woff|woff2|eot|ttf|svg|jpg)$/, loader: 'url-loader?limit=100000'},
         {
           test: /\.scss$/,
           loaders: ['style', 'css?sourceMap','resolve-url','sass?sourceMap'], //the resolve-url loader is important
