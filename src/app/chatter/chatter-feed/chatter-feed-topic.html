@@ -1,30 +1,27 @@
 <div class="slds-media slds-comment slds-hint-parent">
-  <div class="slds-media__figure">
-    <div class="slds-avatar slds-avatar--circle slds-avatar--medium">
-      <a href="javascript:void(0)" title="Jason Rodgers">
-        <img
-          src="//localhost:3000/assets/images/avatars/avatar3.jpg"
-          alt="Jason Rodgers"/>
-      </a>
-    </div>
-  </div>
-  <div class="slds-media__body">
-    <div class="slds-grid slds-grid--align-spread slds-has-flexi-truncate">
-      <p class="slds-truncate"><a href="javascript:void(0)" title="Design Systems">Design Systems</a> -<a href="javascript:void(0)" title="Jason Rodgers">Jason Rogers</a>
-        <span class="slds-text-body--small">16hr Ago</span>
-      </p>
+	<div class="slds-media__figure">
+		<div class="slds-avatar slds-avatar--circle slds-avatar--medium">
+			<a href="javascript:void(0)" title="Jason Rodgers">
+				<img src="//localhost:3000/assets/images/avatars/avatar3.jpg" alt="Jason Rodgers" />
+			</a>
+		</div>
+	</div>
+	<div class="slds-media__body">
+		<div class="slds-grid slds-grid--align-spread slds-has-flexi-truncate">
+			<p class="slds-truncate"><a href="javascript:void(0)" title="Design Systems">Design Systems</a> -<a href="javascript:void(0)" title="Jason Rodgers">Jason Rogers</a>
+				<span class="slds-text-body--small">16hr Ago</span>
+			</p>
 
-<!--
+			<!--
       <p class="slds-text-body&#45;&#45;small"><a href="javascript:void(0)"
                                           title="Click for single-item view of this post">18hr Ago</a>
       </p>
 
 -->
 
-      <!--Added Material Design Menu-->
-      <md-menu md-position-mode="target-right target">
-        <button ng-click="$mdOpenMenu($event)"
-                class="slds-button slds-button--icon-border-filled slds-button--icon-x-small slds-shrink-none">
+			<!--Added Material Design Menu-->
+			<md-menu md-position-mode="target-right target">
+				<button ng-click="$mdOpenMenu($event)" class="slds-button slds-button--icon-border-filled slds-button--icon-x-small slds-shrink-none">
           <svg aria-hidden="true"
                class="slds-button__icon slds-button__icon--hint slds-button__icon--small">
             <use xlink:href="#down"></use>
@@ -33,21 +30,21 @@
           <span class="slds-assistive-text">Show More</span>
         </button>
 
-        <md-menu-content width="2">
-          <md-menu-item>
-            <md-button ng-click="chatterTopicCtrl.topicData.remove()"><span md-menu-align-target="">Delete</span>
-            </md-button>
-          </md-menu-item>
-        </md-menu-content>
-      </md-menu>
+				<md-menu-content width="2">
+					<md-menu-item>
+						<md-button ng-click="chatterTopicCtrl.topicData.remove()"><span md-menu-align-target="">Delete</span>
+						</md-button>
+					</md-menu-item>
+				</md-menu-content>
+			</md-menu>
 
 
-    </div>
+		</div>
 
-    <div class="slds-comment__content slds-text-longform">
-      <p>{{chatterTopicCtrl.topicData.text}}</p>
-    </div>
-<!--    <div class="slds-tags slds-text-body&#45;&#45;small slds-p-bottom&#45;&#45;x-small">
+		<div class="slds-comment__content slds-text-longform">
+			<p>{{chatterTopicCtrl.topicData.text}}</p>
+		</div>
+		<!--    <div class="slds-tags slds-text-body&#45;&#45;small slds-p-bottom&#45;&#45;x-small">
       <span>Topics:</span>
       <ul class="slds-tags__list">
         <li class="slds-tags__item"><a href="javascript:void(0)" title="Powerpoint">Powerpoint</a>
@@ -60,22 +57,20 @@
           more</a></li>
       </ul>
     </div>-->
-    <ul class="slds-list--horizontal slds-has-dividers slds-text-body--small">
-      <li class="slds-list__item">
-        <a href="javascript:void(0)" title="Like this item">
-          <button
-            class="slds-button slds-button--icon-border slds-button--icon-small slds-m-right--small slds-not-selected">
+		<!--<ul class="slds-list--horizontal slds-has-dividers slds-text-body--small">
+			<li class="slds-list__item">
+				<a href="javascript:void(0)" title="Like this item">
+					<button class="slds-button slds-button--icon-border slds-button--icon-small slds-m-right--small slds-not-selected">
             <svg aria-hidden="true" class="slds-button__icon">
               <use xlink:href="#like"></use>
             </svg>
             <span class="slds-assistive-text">Like</span>
           </button>
-          <span>21 Likes</span>
-        </a>
-      </li>
-      <li class="slds-list__item">2 tasks</li>
-    </ul>
-  </div>
+					<span>21 Likes</span>
+				</a>
+			</li>
+			<li class="slds-list__item">2 tasks</li>
+		</ul>-->
+	</div>
 </div>
-<chatter-comments comments="chatterTopicCtrl.topicData.comments"
-                  topic-id="chatterTopicCtrl.topicData.id"></chatter-comments>
+<chatter-comments comments="chatterTopicCtrl.topicData.comments" topic-id="chatterTopicCtrl.topicData.id"></chatter-comments>
