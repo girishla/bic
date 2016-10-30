@@ -1,9 +1,10 @@
 import * as lodash from "lodash"
-
+var SHA1 = <any>require("crypto-js/sha1")
 
 export default function TopicService($rootScope, $q, TopicApi, CommentApi, TopicCommentApi, Socket) {
   // here we use a simple in memory cache in order to keep actual data synced up in the client
   var cache = {};
+  var ContextCache = {};
 
 
   var initObject = function (data) {
@@ -18,15 +19,27 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
       cache[data.id].comments = [];
     }
 
+
+    Object.defineProperty(ContextCache, SHA1(JSON.stringify(data.level1ContextHash + data.level2ContextHash + data.level3ContextHash + data.level4ContextHash)).toString(), {
+      value: true,
+      writable: true,
+      enumerable: true,
+      configurable: true
+    });
+
+
     return cache[data.id];
   };
 
 
 
-  var Topic = function (data) {
+  var Topic: any = function (data) {
     angular.extend(this, data);
   };
 
+  Topic.getContextCache = function () {
+    return ContextCache
+  }
 
   Topic.getAll = function (options) {
 
@@ -98,6 +111,8 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
 
     var apiResult = TopicApi.remove({ id: self.id }).$promise.then(
       function () {
+
+        delete ContextCache[SHA1(JSON.stringify(self.level1ContextHash + self.level2ContextHash + self.level3ContextHash + self.level4ContextHash)).toString()]
         delete cache[self.id];
         console.log('deleted ', self.id);
       });
@@ -124,7 +139,7 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
           cache[params.topicId].comments.push(newComment)
           console.log('comment ADDED...');
         }
-        
+
       }
     );
 
@@ -175,8 +190,13 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
 
 
   Socket.on('Topic.Delete', function (id) {
-    // here we can find the Topic in the cache by its ID and remove it
-    delete cache[id];
+
+    if (cache[id]) {
+      delete ContextCache[SHA1(JSON.stringify(cache[id].level1ContextHash + cache[id].level2ContextHash + cache[id].level3ContextHash + cache[id].level4ContextHash)).toString()]
+      // here we can find the Topic in the cache by its ID and remove it
+      delete cache[id];
+
+    }
 
   });
 

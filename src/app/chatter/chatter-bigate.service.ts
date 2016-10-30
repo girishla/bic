@@ -10,15 +10,14 @@ import * as _ from "lodash"
 
 export default function BIGateService($http, $q) {
 
-  var Map = <any>require('es6-map/polyfill');;
-
+  //var MapVar = <any>require('es6-map/polyfill');;
 
   var getDashboardPrompts = function () {
 
     var promptNotifierJQE = $("span[id^=bicprompt]");
-    var dashboardPrompts = new Map();
+    var dashboardPrompts = {};
     $.each(promptNotifierJQE, function (elemIndex) {
-      dashboardPrompts.set($(this).attr('id'), $(this).text())
+      dashboardPrompts[$(this).attr('id')]=$(this).text()
     })
 
 

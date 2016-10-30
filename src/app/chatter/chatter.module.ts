@@ -29,7 +29,7 @@ export default angular
   .factory('BIGate', BIGateService)
   .factory('CellContext', CellContext)
   .directive("obiTable", ['BIGate', 'metaDataResponses', '$compile', 'CellContext', OBITableDirective])
-  .directive('obiTableCell', ['$parse','$compile', CellDirective])
+  .directive('obiTableCell', ['$parse','$compile','TopicService', CellDirective])
   .directive('obiTableCellPopover', ['$parse','$compile','$timeout', CellPopoverDirective])
   .controller('chatterDialogController', ['$mdDialog', '$sce', 'context', ChatterDialogController])
   .directive('chatterFeed', ChatterFeedDirective.factory())

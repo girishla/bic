@@ -1,4 +1,4 @@
- var SHA1 = require("crypto-js/sha1")
+ var SHA1 = <any>require("crypto-js/sha1")
 
 // declare var SHA1: any;
 
