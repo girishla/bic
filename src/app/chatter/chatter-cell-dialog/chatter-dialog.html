@@ -34,10 +34,9 @@
 
     </md-dialog-content>-->
 
-<div class="md-dialog-container">
-	<md-dialog style="max-height: 100%;overflow:auto;min-width:40%">
-		<md-dialog-content style="overflow:unset" class="md-padding">
-			<md-toolbar style="background-color:white;display:flex">
+<div class="md-dialog-container" style="height: 100%;">
+	<md-dialog style="max-height:100%;min-width:40%;">
+			<md-toolbar style="background-color:white;">
 				<div class="md-toolbar-tools">
 					<h3>
 						<span>Cell Chatter Feed</span>
@@ -52,6 +51,7 @@
 					</md-button>
 				</div>
 			</md-toolbar>
+		<md-dialog-content style="overflow:auto" class="md-padding">
 			<chatter-feed feed-context="dialogCtrl.feedContext">
 			</chatter-feed>
 		</md-dialog-content>
