@@ -4,7 +4,7 @@ var SHA1 = <any>require("crypto-js/sha1")
 export default function TopicService($rootScope, $q, TopicApi, CommentApi, TopicCommentApi, Socket) {
   // here we use a simple in memory cache in order to keep actual data synced up in the client
   var cache = {};
-  var ContextCache = {};
+  var contextCache = {};
 
 
   var initObject = function (data) {
@@ -14,18 +14,33 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
       angular.extend(cache[data.id], new Topic(data));
     } else {
       cache[data.id] = new Topic(data);
+
+      var contextCacheIndex = SHA1(JSON.stringify(data.level1ContextHash + data.level2ContextHash + data.level3ContextHash + data.level4ContextHash)).toString();
+
+
+      if (!contextCache.hasOwnProperty(contextCacheIndex)) {
+        contextCache[contextCacheIndex] = 1;
+      }
+      else {
+        contextCache[contextCacheIndex] = contextCache[contextCacheIndex] + 1
+      }
+
+
     }
     if (!(cache[data.id].hasOwnProperty('comments'))) {
       cache[data.id].comments = [];
     }
 
 
-    Object.defineProperty(ContextCache, SHA1(JSON.stringify(data.level1ContextHash + data.level2ContextHash + data.level3ContextHash + data.level4ContextHash)).toString(), {
-      value: true,
-      writable: true,
-      enumerable: true,
-      configurable: true
-    });
+
+    //contextCache[contextCacheIndex]=contextCache[contextCacheIndex]>=0?contextCache[contextCacheIndex]+1:0
+
+    // Object.defineProperty(contextCache, SHA1(JSON.stringify(data.level1ContextHash + data.level2ContextHash + data.level3ContextHash + data.level4ContextHash)).toString(), {
+    //   value: true,
+    //   writable: true,
+    //   enumerable: true,
+    //   configurable: true
+    // });
 
 
     return cache[data.id];
@@ -38,7 +53,7 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
   };
 
   Topic.getContextCache = function () {
-    return ContextCache
+    return contextCache
   }
 
   Topic.getAll = function (options) {
@@ -111,8 +126,10 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
 
     var apiResult = TopicApi.remove({ id: self.id }).$promise.then(
       function () {
-
-        delete ContextCache[SHA1(JSON.stringify(self.level1ContextHash + self.level2ContextHash + self.level3ContextHash + self.level4ContextHash)).toString()]
+        var contextCacheIndex = SHA1(JSON.stringify(self.level1ContextHash + self.level2ContextHash + self.level3ContextHash + self.level4ContextHash)).toString();
+        //console.log(contextCache[contextCacheIndex]);
+        contextCache[contextCacheIndex] = parseInt(contextCache[contextCacheIndex]) - 1
+        //console.log(contextCache[contextCacheIndex]);
         delete cache[self.id];
         console.log('deleted ', self.id);
       });
@@ -192,7 +209,9 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
   Socket.on('Topic.Delete', function (id) {
 
     if (cache[id]) {
-      delete ContextCache[SHA1(JSON.stringify(cache[id].level1ContextHash + cache[id].level2ContextHash + cache[id].level3ContextHash + cache[id].level4ContextHash)).toString()]
+      var contextCacheIndex = SHA1(JSON.stringify(cache[id].level1ContextHash + cache[id].level2ContextHash + cache[id].level3ContextHash + cache[id].level4ContextHash)).toString();
+      //contextCache[contextCacheIndex]=contextCacheIndex[contextCacheIndex]-1
+      //   delete contextCache[SHA1(JSON.stringify(cache[id].level1ContextHash + cache[id].level2ContextHash + cache[id].level3ContextHash + cache[id].level4ContextHash)).toString()]
       // here we can find the Topic in the cache by its ID and remove it
       delete cache[id];
 

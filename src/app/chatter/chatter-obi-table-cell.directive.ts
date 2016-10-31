@@ -43,12 +43,18 @@ export default function CellDirective($parse, $compile, TopicService) {
 
 
           scope.$watch(function () {
-            return Object.keys(TopicService.getContextCache()).length;
+            return TopicService.getContextCache();
           }, function (newVal) {
 
             var combinedHash = cellController.context.cell.contextLevels.combinedHash
+
             var cachedContextHashes = TopicService.getContextCache();
-            if (cachedContextHashes.hasOwnProperty(combinedHash)) {
+            console.log('combinedHash for');
+            console.log(cellController.context.cell);
+            
+            console.log(combinedHash);
+            console.log(cachedContextHashes);
+            if (cachedContextHashes.hasOwnProperty(combinedHash) && cachedContextHashes[combinedHash]>0 ) {
               elm.css({ backgroundColor: 'red' });
             }
             else{
