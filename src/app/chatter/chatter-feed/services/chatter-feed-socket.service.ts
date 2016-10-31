@@ -1,21 +1,18 @@
-
-
-
 // declare var io;
 
 export default function Socket(socketFactory) {
 
-  var io=require('socket.io-client')
+  var io = <any>require('socket.io-client')
 
-      var chatterIoSocket, chatterSocket;
+  var chatterIoSocket, chatterSocket;
 
   chatterIoSocket = io.connect("http://localhost:8000");
 
-      return socketFactory({
-        ioSocket: chatterIoSocket
-      });
+  return socketFactory({
+    ioSocket: chatterIoSocket
+  });
 
-    };
+};
 
 
 

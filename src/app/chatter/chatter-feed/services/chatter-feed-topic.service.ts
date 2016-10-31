@@ -210,7 +210,7 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
 
     if (cache[id]) {
       var contextCacheIndex = SHA1(JSON.stringify(cache[id].level1ContextHash + cache[id].level2ContextHash + cache[id].level3ContextHash + cache[id].level4ContextHash)).toString();
-      //contextCache[contextCacheIndex]=contextCacheIndex[contextCacheIndex]-1
+      contextCache[contextCacheIndex]=contextCache[contextCacheIndex]-1;
       //   delete contextCache[SHA1(JSON.stringify(cache[id].level1ContextHash + cache[id].level2ContextHash + cache[id].level3ContextHash + cache[id].level4ContextHash)).toString()]
       // here we can find the Topic in the cache by its ID and remove it
       delete cache[id];
@@ -223,8 +223,8 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
 
     console.log('comment to be deleted:', commentId);
 
-    lodash.forEach(cache, function (topic) {
-      lodash.remove(cache[topic.id].comments, function (currentObject) {
+    lodash.forEach(cache, function (topic:any) {
+      lodash.remove(cache[topic.id].comments, function (currentObject:any) {
         return currentObject.id == commentId;
       });
 

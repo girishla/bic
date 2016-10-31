@@ -29,8 +29,8 @@ export default angular
   .factory('BIGate', BIGateService)
   .factory('CellContext', CellContext)
   .directive("obiTable", ['BIGate', 'metaDataResponses', '$compile', 'CellContext', OBITableDirective])
-  .directive('obiTableCell', ['$parse','$compile','TopicService', CellDirective])
-  .directive('obiTableCellPopover', ['$parse','$compile','$timeout', CellPopoverDirective])
+  .directive('obiTableCell', ['$parse', '$compile', 'TopicService', CellDirective])
+  .directive('obiTableCellPopover', ['$parse', '$compile', '$timeout', CellPopoverDirective])
   .controller('chatterDialogController', ['$mdDialog', '$sce', 'context', ChatterDialogController])
   .directive('chatterFeed', ChatterFeedDirective.factory())
   .directive('chatterComment', ChatterCommentDirective.factory())
@@ -50,18 +50,5 @@ export default angular
   .factory('TopicApi', TopicApi)
   .factory('TopicService', ['$rootScope', '$q', 'TopicApi', 'CommentApi', 'TopicCommentApi', 'Socket', TopicService])
   .filter('toArray', ToArrayFilter)
-  .config(['$uibTooltipProvider', function ($uibTooltipProvider) {
-    $uibTooltipProvider.setTriggers({
-      'showcellpopover' : 'hidecellpopover'
-    });
-  }]);
-
-
-
-
-
-
-
-
 
 

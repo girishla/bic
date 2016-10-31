@@ -12,7 +12,7 @@ class ChatterTopicDirectiveController implements IChatterTopicDirectiveControlle
   topicData:any;
   static $inject = ['TopicService'];
 
-  constructor(private TopicService:any) {
+  constructor(private TopicService:any,focus:any) {
   //TODO Do nothing at the moment. Will add more to this
 
 
