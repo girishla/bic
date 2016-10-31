@@ -41,6 +41,7 @@ export default function OBITableDirective(BIGate, metaDataResponses, $compile) {
 
           tableCell.attr('obi-table-cell', 'true');
 
+
         }
       })
 

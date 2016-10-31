@@ -25,6 +25,7 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
         contextCache[contextCacheIndex] = contextCache[contextCacheIndex] + 1
       }
 
+      console.log('contextCache[contextCacheIndex] is:', contextCache[contextCacheIndex])
 
     }
     if (!(cache[data.id].hasOwnProperty('comments'))) {
@@ -126,12 +127,17 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
 
     var apiResult = TopicApi.remove({ id: self.id }).$promise.then(
       function () {
-        var contextCacheIndex = SHA1(JSON.stringify(self.level1ContextHash + self.level2ContextHash + self.level3ContextHash + self.level4ContextHash)).toString();
-        //console.log(contextCache[contextCacheIndex]);
-        contextCache[contextCacheIndex] = parseInt(contextCache[contextCacheIndex]) - 1
-        //console.log(contextCache[contextCacheIndex]);
-        delete cache[self.id];
-        console.log('deleted ', self.id);
+
+        if (cache.hasOwnProperty(self.id)) {
+          var contextCacheIndex = SHA1(JSON.stringify(self.level1ContextHash + self.level2ContextHash + self.level3ContextHash + self.level4ContextHash)).toString();
+          //in case the topic was already deleted because the socket io notification
+          contextCache[contextCacheIndex] = contextCache[contextCacheIndex] > 0 ? contextCache[contextCacheIndex] - 1 : 0;
+          //console.log(contextCache[contextCacheIndex]);
+          delete cache[self.id];
+          if (contextCache[contextCacheIndex] == 0) delete contextCache[contextCacheIndex];
+          console.log('deleted self.id ', self.id, 'contextCache[contextCacheIndex]:', contextCache[contextCacheIndex]);
+        }
+
       });
 
 
@@ -208,11 +214,12 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
 
   Socket.on('Topic.Delete', function (id) {
 
-    if (cache[id]) {
+    if (cache.hasOwnProperty(id)) {
       var contextCacheIndex = SHA1(JSON.stringify(cache[id].level1ContextHash + cache[id].level2ContextHash + cache[id].level3ContextHash + cache[id].level4ContextHash)).toString();
-      contextCache[contextCacheIndex]=contextCache[contextCacheIndex]-1;
+      contextCache[contextCacheIndex] = contextCache[contextCacheIndex] > 0 ? contextCache[contextCacheIndex] - 1 : 0;
       //   delete contextCache[SHA1(JSON.stringify(cache[id].level1ContextHash + cache[id].level2ContextHash + cache[id].level3ContextHash + cache[id].level4ContextHash)).toString()]
       // here we can find the Topic in the cache by its ID and remove it
+      if (contextCache[contextCacheIndex] == 0) delete contextCache[contextCacheIndex];
       delete cache[id];
 
     }
@@ -223,8 +230,8 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
 
     console.log('comment to be deleted:', commentId);
 
-    lodash.forEach(cache, function (topic:any) {
-      lodash.remove(cache[topic.id].comments, function (currentObject:any) {
+    lodash.forEach(cache, function (topic: any) {
+      lodash.remove(cache[topic.id].comments, function (currentObject: any) {
         return currentObject.id == commentId;
       });
 

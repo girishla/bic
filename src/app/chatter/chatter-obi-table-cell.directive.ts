@@ -51,18 +51,27 @@ export default function CellDirective($parse, $compile, TopicService) {
             var cachedContextHashes = TopicService.getContextCache();
             console.log('combinedHash for');
             console.log(cellController.context.cell);
-            
+
             console.log(combinedHash);
             console.log(cachedContextHashes);
-            if (cachedContextHashes.hasOwnProperty(combinedHash) && cachedContextHashes[combinedHash]>0 ) {
-              elm.css({ backgroundColor: 'red' });
+            if (cachedContextHashes.hasOwnProperty(combinedHash) && cachedContextHashes[combinedHash] > 0) {
+              //elm.css({ backgroundColor: 'red' });
+              if (elm.find('.bic-cell-badge-container').length==0) {
+                elm.append("<div class='bic-cell-badge-container'></div>");
+                elm.find('.bic-cell-badge-container').append('<div id="badge-container"><span class="bic-cell-badge">' + cachedContextHashes[combinedHash] + '</span></div>')
+              }
+              else {
+                elm.find('.bic-cell-badge').html(cachedContextHashes[combinedHash])
+              }
+
             }
-            else{
-              elm.css({ backgroundColor: 'white' });
+            else {
+              // //elm.css({ backgroundColor: 'white' });
+              elm.find('.bic-cell-badge-container').remove();
 
             }
 
-          },true);
+          }, true);
 
 
 

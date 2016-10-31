@@ -151,7 +151,7 @@ export default class BootstrapService {
       var injector = angular.element(BootstrapService.chatterBaseJQElement).injector();
       var compileService = injector.get('$compile');
       table.setAttribute('obi-table', 'true');
-      $(table).addClass('bic');
+     $(table).addClass('bic');
       if (newScope) {
         newScope.$destroy();
       }
