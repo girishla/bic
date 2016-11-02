@@ -37,7 +37,7 @@ export default class BootstrapService {
     BootstrapService.chatterLoading = true;
     var contextCollection = BIGate.getViewDataReferences();
 
-    console.log(contextCollection);
+    //console.log(contextCollection);
 
     var allReportsPromises = BIGate.getAllReportsXML();
 
@@ -49,7 +49,7 @@ export default class BootstrapService {
 
       allMetadataPromises.then(function (metaDataResponses: any) {
         console.info('Report metadata loaded for ' + metaDataResponses.length + ' Reports.');
-        console.log(metaDataResponses);
+        //console.log(metaDataResponses);
         var mergedCollection = BIGate.getMergedContextCollection(metaDataResponses, contextCollection);
         //Load metadata and Context Info into an app Constant so it is available as a service throughout
         angular

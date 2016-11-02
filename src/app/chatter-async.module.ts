@@ -18,7 +18,6 @@ import "salesforce-lightning-design-system-scoped/scss/index-vf.scss"
 setTimeout(function(){ BootstrapService.boot();}, 1000);
 
 
-
 import BootstrapService from "./chatter/chatter-bootstrap.service";
 
 

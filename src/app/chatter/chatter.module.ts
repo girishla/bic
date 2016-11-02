@@ -21,7 +21,6 @@ import { SidenavPushInDirective, ObiSideNavDirective } from "./chatter-side-nav/
 import ObiSideNavButtonDirective from "./chatter-side-nav/chatter-obi-sidenav-button.directive";
 import AppUIStateFactory from "./chatter-app-state.service";
 import * as popover from "angular-ui-bootstrap/src/popover"
-import PopoverContent from "./util/chatter-popover-auto-close.directive"
 
 export default angular
   .module('chatter.module', ['ngAria', 'ngAnimate', 'ngMaterial', 'ngResource', 'btford.socket-io', popover])

@@ -17,7 +17,7 @@ export default function BIGateService($http, $q) {
     var promptNotifierJQE = $("span[id^=bicprompt]");
     var dashboardPrompts = {};
     $.each(promptNotifierJQE, function (elemIndex) {
-      dashboardPrompts[$(this).attr('id')]=$(this).text()
+      dashboardPrompts[$(this).attr('id')] = $(this).text()
     })
 
 
@@ -57,6 +57,7 @@ export default function BIGateService($http, $q) {
       var statePath = $(xmlIsland).find("ref[statePath]").attr('statePath');
       var pageId = (/~p:(.*?)~r:/).exec(statePath)[1];
 
+      console.log('xmlIsland',xmlIsland);
 
       //Extract report references in the current page
       //$.each($(xmlIsland).find(('container[cid$=' + pageId + ']')).find('[folder]'), function (reportIndex, reportItem) {
@@ -95,57 +96,67 @@ export default function BIGateService($http, $q) {
 
         var edgeDefinition = viewModel.getEdgeDefinition(view.getAttribute('Id'));
 
-        //for each table cell collect data references
-        $.each($("td[id*=tableView] .PTChildPivotTable table[id='" + view.getAttribute('Id') + "']").find('td[id^=e_saw]'), function (elementIndex, element) {
+        if (edgeDefinition) {
+          //for each table cell collect data references
+          $.each($("td[id*=tableView] .PTChildPivotTable table[id='" + view.getAttribute('Id') + "']").find('td[id^=e_saw]'), function (elementIndex, element) {
 
-          var elementId = element.getAttribute('Id');
-
-          var edgeCoords = obips.EdgeCoords.parseCoordsFromID(elementId);
-
-          var edgeNum = edgeCoords.getEdge();
-          var layerNum = edgeCoords.getLayer();
-          var sliceNum = edgeCoords.getSlice();
-          var qdrObject = new obips.QDR();
-          var qdrString = qdrObject.getQDR(edgeDefinition, null, edgeDefinition.getColLayerCount(), edgeDefinition.getRowLayerCount(), edgeNum, layerNum, sliceNum, true);
-          qdrObject._setQDR(qdrString)
+            var elementId = element.getAttribute('Id');
 
 
-          var columnId = edgeDefinition.getColumnIDFromLayerID(edgeNum, layerNum, sliceNum);
+            var edgeCoords = obips.EdgeCoords.parseCoordsFromID(elementId);
 
-          var currentColFormula, currentColValue;
-          if (edgeDefinition.isMeasureLayer(edgeNum, layerNum)) {
-
-            var measureQDR = qdrObject.getTarget();
-
-            angular.forEach(measureQDR._g, function (value, key) {
-
-              contextMeasures[key] = value;
-              currentColFormula = key;
-              currentColValue = value[0];
-
-            });
+            var edgeNum = edgeCoords.getEdge();
+            var layerNum = edgeCoords.getLayer();
+            var sliceNum = edgeCoords.getSlice();
+            var qdrObject = new obips.QDR();
 
 
-            var contextRefs = {};
-            angular.forEach(qdrObject.qdr._m, function (item, index) {
-              angular.forEach(item._g, function (value, key) {
-                contextRefs[key] = value[0];
+            //console.log(elementId,edgeDefinition);
+
+            var qdrString = qdrObject.getQDR(edgeDefinition, null, edgeDefinition.getColLayerCount(), edgeDefinition.getRowLayerCount(), edgeNum, layerNum, sliceNum, true);
+            qdrObject._setQDR(qdrString)
+
+
+            var columnId = edgeDefinition.getColumnIDFromLayerID(edgeNum, layerNum, sliceNum);
+
+            var currentColFormula, currentColValue;
+            if (edgeDefinition.isMeasureLayer(edgeNum, layerNum)) {
+
+              var measureQDR = qdrObject.getTarget();
+
+              angular.forEach(measureQDR._g, function (value, key) {
+
+                contextMeasures[key] = value;
+                currentColFormula = key;
+                currentColValue = value[0];
 
               });
 
-            });
 
-            contextCollection.push({
-              element: elementId,
-              columnId: columnId,
-              columnValue: currentColValue,
-              refs: contextRefs,
-              filters: gateInstance.instancePromptMap
-            })
+              var contextRefs = {};
+              angular.forEach(qdrObject.qdr._m, function (item, index) {
+                angular.forEach(item._g, function (value, key) {
+                  contextRefs[key] = value[0];
 
-          }
+                });
 
-        });
+              });
+
+              contextCollection.push({
+                element: elementId,
+                columnId: columnId,
+                columnValue: currentColValue,
+                refs: contextRefs,
+                filters: gateInstance.instancePromptMap
+              })
+
+            }
+
+          });
+
+
+        }
+
 
 
       })
@@ -255,6 +266,9 @@ export default function BIGateService($http, $q) {
 
           if (metaData[metaDataIndex].colMap[collectionItem.columnId]) {
             mergedContextCollection[index].columnDetails = angular.copy(metaData[metaDataIndex].colMap[collectionItem.columnId], contextCollection.columnDetails);
+            mergedContextCollection[index].currentDashboard=metaDataValue.currentDashboard;
+            mergedContextCollection[index].analysisPath=metaDataValue.analysisPath
+
           }
         });
 
@@ -273,6 +287,8 @@ export default function BIGateService($http, $q) {
       var xmlIsland = saw.getXmlIsland("idClientStateXml", null, null, true);
       var statePath = $(xmlIsland).find('ref[statePath]').attr('statePath');
       var pageId = (/~p:(.*?)~r:/).exec(statePath)[1];
+
+     
 
       $.each($(xmlIsland).find("[cid='p:" + pageId + "']").find('[folder]'), function (reportIndex, reportItem) {
 
@@ -356,9 +372,10 @@ export default function BIGateService($http, $q) {
               colInfo = colInfo.hierarchyLevels[0].displayColumnInfo;
             }
 
+            console.log('response.primarySubjectArea',response.primarySubjectArea);
 
             this[key] = {
-              baseFormula: colInfo.getBaseFormula(),
+              baseFormula: response.primarySubjectArea + '.' + colInfo.getBaseFormula(),
               businessModelAndDimensionID: colInfo.getBusinessModelAndDimensionID(),
               columnFormulaExprType: colInfo.getColumnFormulaExprType(),
               defaultDisplayTimeZone: colInfo.getDefaultDisplayTimeZone(),

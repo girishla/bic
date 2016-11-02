@@ -19,7 +19,7 @@ export default function OBITableDirective(BIGate, metaDataResponses, $compile) {
 
       var viewUniqueId = BIGate.getReportIdFromElement(tElement);
 
-      console.log('viewUniqueId:' + viewUniqueId)
+      //console.log('viewUniqueId:' + viewUniqueId)
 
       //Find Report Metadata and put the searchId as an Attribute on the element. This will also be stored on the scope
       var reportRegex = /~r:(.*?)~v:/;

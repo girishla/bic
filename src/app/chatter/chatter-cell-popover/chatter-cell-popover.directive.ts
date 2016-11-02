@@ -8,7 +8,7 @@ export default function ChatterCellPopoverDirective($parse, $compile, $timeout) 
             //  context: '&'
         },
         transclude: true,
-        template: '<a href uib-popover-template="\'http://localhost:3000/app/chatter/chatter-cell-popover/chatter-cell-popover.html\'" popover-trigger="\'showcellpopover\'" popover-placement="right" ng-transclude></a>',
+        template: '<div style="display:inline" uib-popover-template="\'http://localhost:3000/app/chatter/chatter-cell-popover/chatter-cell-popover.html\'" popover-trigger="\'showcellpopover\'" popover-placement="right" ng-transclude></div>',
 
         controller: OBIChatterCellPopoverDirectiveController,
         require: ['^obiTableCell', 'obiTableCellPopover'],

@@ -46,14 +46,19 @@ export default function CellDirective($parse, $compile, TopicService) {
             return TopicService.getContextCache();
           }, function (newVal) {
 
+
+
             var combinedHash = cellController.context.cell.contextLevels.combinedHash
 
             var cachedContextHashes = TopicService.getContextCache();
-            console.log('combinedHash for');
-            console.log(cellController.context.cell);
 
-            console.log(combinedHash);
-            console.log(cachedContextHashes);
+            console.log('Cell Scope Watch:',combinedHash,cachedContextHashes,context[0])
+
+            // console.log('combinedHash for');
+            // console.log(cellController.context.cell);
+
+            // console.log(combinedHash);
+            // console.log(cachedContextHashes);
             if (cachedContextHashes.hasOwnProperty(combinedHash) && cachedContextHashes[combinedHash] > 0) {
               //elm.css({ backgroundColor: 'red' });
               if (elm.find('.bic-cell-badge-container').length==0) {
