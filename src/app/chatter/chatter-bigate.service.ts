@@ -121,37 +121,36 @@ export default function BIGateService($http, $q) {
 
             var currentColFormula, currentColValue;
             // if (edgeDefinition.isMeasureLayer(edgeNum, layerNum)) {
-            if (1) {
 
-              var measureQDR = qdrObject.getTarget();
+            var measureQDR = qdrObject.getTarget();
 
-              angular.forEach(measureQDR._g, function (value, key) {
+            angular.forEach(measureQDR._g, function (value, key) {
 
-                contextMeasures[key] = value;
-                currentColFormula = key;
-                currentColValue = value[0];
+              contextMeasures[key] = value;
+              currentColFormula = key;
+              currentColValue = value[0];
 
-              });
+            });
 
 
-              var contextRefs = {};
-              angular.forEach(qdrObject.qdr._m, function (item, index) {
-                angular.forEach(item._g, function (value, key) {
-                  contextRefs[key] = value[0];
-
-                });
+            var contextRefs = {};
+            angular.forEach(qdrObject.qdr._m, function (item, index) {
+              angular.forEach(item._g, function (value, key) {
+                contextRefs[key] = value[0];
 
               });
 
-              contextCollection.push({
-                element: elementId,
-                columnId: columnId,
-                columnValue: currentColValue,
-                refs: contextRefs,
-                filters: gateInstance.instancePromptMap
-              })
+            });
 
-            }
+            contextCollection.push({
+              element: elementId,
+              columnId: columnId,
+              columnValue: currentColValue,
+              refs: contextRefs,
+              filters: gateInstance.instancePromptMap
+            })
+
+            //} End if (edgeDefinition.isMeasureLayer(edgeNum, layerNum))
 
           });
 
