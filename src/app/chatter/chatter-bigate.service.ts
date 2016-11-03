@@ -57,7 +57,7 @@ export default function BIGateService($http, $q) {
       var statePath = $(xmlIsland).find("ref[statePath]").attr('statePath');
       var pageId = (/~p:(.*?)~r:/).exec(statePath)[1];
 
-      console.log('xmlIsland',xmlIsland);
+      console.log('xmlIsland', xmlIsland);
 
       //Extract report references in the current page
       //$.each($(xmlIsland).find(('container[cid$=' + pageId + ']')).find('[folder]'), function (reportIndex, reportItem) {
@@ -120,7 +120,8 @@ export default function BIGateService($http, $q) {
             var columnId = edgeDefinition.getColumnIDFromLayerID(edgeNum, layerNum, sliceNum);
 
             var currentColFormula, currentColValue;
-            if (edgeDefinition.isMeasureLayer(edgeNum, layerNum)) {
+            // if (edgeDefinition.isMeasureLayer(edgeNum, layerNum)) {
+            if (1) {
 
               var measureQDR = qdrObject.getTarget();
 
@@ -266,8 +267,8 @@ export default function BIGateService($http, $q) {
 
           if (metaData[metaDataIndex].colMap[collectionItem.columnId]) {
             mergedContextCollection[index].columnDetails = angular.copy(metaData[metaDataIndex].colMap[collectionItem.columnId], contextCollection.columnDetails);
-            mergedContextCollection[index].currentDashboard=metaDataValue.currentDashboard;
-            mergedContextCollection[index].analysisPath=metaDataValue.analysisPath
+            mergedContextCollection[index].currentDashboard = metaDataValue.currentDashboard;
+            mergedContextCollection[index].analysisPath = metaDataValue.analysisPath
 
           }
         });
@@ -288,7 +289,7 @@ export default function BIGateService($http, $q) {
       var statePath = $(xmlIsland).find('ref[statePath]').attr('statePath');
       var pageId = (/~p:(.*?)~r:/).exec(statePath)[1];
 
-     
+
 
       $.each($(xmlIsland).find("[cid='p:" + pageId + "']").find('[folder]'), function (reportIndex, reportItem) {
 
@@ -354,13 +355,12 @@ export default function BIGateService($http, $q) {
 
         //11.1.1.9
 
-        if(!inst){
+        if (!inst) {
           inst = obips.ReportMetadata.GetInstance(false);
         }
-        
+
 
         inst.loadReportMetadata(reportXML, function (response) {
-
 
           console.log('loadReportMetadataResponse', response)
 
@@ -376,7 +376,7 @@ export default function BIGateService($http, $q) {
               colInfo = colInfo.hierarchyLevels[0].displayColumnInfo;
             }
 
-            console.log('response.primarySubjectArea',response.primarySubjectArea);
+            console.log('response.primarySubjectArea', response.primarySubjectArea);
 
             this[key] = {
               baseFormula: response.primarySubjectArea + '.' + colInfo.getBaseFormula(),
