@@ -350,10 +350,14 @@ export default function BIGateService($http, $q) {
       return $q(function (resolve, reject) {
 
         //11.1.1.7
-        //var inst = new obips.ReportMetadata();
+        var inst = new obips.ReportMetadata();
 
         //11.1.1.9
-        var inst = obips.ReportMetadata.GetInstance(false);
+
+        if(!inst){
+          inst = obips.ReportMetadata.GetInstance(false);
+        }
+        
 
         inst.loadReportMetadata(reportXML, function (response) {
 
