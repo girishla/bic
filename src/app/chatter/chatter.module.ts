@@ -39,7 +39,7 @@ export default angular
   .directive('chatterTopic', ChatterTopicDirective.factory())
   .directive('chatterTopics', ChatterTopicsDirective.factory())
   .directive('sidenavPushIn', SidenavPushInDirective)
-  .directive('obiSideNav', ObiSideNavDirective)
+  .directive('obiSideNav', ['$sce',ObiSideNavDirective])
   //.directive('popoverAutoclose', PopoverContent)
   .factory('AppUIState', AppUIStateFactory)
   .directive('obiSideNavButton', ['AppUIState', ObiSideNavButtonDirective])

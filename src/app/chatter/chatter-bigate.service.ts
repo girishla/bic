@@ -4,7 +4,7 @@ declare var saw;
 declare var obips;
 
 declare var CryptoJS;
-import "cryptojslib/rollups/sha1.js"
+import "crypto-js/sha1.js"
 import * as _ from "lodash"
 //import { demapify } from 'es6-mapify'
 

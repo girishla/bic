@@ -10,8 +10,9 @@ import "angular-resource"
 import "angular-socket-io/socket.js"
 import "./chatter/chatter.module";
 import "./chatter/chatter-feed/chatter-feed.scss"
-import "angular-material/angular-material.css"
+import "angular-material/angular-material.scss"
 import "salesforce-lightning-design-system-scoped/scss/index-vf.scss"
+import "./chatter/chatter.scss"
 
 
 

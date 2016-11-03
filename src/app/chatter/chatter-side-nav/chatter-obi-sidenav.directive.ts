@@ -25,7 +25,7 @@ export function SidenavPushInDirective() {
 }
 
 
-export function ObiSideNavDirective() {
+export function ObiSideNavDirective($sce) {
 
   var controller = ['$scope', '$timeout', '$mdSidenav', '$log','AppUIState','BIGate', function ($scope, $timeout, $mdSidenav, $log,AppUIState,BIGate) {
 
@@ -128,9 +128,10 @@ export function ObiSideNavDirective() {
       }
 
 
-    }],
+    }]
 
-    templateUrl = 'http://localhost:3000/app/chatter/chatter-side-nav/chatter-sidenav.tmpl.html';
+    //templateUrl = require('raw!chatter/chatter-side-nav/chatter-sidenav.tmpl.html');
+   // templateUrl = require('ngtemplate!html!./chatter-sidenav.tmpl.html');
 
   return {
     restrict: 'EA', //Default in 1.3+
@@ -139,7 +140,7 @@ export function ObiSideNavDirective() {
     },
     controller: controller,
     controllerAs: 'sideNavCtrl',
-    templateUrl: templateUrl
+    templateUrl: 'http://localhost:3000/app/chatter/chatter-side-nav/chatter-sidenav.tmpl.html'
   };
 }
 

@@ -16,20 +16,20 @@ function webpackWrapper(watch, test, callback) {
     quiet: true,
     context: __dirname + "/..",
     resolve: {
-      extensions: ['', '.ts','.js'],
-      modulesDirectories: ['node_modules', 'bower_components',"vendor_components"],
-      alias: {jquery: "jquery/src/jquery"}
+      extensions: ['', '.ts', '.js'],
+      modulesDirectories: ['node_modules', 'bower_components', "vendor_components"],
+      alias: { jquery: "jquery/src/jquery" }
     },
     watch: watch,
     module: {
-/*      preLoaders: [{test: /\.ts$/, exclude: /node_modules/, loader: 'tslint-loader'}],*/
-      loaders: [{test: /\.ts$/, exclude: /node_modules|bower_components|cli.d.ts/, loaders: ['ng-annotate', 'ts-loader?ignoreWarnings=true']},
-        {test: /\.css$/, loader: "style-loader!css-loader?-url"},
-        {test: /\.(png|woff|woff2|eot|ttf|svg|jpg)$/, loader: 'url-loader?limit=100000'},
-        {
-          test: /\.scss$/,
-          loaders: ['style', 'css?sourceMap','resolve-url','sass?sourceMap'], //the resolve-url loader is important
-        },]
+      /*      preLoaders: [{test: /\.ts$/, exclude: /node_modules/, loader: 'tslint-loader'}],*/
+      loaders: [{ test: /\.ts$/, exclude: /node_modules|bower_components|cli.d.ts/, loaders: ['ng-annotate', 'ts-loader?ignoreWarnings=true'] },
+      { test: /\.css$/, loader: "style-loader!css-loader?-url" },
+      { test: /\.(png|woff|woff2|eot|ttf|svg|jpg)$/, loader: 'url-loader?limit=100000' },
+      {
+        test: /\.scss$/,
+        loaders: ['style', 'css?sourceMap', 'resolve-url', 'sass?sourceMap'], //the resolve-url loader is important
+      },]
     },
     tslint: {
       emitErrors: true,
@@ -38,7 +38,7 @@ function webpackWrapper(watch, test, callback) {
     //   console: "./src/app/index.module",
     //   chatter: "./src/app/chatter-async.module"
     // },
-    output: {filename: "[name].module.js", publicPath: "http://localhost:3000/app/"}
+    output: { filename: "[name].module.js", publicPath: "http://localhost:3000/app/" }
   };
 
 
@@ -68,7 +68,7 @@ function webpackWrapper(watch, test, callback) {
 
   //var sources = [path.join(conf.paths.src, '/app/index.module.ts'),path.join(conf.paths.src, '/app/chatter-async.module.ts')];
 
-//  var sources = [path.join(conf.paths.src, '/app/index.module.ts')];
+  //  var sources = [path.join(conf.paths.src, '/app/index.module.ts')];
 
 
   if (test) {

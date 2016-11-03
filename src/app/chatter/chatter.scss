@@ -1,0 +1,42 @@
+  .obiSideNavButton {
+    position: fixed;
+    bottom: 2%;
+    right: 2%;
+  }
+
+  .obiSideNavButton .material-icons{
+    vertical-align: middle;
+  }
+
+  md-sidenav,
+  md-sidenav.md-locked-open,
+  md-sidenav.md-closed.md-locked-open-add-active {
+    min-width: 30% !important;
+    max-width: 30% !important;
+  }
+
+  .md-sidenav-push-in .md-sidenav-push-in-target {
+    transform: translate(0px);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+
+  .md-sidenav-push-in.md-sidenav-right-open .md-sidenav-push-in-target {
+    margin-right: 30%
+  }
+
+  /*to show main content while sidebar is visible*/
+  md-backdrop {
+    background-color: transparent !important;
+  }
+
+  md-backdrop.md-sidenav-backdrop {
+    display: none;
+  }
+
+  /* To Fix defect where the vertical line connecting comments vanished after css transitions*/
+  md-content.md-default-theme, md-content {
+    background-color: transparent;
+  }
+
+
+
