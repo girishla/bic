@@ -3,24 +3,22 @@
 
     <div class="slds-avatar slds-avatar--circle slds-avatar--small">
       <a href="javascript:void(0)" title="Jenna Davis">
-        <img
-          src="//localhost:3000/assets/images/avatars/avatar3.jpg"
-          alt="Jenna Davis"/>
+        <img src="//localhost:3000/assets/images/avatars/avatar3.jpg" alt="Jenna Davis" />
       </a>
     </div>
   </div>
   <div class="slds-media__body">
     <div class="slds-grid slds-grid--align-spread slds-has-flexi-truncate">
       <p class="slds-truncate"><a href="javascript:void(0)" title="Jenna Davis">Jenna Davis</a> -
-        <span class="slds-text-body--small">1 Minute Ago</span>
+        <!--<span class="slds-text-body--small">1 Minute Ago</span>-->
+        <span am-time-ago="chatterCommentCtrl.commentData.updatedAt"></span>
       </p>
 
 
 
       <!--Added Material Design Menu-->
       <md-menu md-position-mode="target-right target">
-        <button ng-click="$mdOpenMenu($event)"
-                class="slds-button slds-button--icon-border-filled slds-button--icon-x-small slds-shrink-none">
+        <button ng-click="$mdOpenMenu($event)" class="slds-button slds-button--icon-border-filled slds-button--icon-x-small slds-shrink-none">
           <svg aria-hidden="true"
                class="slds-button__icon slds-button__icon--hint slds-button__icon--small">
             <use xlink:href="#down"></use>
@@ -54,4 +52,3 @@
     </ul>-->
   </div>
 </div>
-
