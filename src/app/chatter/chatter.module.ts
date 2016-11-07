@@ -20,10 +20,11 @@ import ToArrayFilter from "./util/chatter-util-to-array.filter";
 import { SidenavPushInDirective, ObiSideNavDirective } from "./chatter-side-nav/chatter-obi-sidenav.directive";
 import ObiSideNavButtonDirective from "./chatter-side-nav/chatter-obi-sidenav-button.directive";
 import AppUIStateFactory from "./chatter-app-state.service";
-import * as popover from "angular-ui-bootstrap/src/popover"
+import "angular-ui-bootstrap/src/popover"
+
 
 export default angular
-  .module('chatter.module', ['ngAria', 'ngAnimate', 'ngMaterial', 'ngResource', 'btford.socket-io', popover,'angularMoment'])
+  .module('chatter.module', ['ngAria', 'ngAnimate', 'ngMaterial', 'ngResource', 'btford.socket-io', 'ui.bootstrap.module.popover','angularMoment'])
   .config(ChatterConfig)
   .factory('BIGate', BIGateService)
   .factory('CellContext', CellContext)

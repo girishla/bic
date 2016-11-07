@@ -21,8 +21,6 @@ class ChatterNewTopicDirectiveController implements IChatterNewTopicDirectiveCon
 
   constructor(private TopicService:any) {
 
-    //TODO Do nothing at the moment. Will add more to this
-
     this.isActive = false;
     this.hasFocus = false;
 

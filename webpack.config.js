@@ -89,7 +89,7 @@ module.exports = function makeWebpackConfig() {
                 loader: 'baggage?[file].html&[file].css'
             }
         ],
-        loaders: [{ test: /\.ts$/, exclude: /node_modules|bower_components|cli.d.ts/, loaders: ['ng-annotate', 'ts-loader?ignoreWarnings=true'] },
+        loaders: [{ test: /\.ts$/, exclude: /node_modules|bower_components|cli.d.ts/, loaders: ['ng-annotate', 'awesome-typescript-loader'] },
         {
             // CSS LOADER
             // Reference: https://github.com/webpack/css-loader

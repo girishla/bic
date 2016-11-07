@@ -1,3 +1,7 @@
+/// <reference path="../../typings/main.d.ts" />
+/// <reference path="./chatter/chatter-declarations.ts" />
+
+
 import "jquery"
 import "angular/angular.js";
 import "font-awesome/scss/font-awesome.scss";
