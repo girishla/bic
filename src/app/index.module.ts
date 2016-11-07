@@ -26,10 +26,7 @@ declare var angularDragula:any;
 
 module elasticslice {
 
-
   // require.ensure(['./uicore/uicore.module'],()=>{
-
-  console.log('index.module 999');
 
   angular.module('elasticslice', ['permission','elasticsearch', 'elasticslice.filters', 'elasticslice.controllers', 'elasticslice.services', 'elasticslice.directives', 'ui.router', 'uicore', 'ngAnimate', 'ngCookies', 'ngSanitize', 'ngMessages', 'ngMaterial',
       'googlechart', 'chart.js', 'linkify','camelCaseToHuman', 'ui.calendar', 'angularMoment', 'textAngular', 'md.data.table','angularUtils.directives.dirPagination', angularDragula(angular), 'ngFileUpload', 'elastucslice.pages','elasticslice.permission'])

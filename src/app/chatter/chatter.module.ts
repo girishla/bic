@@ -23,7 +23,7 @@ import AppUIStateFactory from "./chatter-app-state.service";
 import * as popover from "angular-ui-bootstrap/src/popover"
 
 export default angular
-  .module('chatter.module', ['ngAria', 'ngAnimate', 'ngMaterial', 'ngResource', 'btford.socket-io', popover])
+  .module('chatter.module', ['ngAria', 'ngAnimate', 'ngMaterial', 'ngResource', 'btford.socket-io', popover,'angularMoment'])
   .config(ChatterConfig)
   .factory('BIGate', BIGateService)
   .factory('CellContext', CellContext)
