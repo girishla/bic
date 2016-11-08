@@ -41,7 +41,6 @@ export default angular
   .directive('chatterTopics', ChatterTopicsDirective.factory())
   .directive('sidenavPushIn', SidenavPushInDirective)
   .directive('obiSideNav', ['$sce',ObiSideNavDirective])
-  //.directive('popoverAutoclose', PopoverContent)
   .factory('AppUIState', AppUIStateFactory)
   .directive('obiSideNavButton', ['AppUIState', ObiSideNavButtonDirective])
   .factory('CommentApi', CommentApi)
@@ -50,5 +49,6 @@ export default angular
   .factory('TopicApi', TopicApi)
   .factory('TopicService', ['$rootScope', '$q', 'TopicApi', 'CommentApi', 'TopicCommentApi', 'Socket', TopicService])
   .filter('toArray', ToArrayFilter)
+
 
 

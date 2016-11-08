@@ -54,8 +54,7 @@ function ChatterCellPopoverController($scope, $mdDialog, $mdMedia, $timeout, $sc
 
     $scope.dialogStatus = '  ';
     $scope.dialogCustomFullscreen = $mdMedia('sm');
-    vm.htmlPopover = $sce.trustAsHtml('<b style="color: red">I can</b> have <div class="label label-success">HTML</div> content');
-
+//    vm.htmlPopover = $sce.trustAsHtml('<b style="color: red">I can</b> have <div class="label label-success">HTML</div> content');
 
     function init() {
         //Do any init activities - if any

@@ -54,25 +54,39 @@ export default function BIGateService($http, $q) {
 
       //Get Current Page
       var xmlIsland = saw.getXmlIsland("idClientStateXml", null, null, true);
-      var statePath = $(xmlIsland).find("ref[statePath]").attr('statePath');
-      var pageId = (/~p:(.*?)~r:/).exec(statePath)[1];
+      var firstStatePath = $(xmlIsland).find("ref[statePath]").attr('statePath');
+      var pageId = (/~p:(.*?)~r:/).exec(firstStatePath)[1];
+      //var pageId = $(xmlIsland).find("container[xsi\\:type='sawst:page']").attr('cid');
 
       console.log('xmlIsland', xmlIsland);
 
       //Extract report references in the current page
       //$.each($(xmlIsland).find(('container[cid$=' + pageId + ']')).find('[folder]'), function (reportIndex, reportItem) {
+      //var pageId = $(xmlIsland).find("container[xsi\\:type='sawst:page']").attr('cid');
 
+      var refsArray={};
 
+      $.each($(xmlIsland).find('reportXmlRefferedTo').children(), function (refIndex, refItem) {
+        var statePath = $(refItem).attr('statePath');
+        var searchId = $(refItem).attr('searchID');
+        //var pageId = (/~p:(.*?)~r:/).exec(statePath)[1];
+        refsArray[searchId]=statePath;
+      })
 
       $.each($(xmlIsland).find("[cid='p:" + pageId + "']").find('[folder]'), function (reportIndex, reportItem) {
 
         reports.push({
-          reportId: $(this).attr('cid'),
-          analysisPath: $(this).attr('folder') + '/' + $(this).attr('itemName'),
-          searchId: $(this).attr('searchId')
+          reportId: $(reportItem).attr('cid'),
+          analysisPath: $(reportItem).attr('folder') + '/' + $(reportItem).attr('itemName'),
+          searchId: $(reportItem).attr('searchId'),
+          statePath: refsArray[$(reportItem).attr('searchId')]
         })
 
       });
+
+
+
+      console.log('reports logger:', refsArray,reports)
 
       return reports;
 
@@ -345,7 +359,7 @@ export default function BIGateService($http, $q) {
 
     //Gets Report Data in a friendly JSON structure
     //Returns a Promise object.
-    getReportMetadata: function (reportXML, reportDetails) {
+    getReportMetadata: function (reportXML, reportDetails, xmlObject) {
 
       return $q(function (resolve, reject) {
 
@@ -359,7 +373,10 @@ export default function BIGateService($http, $q) {
         }
 
 
+        console.log('reportXML in function getReportMetadata is:', reportXML)
+
         inst.loadReportMetadata(reportXML, function (response) {
+          //inst.loadReportMetadata(xmlObject,function (response) {;          
 
           console.log('loadReportMetadataResponse', response)
 
@@ -420,16 +437,19 @@ export default function BIGateService($http, $q) {
     getAllReportsMetadata: function (reportXMLs) {
 
 
+      console.log('In getAllReportsMetadata', reportXMLs);
+
       var metadataPromisesArray = [];
 
       angular.forEach(reportXMLs, function (value, key) {
 
-
         var regEx = /<saw:report((.|\n)*)/;
         var responseXML = regEx.exec(value.xml.data)[0];
 
+        console.log('calling getReportMetadata:', responseXML, value)
+
         //Get and Load Report Metadata
-        var reportMetadataPromise = gateInstance.getReportMetadata(responseXML, value.report)
+        var reportMetadataPromise = gateInstance.getReportMetadata(responseXML, value.report, value.xml)
         metadataPromisesArray.push(reportMetadataPromise)
 
       });
@@ -480,6 +500,7 @@ export default function BIGateService($http, $q) {
       var columnID = sawColumn.getAttribute('columnID');
       var stateInstance = obips.ReportMetadata.GetInstanceByStatePath(sawViewModel.reportStatePath);
 
+      console.log('sawViewModel.reportStatePath:', sawViewModel.reportStatePath)
 
       var numLayers = sawViewModel.getEdgeDefinition(sawViewModelID).getLayerCount(obips.JSDataLayout.ROW_EDGE);
 
