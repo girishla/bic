@@ -21,8 +21,8 @@ export default function BIGateService($http, $q) {
     })
 
 
-    console.log('before return dashboardPrompts');
-    console.log(dashboardPrompts);
+    //console.log('before return dashboardPrompts');
+    //console.log(dashboardPrompts);
 
     return dashboardPrompts;
 
@@ -58,19 +58,19 @@ export default function BIGateService($http, $q) {
       var pageId = (/~p:(.*?)~r:/).exec(firstStatePath)[1];
       //var pageId = $(xmlIsland).find("container[xsi\\:type='sawst:page']").attr('cid');
 
-      console.log('xmlIsland', xmlIsland);
+      //console.log('xmlIsland', xmlIsland);
 
       //Extract report references in the current page
       //$.each($(xmlIsland).find(('container[cid$=' + pageId + ']')).find('[folder]'), function (reportIndex, reportItem) {
       //var pageId = $(xmlIsland).find("container[xsi\\:type='sawst:page']").attr('cid');
 
-      var refsArray={};
+      var refsArray = {};
 
       $.each($(xmlIsland).find('reportXmlRefferedTo').children(), function (refIndex, refItem) {
         var statePath = $(refItem).attr('statePath');
         var searchId = $(refItem).attr('searchID');
         //var pageId = (/~p:(.*?)~r:/).exec(statePath)[1];
-        refsArray[searchId]=statePath;
+        refsArray[searchId] = statePath;
       })
 
       $.each($(xmlIsland).find("[cid='p:" + pageId + "']").find('[folder]'), function (reportIndex, reportItem) {
@@ -86,7 +86,7 @@ export default function BIGateService($http, $q) {
 
 
 
-      console.log('reports logger:', refsArray,reports)
+      //console.log('reports logger:', refsArray, reports)
 
       return reports;
 
@@ -134,37 +134,37 @@ export default function BIGateService($http, $q) {
             var columnId = edgeDefinition.getColumnIDFromLayerID(edgeNum, layerNum, sliceNum);
 
             var currentColFormula, currentColValue;
-            // if (edgeDefinition.isMeasureLayer(edgeNum, layerNum)) {
+            if (edgeDefinition.isMeasureLayer(edgeNum, layerNum)) {
 
-            var measureQDR = qdrObject.getTarget();
+              var measureQDR = qdrObject.getTarget();
 
-            angular.forEach(measureQDR._g, function (value, key) {
+              angular.forEach(measureQDR._g, function (value, key) {
 
-              contextMeasures[key] = value;
-              currentColFormula = key;
-              currentColValue = value[0];
-
-            });
-
-
-            var contextRefs = {};
-            angular.forEach(qdrObject.qdr._m, function (item, index) {
-              angular.forEach(item._g, function (value, key) {
-                contextRefs[key] = value[0];
+                contextMeasures[key] = value;
+                currentColFormula = key;
+                currentColValue = value[0];
 
               });
 
-            });
 
-            contextCollection.push({
-              element: elementId,
-              columnId: columnId,
-              columnValue: currentColValue,
-              refs: contextRefs,
-              filters: gateInstance.instancePromptMap
-            })
+              var contextRefs = {};
+              angular.forEach(qdrObject.qdr._m, function (item, index) {
+                angular.forEach(item._g, function (value, key) {
+                  contextRefs[key] = value[0];
 
-            //} End if (edgeDefinition.isMeasureLayer(edgeNum, layerNum))
+                });
+
+              });
+
+              contextCollection.push({
+                element: elementId,
+                columnId: columnId,
+                columnValue: currentColValue,
+                refs: contextRefs,
+                filters: gateInstance.instancePromptMap
+              })
+
+            } //(edgeDefinition.isMeasureLayer(edgeNum, layerNum))
 
           });
 
@@ -326,8 +326,8 @@ export default function BIGateService($http, $q) {
         $http.get("/analytics/saw.dll?getReportXmlFromSearchID&SearchID=" + report.searchId
         ).then(function (response) {
 
-          console.log("Report XML from Search Id:");
-          console.log(response);
+         // console.log("Report XML from Search Id:");
+         // console.log(response);
 
 
           resolve({ report: report, xml: response })
@@ -359,26 +359,29 @@ export default function BIGateService($http, $q) {
 
     //Gets Report Data in a friendly JSON structure
     //Returns a Promise object.
-    getReportMetadata: function (reportXML, reportDetails, xmlObject) {
+    getReportMetadata: function (reportXML, reportDetails) {
 
       return $q(function (resolve, reject) {
 
         //11.1.1.7
         var inst = new obips.ReportMetadata();
+        console.log('reportDetails.statePath',reportDetails.statePath);
+        var inst = obips.ReportMetadata.GetInstanceByStatePath(reportDetails.statePath);
 
         //11.1.1.9
 
         if (!inst) {
-          inst = obips.ReportMetadata.GetInstance(false);
+          //inst = obips.ReportMetadata.GetInstance(false);
+          inst= obips.ReportMetadata.GetInstanceByStatePath(reportDetails.statePath);
         }
 
 
-        console.log('reportXML in function getReportMetadata is:', reportXML)
+        //console.log('reportXML in function getReportMetadata is:', reportXML)
 
         inst.loadReportMetadata(reportXML, function (response) {
           //inst.loadReportMetadata(xmlObject,function (response) {;          
 
-          console.log('loadReportMetadataResponse', response)
+          //console.log('loadReportMetadataResponse', response)
 
           var colMap = [];
 
@@ -392,7 +395,7 @@ export default function BIGateService($http, $q) {
               colInfo = colInfo.hierarchyLevels[0].displayColumnInfo;
             }
 
-            console.log('response.primarySubjectArea', response.primarySubjectArea);
+            //console.log('response.primarySubjectArea', response.primarySubjectArea);
 
             this[key] = {
               baseFormula: response.primarySubjectArea + '.' + colInfo.getBaseFormula(),
@@ -437,7 +440,7 @@ export default function BIGateService($http, $q) {
     getAllReportsMetadata: function (reportXMLs) {
 
 
-      console.log('In getAllReportsMetadata', reportXMLs);
+      //console.log('In getAllReportsMetadata', reportXMLs);
 
       var metadataPromisesArray = [];
 
@@ -446,10 +449,10 @@ export default function BIGateService($http, $q) {
         var regEx = /<saw:report((.|\n)*)/;
         var responseXML = regEx.exec(value.xml.data)[0];
 
-        console.log('calling getReportMetadata:', responseXML, value)
+        //console.log('calling getReportMetadata:', responseXML, value)
 
         //Get and Load Report Metadata
-        var reportMetadataPromise = gateInstance.getReportMetadata(responseXML, value.report, value.xml)
+        var reportMetadataPromise = gateInstance.getReportMetadata(responseXML, value.report)
         metadataPromisesArray.push(reportMetadataPromise)
 
       });
@@ -500,7 +503,7 @@ export default function BIGateService($http, $q) {
       var columnID = sawColumn.getAttribute('columnID');
       var stateInstance = obips.ReportMetadata.GetInstanceByStatePath(sawViewModel.reportStatePath);
 
-      console.log('sawViewModel.reportStatePath:', sawViewModel.reportStatePath)
+      //console.log('sawViewModel.reportStatePath:', sawViewModel.reportStatePath)
 
       var numLayers = sawViewModel.getEdgeDefinition(sawViewModelID).getLayerCount(obips.JSDataLayout.ROW_EDGE);
 

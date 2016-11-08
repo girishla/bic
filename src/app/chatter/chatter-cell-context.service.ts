@@ -13,6 +13,7 @@ export default function CellContext(metaDataResponses, BIGate) {
 
       angular.forEach(mergedCollection,function (collectionItem,key) {
 
+        
     //assuming that at least one table cell will be in dashboard
         collectionItem.contextLevels = {
           level1Context: collectionItem.currentDashboard,

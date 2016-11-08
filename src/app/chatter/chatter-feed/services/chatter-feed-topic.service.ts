@@ -15,6 +15,8 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
     } else {
       cache[data.id] = new Topic(data);
 
+      console.log('context data:',data)
+
       var contextCacheIndex = SHA1(JSON.stringify(data.level1ContextHash + data.level2ContextHash + data.level3ContextHash + data.level4ContextHash)).toString();
 
 

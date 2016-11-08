@@ -23,7 +23,10 @@ export default function ChatterCellPopoverDirective($parse, $compile, $timeout) 
                 elm.on("mouseenter", function (e) {
                     controllers[1].context = controllers[0].context;
                     timer = $timeout(function () {
-                        $(e.target).trigger('showcellpopover');
+                        //Context only set for measure columns and the popover is shown only if its a measure.
+                        if(controllers[0].context){
+                            $(e.target).trigger('showcellpopover');
+                        }
                     }, 500);
 
                 })
