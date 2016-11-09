@@ -25,7 +25,8 @@ export default function ChatterCellPopoverDirective($parse, $compile, $timeout) 
                     timer = $timeout(function () {
                         //Context only set for measure columns and the popover is shown only if its a measure.
                         if(controllers[0].context){
-                            $(e.target).trigger('showcellpopover');
+                            $(e.target).closest('obi-table-cell-popover').children().trigger('showcellpopover');
+                            console.log('triggering popover')
                         }
                     }, 500);
 

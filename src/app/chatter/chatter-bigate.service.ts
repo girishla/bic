@@ -54,25 +54,27 @@ export default function BIGateService($http, $q) {
 
       //Get Current Page
       var xmlIsland = saw.getXmlIsland("idClientStateXml", null, null, true);
+
+
+
       var firstStatePath = $(xmlIsland).find("ref[statePath]").attr('statePath');
       var pageId = (/~p:(.*?)~r:/).exec(firstStatePath)[1];
-      //var pageId = $(xmlIsland).find("container[xsi\\:type='sawst:page']").attr('cid');
 
-      //console.log('xmlIsland', xmlIsland);
-
-      //Extract report references in the current page
-      //$.each($(xmlIsland).find(('container[cid$=' + pageId + ']')).find('[folder]'), function (reportIndex, reportItem) {
-      //var pageId = $(xmlIsland).find("container[xsi\\:type='sawst:page']").attr('cid');
 
       var refsArray = {};
+      var searchId;
 
-      $.each($(xmlIsland).find('reportXmlRefferedTo').children(), function (refIndex, refItem) {
+
+      //collect statepaths
+      $.each($(xmlIsland).find('ref'), function (refIndex, refItem) {
         var statePath = $(refItem).attr('statePath');
-        var searchId = $(refItem).attr('searchID');
+        searchId = $(refItem).attr('searchID');
         //var pageId = (/~p:(.*?)~r:/).exec(statePath)[1];
         refsArray[searchId] = statePath;
+
       })
 
+      
       $.each($(xmlIsland).find("[cid='p:" + pageId + "']").find('[folder]'), function (reportIndex, reportItem) {
 
         reports.push({
@@ -84,9 +86,6 @@ export default function BIGateService($http, $q) {
 
       });
 
-
-
-      //console.log('reports logger:', refsArray, reports)
 
       return reports;
 
@@ -136,6 +135,7 @@ export default function BIGateService($http, $q) {
             var currentColFormula, currentColValue;
             if (edgeDefinition.isMeasureLayer(edgeNum, layerNum)) {
 
+
               var measureQDR = qdrObject.getTarget();
 
               angular.forEach(measureQDR._g, function (value, key) {
@@ -145,7 +145,6 @@ export default function BIGateService($http, $q) {
                 currentColValue = value[0];
 
               });
-
 
               var contextRefs = {};
               angular.forEach(qdrObject.qdr._m, function (item, index) {
@@ -158,13 +157,14 @@ export default function BIGateService($http, $q) {
 
               contextCollection.push({
                 element: elementId,
+                reportStatePath: viewModel.reportStatePath,
                 columnId: columnId,
                 columnValue: currentColValue,
                 refs: contextRefs,
                 filters: gateInstance.instancePromptMap
               })
 
-            } //(edgeDefinition.isMeasureLayer(edgeNum, layerNum))
+            } //End if (edgeDefinition.isMeasureLayer(edgeNum, layerNum))
 
           });
 
@@ -230,6 +230,7 @@ export default function BIGateService($http, $q) {
 
           contextCollection.push({
             element: elementId,
+            reportStatePath: viewModel.reportStatePath,
             columnId: columnId,
             columnValue: columnValue,
             refs: contextRefs,
@@ -269,6 +270,9 @@ export default function BIGateService($http, $q) {
     getMergedContextCollection: function (metaData, contextCollection) {
 
 
+      // console.log('metaData', metaData)
+      // console.log('contextCollection', contextCollection)
+
       var mergedContextCollection = [];
       //mergedContextCollection=angular.copy(contextCollection,mergedContextCollection)
       mergedContextCollection = _.cloneDeep(contextCollection);
@@ -278,7 +282,7 @@ export default function BIGateService($http, $q) {
 
         angular.forEach(metaData, function (metaDataValue, metaDataIndex) {
 
-          if (metaData[metaDataIndex].colMap[collectionItem.columnId]) {
+          if ((metaData[metaDataIndex].colMap[collectionItem.columnId]) && (metaData[metaDataIndex].reportStatePath == collectionItem.reportStatePath)) {
             mergedContextCollection[index].columnDetails = angular.copy(metaData[metaDataIndex].colMap[collectionItem.columnId], contextCollection.columnDetails);
             mergedContextCollection[index].currentDashboard = metaDataValue.currentDashboard;
             mergedContextCollection[index].analysisPath = metaDataValue.analysisPath
@@ -288,6 +292,7 @@ export default function BIGateService($http, $q) {
 
       });
 
+      //console.log('before mergedContextCollection', mergedContextCollection)
       return mergedContextCollection;
 
     },
@@ -326,8 +331,8 @@ export default function BIGateService($http, $q) {
         $http.get("/analytics/saw.dll?getReportXmlFromSearchID&SearchID=" + report.searchId
         ).then(function (response) {
 
-         // console.log("Report XML from Search Id:");
-         // console.log(response);
+          // console.log("Report XML from Search Id:");
+          // console.log(response);
 
 
           resolve({ report: report, xml: response })
@@ -363,73 +368,78 @@ export default function BIGateService($http, $q) {
 
       return $q(function (resolve, reject) {
 
-        //11.1.1.7
-        var inst = new obips.ReportMetadata();
-        console.log('reportDetails.statePath',reportDetails.statePath);
+        console.log('reportDetails.statePath', reportDetails)
+
         var inst = obips.ReportMetadata.GetInstanceByStatePath(reportDetails.statePath);
 
-        //11.1.1.9
 
-        if (!inst) {
-          //inst = obips.ReportMetadata.GetInstance(false);
-          inst= obips.ReportMetadata.GetInstanceByStatePath(reportDetails.statePath);
-        }
+        //11.1.1.7
+        // var inst = new obips.ReportMetadata();
 
 
-        //console.log('reportXML in function getReportMetadata is:', reportXML)
+        //11.1.1.9 & 12c
 
-        inst.loadReportMetadata(reportXML, function (response) {
-          //inst.loadReportMetadata(xmlObject,function (response) {;          
+        // if (!inst.columnIDToColumnInfo) {
+        //   //inst = obips.ReportMetadata.GetInstance(false);
+        //   inst = obips.ReportMetadata.GetInstanceByStatePath(reportDetails.statePath);
+        // }
 
-          //console.log('loadReportMetadataResponse', response)
-
-          var colMap = [];
-
-          angular.forEach(inst.columnIDToColumnInfo, function (value, key) {
-            var colInfo = inst.getColumnInfoByID(key);
+        //  inst.loadReportMetadata(reportXML, function (response) {
+        //inst.loadReportMetadata(xmlObject,function (response) {;          
 
 
-            //If hierarchy, just set colinfo to Top level
+        var colMap = [];
 
-            if (colInfo.hierarchyLevels) {
-              colInfo = colInfo.hierarchyLevels[0].displayColumnInfo;
-            }
+        console.log('columnIDToColumnInfo:', inst.columnIDToColumnInfo)
 
-            //console.log('response.primarySubjectArea', response.primarySubjectArea);
-
-            this[key] = {
-              baseFormula: response.primarySubjectArea + '.' + colInfo.getBaseFormula(),
-              businessModelAndDimensionID: colInfo.getBusinessModelAndDimensionID(),
-              columnFormulaExprType: colInfo.getColumnFormulaExprType(),
-              defaultDisplayTimeZone: colInfo.getDefaultDisplayTimeZone(),
-              defaultDisplayTimeZoneOffset: colInfo.getDefaultDisplayTimeZoneOffset(),
-              displayTimeZone: colInfo.getDisplayTimeZone(),
-              displayTimeZoneOffset: colInfo.getDisplayTimeZoneOffset(),
-              remarks: colInfo.getRemarks(),
-              resolvedFormula: colInfo.getResolvedFormula(),
-              type: colInfo.getType(),
-              isDoubleColumn: colInfo.isDoubleColumn(),
-              isMeasure: colInfo.isMeasure(),
-              isMultiValueEnabled: colInfo.isMultiValueEnabled(),
-              isPickListEnabled: colInfo.isPickListEnabled(),
-              isTime: colInfo.isTime()
-            };
-          }, colMap);
+        angular.forEach(inst.columnIDToColumnInfo, function (value, key) {
+          var colInfo = inst.getColumnInfoByID(key);
 
 
-          var reportMetadata = {
-            colMap: colMap,
-            primarySubjectArea: response.primarySubjectArea,
-            analysisPath: reportDetails.analysisPath,
-            reportId: reportDetails.reportId,
-            searchId: reportDetails.searchId,
-            currentDashboard: gateInstance.currentDashPath
+          //If hierarchy, just set colinfo to Top level
+
+          if (colInfo.hierarchyLevels) {
+            colInfo = colInfo.hierarchyLevels[0].displayColumnInfo;
           }
 
-          resolve(reportMetadata);
+          //console.log('response.primarySubjectArea', response.primarySubjectArea);
+
+          this[key] = {
+            baseFormula: inst.primarySubjectArea + '.' + colInfo.getBaseFormula(),
+            businessModelAndDimensionID: colInfo.getBusinessModelAndDimensionID(),
+            columnFormulaExprType: colInfo.getColumnFormulaExprType(),
+            defaultDisplayTimeZone: colInfo.getDefaultDisplayTimeZone(),
+            defaultDisplayTimeZoneOffset: colInfo.getDefaultDisplayTimeZoneOffset(),
+            displayTimeZone: colInfo.getDisplayTimeZone(),
+            displayTimeZoneOffset: colInfo.getDisplayTimeZoneOffset(),
+            remarks: colInfo.getRemarks(),
+            resolvedFormula: colInfo.getResolvedFormula(),
+            type: colInfo.getType(),
+            isDoubleColumn: colInfo.isDoubleColumn(),
+            isMeasure: colInfo.isMeasure(),
+            isMultiValueEnabled: colInfo.isMultiValueEnabled(),
+            isPickListEnabled: colInfo.isPickListEnabled(),
+            isTime: colInfo.isTime()
+          };
+        }, colMap);
 
 
-        }, { displayValueLookup: true })
+        var reportMetadata = {
+          colMap: colMap,
+          primarySubjectArea: inst.primarySubjectArea,
+          reportStatePath: reportDetails.statePath,
+          analysisPath: reportDetails.analysisPath,
+          reportId: reportDetails.reportId,
+          searchId: reportDetails.searchId,
+          currentDashboard: gateInstance.currentDashPath
+        }
+
+        console.log('before resolving:', colMap)
+
+        resolve(reportMetadata);
+
+
+        //  }, { displayValueLookup: true })//End of inst.loadReportMetadata(reportXML, function (response)
 
 
       });
@@ -440,14 +450,15 @@ export default function BIGateService($http, $q) {
     getAllReportsMetadata: function (reportXMLs) {
 
 
-      //console.log('In getAllReportsMetadata', reportXMLs);
+      console.log('In getAllReportsMetadata', reportXMLs);
 
       var metadataPromisesArray = [];
 
       angular.forEach(reportXMLs, function (value, key) {
 
         var regEx = /<saw:report((.|\n)*)/;
-        var responseXML = regEx.exec(value.xml.data)[0];
+        var responseXMLArr = regEx.exec(value.xml.data);
+        var responseXML = responseXMLArr && responseXMLArr[0];
 
         //console.log('calling getReportMetadata:', responseXML, value)
 

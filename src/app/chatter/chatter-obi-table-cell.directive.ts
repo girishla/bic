@@ -19,7 +19,6 @@ export default function CellDirective($parse, $compile, TopicService) {
       var cellContents = tElm.html();
       tElm.empty().append("<obi-table-cell-popover context='cellCtrl.context'>" + cellContents + "</obi-table-cell-popover>")
 
-
       return function (scope, elm, attr, controllers) {
 
         var tableController = controllers[0];
@@ -52,7 +51,7 @@ export default function CellDirective($parse, $compile, TopicService) {
 
             var cachedContextHashes = TopicService.getContextCache();
 
-            console.log('Cell Scope Watch:',context[0])
+            console.log('Cell Scope Watch:',elm,context[0])
 
             // console.log('combinedHash for');
             // console.log(cellController.context.cell);
@@ -61,6 +60,7 @@ export default function CellDirective($parse, $compile, TopicService) {
             // console.log(cachedContextHashes);
             if (cachedContextHashes.hasOwnProperty(combinedHash) && cachedContextHashes[combinedHash] > 0) {
               //elm.css({ backgroundColor: 'red' });
+              console.log('Found Topics for cell:' ,elm)
               if (elm.find('.bic-cell-badge-container').length==0) {
                 elm.append("<div class='bic-cell-badge-container'></div>");
                 elm.find('.bic-cell-badge-container').append('<div id="badge-container"><span class="bic-cell-badge">' + cachedContextHashes[combinedHash] + '</span></div>')
