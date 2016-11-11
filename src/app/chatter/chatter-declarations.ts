@@ -2,7 +2,14 @@
 interface Window {
   MutationObserver: any,
   WebKitMutationObserver:any,
-  MozMutationObserver:any
-  bootstrapChatter:()=>boolean;
+  MozMutationObserver:any,
+  bootstrapChatter:()=>boolean,
+  HTMLCanvasElement:any
 }
 
+//added for feedback functionality
+interface JQueryStatic {
+    feedback:any
+}
+
+declare var html2canvas;

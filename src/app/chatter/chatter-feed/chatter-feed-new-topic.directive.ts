@@ -16,14 +16,17 @@ class ChatterNewTopicDirectiveController implements IChatterNewTopicDirectiveCon
   hasFocus:boolean;
   topicText:string;
   feedContext:any;
+  sidenavService:any;
+  uistateService:any;
 
-  static $inject = ['TopicService'];
+  static $inject = ['TopicService','$mdSidenav','AppUIState'];
 
-  constructor(private TopicService:any) {
+  constructor(private TopicService:any,Sidenav:any,AppUIState:any) {
 
     this.isActive = false;
     this.hasFocus = false;
-
+    this.sidenavService=Sidenav;
+    this.uistateService=AppUIState;
   }
 
   createTopic = (text:any)=> {
@@ -46,6 +49,12 @@ class ChatterNewTopicDirectiveController implements IChatterNewTopicDirectiveCon
     this.hasFocus = false;
     return newTopic;
   };
+    close = function () {
+        this.sidenavService('right').close()
+          .then(function () {
+            this.uistateService.sideNavOpened = false;
+          });
+      };
 
 }
 
@@ -59,6 +68,9 @@ export default class ChatterNewTopicDirective implements ng.IDirective {
     feedContext: '='
   };
   bindToController = true;
+
+
+
 
   link = function (scope:ng.IScope, element:ng.IAugmentedJQuery, attrs:ng.IAttributes, ctrl:IChatterNewTopicDirectiveController) {
 

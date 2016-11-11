@@ -6,16 +6,14 @@
       <md-content class="md-padding">
 
 
-        <div class="slds-publisher slds-publisher--discussion"
-             ng-class="{'slds-is-active': chatterNewTopicCtrl.isActive, 'slds-has-focus':chatterNewTopicCtrl.hasFocus}">
+        <div class="slds-publisher slds-publisher--discussion" ng-class="{'slds-is-active': chatterNewTopicCtrl.isActive, 'slds-has-focus':chatterNewTopicCtrl.hasFocus}">
           <dl class="slds-list--horizontal slds-publisher__toggle-visibility">
             <dt class="slds-list__item slds-text-body--small">To:</dt>
             <dd class="slds-list__item">All Followers</dd>
           </dl>
-        <textarea ng-focus="chatterNewTopicCtrl.isActive=true" ng-blur="chatterNewTopicCtrl.hasFocus=false"
-                  ng-keyup="chatterNewTopicCtrl.hasFocus=true" ng-model="chatterNewTopicCtrl.topicText"
-                  class="slds-publisher__input slds-textarea slds-text-longform"
-                  placeholder="Start a new Conversation…" md-autofocus></textarea>
+          <textarea ng-focus="chatterNewTopicCtrl.isActive=true" ng-blur="chatterNewTopicCtrl.hasFocus=false" ng-keyup="chatterNewTopicCtrl.hasFocus=true"
+            ng-model="chatterNewTopicCtrl.topicText" class="slds-publisher__input slds-textarea slds-text-longform" placeholder="Start a new Conversation…"
+            md-autofocus></textarea>
           <div class="slds-attachments"></div>
 
           <div class="slds-publisher__actions slds-grid slds-grid--align-spread">
@@ -38,9 +36,8 @@
               </li>
             </ul>
 
-            <button disabled="" ng-click="chatterNewTopicCtrl.createTopic(chatterNewTopicCtrl.topicText)"
-                    ng-class="{'share-button': chatterNewTopicCtrl.isActive}"
-                    class="slds-button slds-button--brand share-button">Share
+            <button disabled="" ng-click="chatterNewTopicCtrl.createTopic(chatterNewTopicCtrl.topicText)" ng-class="{'share-button': chatterNewTopicCtrl.isActive}"
+              class="slds-button slds-button--brand share-button">Share
             </button>
 
           </div>
@@ -49,5 +46,21 @@
 
       </md-content>
     </md-tab>
+    <md-tab label="Feedback">
+
+      <article class="slds-card slds-card--narrow">
+        <!--<div class="slds-card__header slds-grid">
+
+        </div>-->
+        <div class="slds-card__body slds-m-around--medium">
+          <button ng-click="chatterNewTopicCtrl.close()" class="slds-button slds-button--brand slds-align--absolute-center bic-feedback-launcher-button">Launch Feedback Wizard</button>
+        </div>
+        <!--<div class="slds-card__footer">
+          
+        </div>-->
+      </article>
+
+    </md-tab>
+
   </md-tabs>
 </div>

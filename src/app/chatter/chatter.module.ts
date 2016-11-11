@@ -21,6 +21,8 @@ import { SidenavPushInDirective, ObiSideNavDirective } from "./chatter-side-nav/
 import ObiSideNavButtonDirective from "./chatter-side-nav/chatter-obi-sidenav-button.directive";
 import AppUIStateFactory from "./chatter-app-state.service";
 import "angular-ui-bootstrap/src/popover"
+import ChatterFeedbackDirective from "./chatter-feedback/chatter-feedback.directive";
+
 
 
 export default angular
@@ -49,6 +51,6 @@ export default angular
   .factory('TopicApi', TopicApi)
   .factory('TopicService', ['$rootScope', '$q', 'TopicApi', 'CommentApi', 'TopicCommentApi', 'Socket', TopicService])
   .filter('toArray', ToArrayFilter)
-
+  .directive('chatterFeedback', [ChatterFeedbackDirective]);
 
 

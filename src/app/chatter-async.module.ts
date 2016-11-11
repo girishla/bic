@@ -14,11 +14,13 @@ import "moment/moment.js"
 import "angular-moment/angular-moment.js"
 
 
+
 import "./chatter/chatter.module";
 import "./chatter/chatter-feed/chatter-feed.scss"
 import "angular-material/angular-material.scss"
 import "salesforce-lightning-design-system-scoped/scss/index-vf.scss"
 import "./chatter/chatter.scss"
+import "./chatter/chatter-feedback/chatter-feedback.styles.scss"
 
 
 setTimeout(function(){ BootstrapService.boot();}, 1000);
