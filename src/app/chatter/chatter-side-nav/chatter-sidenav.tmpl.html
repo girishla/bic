@@ -8,32 +8,35 @@
 </ng-include>
 
 <md-sidenav sidenav-push-in class="md-sidenav-right md-whiteframe-z2" md-component-id="right" md-disable-backdrop="true">
+	<md-content>
 
-	<md-toolbar class="md-theme-light" style="background-color:transparent!important;">
-		<div class="md-toolbar-tools">
-			<md-button ng-click="sideNavCtrl.close()" class="md-icon-button" aria-label="exit_chatter">
-				<md-icon md-font-icon="fa fa-sign-out fa-2x" style="color:black"></md-icon>
-			</md-button>
+		<md-toolbar class="md-theme-light" style="background-color:transparent!important;">
+			<div class="md-toolbar-tools">
+				<md-button ng-click="sideNavCtrl.close()" class="md-icon-button" aria-label="exit_chatter">
+					<md-icon md-font-icon="fa fa-sign-out fa-2x" style="color:black"></md-icon>
+				</md-button>
 
-			<h2>
-				<span>Dashboard Chatter Feed</span>
-			</h2>
-			<span flex></span>
-		</div>
-	</md-toolbar>
-	<md-content layout-padding="" style="padding:30px;" class="biview">
-		<!--    <form>
+				<h2>
+					<span>Dashboard Chatter Feed</span>
+				</h2>
+				<span flex></span>
+				<md-button ng-click="sideNavCtrl.close()" class="md-icon-button" aria-label="chatter_settings" style="margin-left: auto;">
+					<md-icon md-font-icon="fa fa-cog fa-2x" style="color:grey"></md-icon>
+				</md-button>
+
+			</div>
+		</md-toolbar>
+		<md-content layout-padding="" style="padding:30px;" class="biview">
+			<!--    <form>
           <md-input-container>
             <label for="testInput">Test input</label>
             <input type="text" id="testInput" ng-model="data" md-sidenav-focus="">
           </md-input-container>
         </form>-->
+			<chatter-feed feed-context="sideNavCtrl.feedContext">
+			</chatter-feed>
 
 
-		<chatter-feed feed-context="sideNavCtrl.feedContext">
-		</chatter-feed>
-
-
+		</md-content>
 	</md-content>
-
 </md-sidenav>
