@@ -66,7 +66,7 @@ export default function BIGateService($http, $q) {
 
 
       //collect statepaths
-      $.each($(xmlIsland).find('ref'), function (refIndex, refItem) {
+      $.each($(xmlIsland).find("ref[statePath]"), function (refIndex, refItem) {
         var statePath = $(refItem).attr('statePath');
         searchId = $(refItem).attr('searchID');
         //var pageId = (/~p:(.*?)~r:/).exec(statePath)[1];
@@ -74,7 +74,7 @@ export default function BIGateService($http, $q) {
 
       })
 
-      
+
       $.each($(xmlIsland).find("[cid='p:" + pageId + "']").find('[folder]'), function (reportIndex, reportItem) {
 
         reports.push({
@@ -282,7 +282,9 @@ export default function BIGateService($http, $q) {
 
         angular.forEach(metaData, function (metaDataValue, metaDataIndex) {
 
-          if ((metaData[metaDataIndex].colMap[collectionItem.columnId]) && (metaData[metaDataIndex].reportStatePath == collectionItem.reportStatePath)) {
+          //statepath comparisons were added because the column Ids were same even if they belonged to different subject areas. Column Ids are based on the BMM
+          //statepath may be null in some cases possible due to a product bug where xmlisland does not contain all the current statepaths
+          if ((metaData[metaDataIndex].colMap[collectionItem.columnId]) && (!metaData[metaDataIndex].reportStatePath || (metaData[metaDataIndex].reportStatePath == collectionItem.reportStatePath))) {
             mergedContextCollection[index].columnDetails = angular.copy(metaData[metaDataIndex].colMap[collectionItem.columnId], contextCollection.columnDetails);
             mergedContextCollection[index].currentDashboard = metaDataValue.currentDashboard;
             mergedContextCollection[index].analysisPath = metaDataValue.analysisPath
@@ -366,26 +368,8 @@ export default function BIGateService($http, $q) {
     //Returns a Promise object.
     getReportMetadata: function (reportXML, reportDetails) {
 
-      return $q(function (resolve, reject) {
 
-        console.log('reportDetails.statePath', reportDetails)
-
-        var inst = obips.ReportMetadata.GetInstanceByStatePath(reportDetails.statePath);
-
-
-        //11.1.1.7
-        // var inst = new obips.ReportMetadata();
-
-
-        //11.1.1.9 & 12c
-
-        // if (!inst.columnIDToColumnInfo) {
-        //   //inst = obips.ReportMetadata.GetInstance(false);
-        //   inst = obips.ReportMetadata.GetInstanceByStatePath(reportDetails.statePath);
-        // }
-
-        //  inst.loadReportMetadata(reportXML, function (response) {
-        //inst.loadReportMetadata(xmlObject,function (response) {;          
+      var extractMetadataFromInstance = function (inst: any) {
 
 
         var colMap = [];
@@ -434,9 +418,49 @@ export default function BIGateService($http, $q) {
           currentDashboard: gateInstance.currentDashPath
         }
 
-        console.log('before resolving:', colMap)
 
-        resolve(reportMetadata);
+        return reportMetadata;
+      }
+
+
+      return $q(function (resolve, reject) {
+
+        console.log('reportDetails.statePath', reportDetails)
+
+        var inst: any;
+
+        if (reportDetails.statePath) {
+          inst = obips.ReportMetadata.GetInstanceByStatePath(reportDetails.statePath);
+          resolve(extractMetadataFromInstance(inst));
+        }
+        else {
+          console.log('statepath was null: loading instance from reportXML')
+          inst = new obips.ReportMetadata();
+          if (!inst) {
+            inst = obips.ReportMetadata.GetInstance(false);
+          }
+          inst.loadReportMetadata(reportXML, function (response) {
+            resolve(extractMetadataFromInstance(inst));
+          }, { displayValueLookup: true })
+        }
+
+
+        //11.1.1.7
+        // var inst = new obips.ReportMetadata();
+
+
+        //11.1.1.9 & 12c
+
+        // if (!inst.columnIDToColumnInfo) {
+        //   //inst = obips.ReportMetadata.GetInstance(false);
+        //   inst = obips.ReportMetadata.GetInstanceByStatePath(reportDetails.statePath);
+        // }
+
+        //  inst.loadReportMetadata(reportXML, function (response) {
+        //inst.loadReportMetadata(xmlObject,function (response) {;          
+
+
+
 
 
         //  }, { displayValueLookup: true })//End of inst.loadReportMetadata(reportXML, function (response)
