@@ -16,7 +16,7 @@ export default function ChatterFeedbackDirective() {
     var _canvas: JQuery;
     var _ctx: any;
 
-    var html2canvas = require("html2canvas/dist/html2canvas.js");
+    var html2canvas = <any>require("html2canvas/dist/html2canvas.js");
 
     return {
         restrict: 'EA',
@@ -35,7 +35,7 @@ export default function ChatterFeedbackDirective() {
                 $.feedback = function (options) {
 
                     var settings = $.extend({
-                        ajaxURL: '',
+                        ajaxURL: 'http://localhost:8000/api/attachmentfiles',
                         postBrowserInfo: false,
                         postHTML: false,
                         postURL: true,
@@ -190,7 +190,7 @@ export default function ChatterFeedbackDirective() {
                             }
 
                             if (settings.postURL) {
-                                post.url = document.URL;
+                                post.url = 'http://localhost:8000/api/attachmentfiles';
                                 $('#feedback-page-info').show();
                             }
 
@@ -506,6 +506,17 @@ export default function ChatterFeedbackDirective() {
                                         if (!settings.screenshotStroke) {
                                             redraw(ctx, null);
                                         }
+
+                                        //Girish Added for thumbnail image
+                                        var extra_canvas = document.createElement("canvas");
+                                        extra_canvas.setAttribute('width', "640");
+                                        extra_canvas.setAttribute('height', "480");
+                                        var ctxThumbnail = extra_canvas.getContext('2d');
+                                        ctxThumbnail.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, 640, 480);
+                                        var dataURLThumbnail = extra_canvas.toDataURL();
+                                        post.thumbnail=dataURLThumbnail;
+                                        //End Thumbnail
+                                        
                                         _canvas = $('<canvas id="feedback-canvas-tmp" width="' + w + '" height="' + dh + '"/>').hide().appendTo('body');
                                         var _ctxElem = <HTMLCanvasElement>_canvas.get(0);
                                         _ctx = _ctxElem.getContext('2d');
@@ -632,7 +643,7 @@ export default function ChatterFeedbackDirective() {
                         $('.feedback-helper').each(function () {
                             if ($(this).attr('data-type') == 'highlight') {
                                 ctx.clearRect(parseInt($(this).css('left'), 10), parseInt($(this).css('top'), 10), $(this).width(), $(this).height());
-                                ctx.lineWidth=3;
+                                ctx.lineWidth = 3;
                                 ctx.strokeStyle = "yellow";
                                 ctx.strokeRect(parseInt($(this).css('left'), 10), parseInt($(this).css('top'), 10), $(this).width(), $(this).height());
                             }

@@ -57,7 +57,13 @@ export default function BIGateService($http, $q) {
 
 
 
+
+
       var firstStatePath = $(xmlIsland).find("ref[statePath]").attr('statePath');
+
+      //in some cases there is no statepath refs so just return
+      if(!firstStatePath) return [];
+
       var pageId = (/~p:(.*?)~r:/).exec(firstStatePath)[1];
 
 
