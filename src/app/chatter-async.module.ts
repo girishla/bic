@@ -21,9 +21,10 @@ import "angular-material/angular-material.scss"
 import "salesforce-lightning-design-system-scoped/scss/index-vf.scss"
 import "./chatter/chatter.scss"
 import "./chatter/chatter-feedback/chatter-feedback.styles.scss"
+import "nprogress/nprogress.css";
 
 
-setTimeout(function(){ BootstrapService.boot();}, 1000);
+setTimeout(function(){ BootstrapService.boot();}, 10000);
 
 
 import BootstrapService from "./chatter/chatter-bootstrap.service";

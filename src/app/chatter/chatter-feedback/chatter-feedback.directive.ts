@@ -1,6 +1,9 @@
 import * as _ from "lodash"
 var SHA1 = <any>require("crypto-js/sha1")
 
+require('es6-promise/auto');
+
+
 export default function ChatterFeedbackDirective(TopicApi, BIGate) {
 
 
@@ -312,7 +315,7 @@ export default function ChatterFeedbackDirective(TopicApi, BIGate) {
                                         //     }
                                         // });
 
-                                        $('[id^="e_saw"],[id^="db_saw"],[viewtype="tableView"],[viewtype="pivotTableView"]').each(function () {
+                                        $('[id^="e_saw"],[id^="db_saw"').each(function () {
                                             if ($(this).attr('data-highlighted') === 'true')
                                                 return;
 
