@@ -40,6 +40,23 @@
 		<div class="slds-comment__content slds-text-longform">
 			<p>{{chatterTopicCtrl.topicData.text}}</p>
 		</div>
+		<figure ng-if="chatterTopicCtrl.topicData.thumbnail" class="slds-image slds-image--card">
+			<a ng-click="chatterTopicCtrl.showImageDialog()" class="slds-image__crop slds-image__crop--16-by-9">
+				<img ng-src="{{chatterTopicCtrl.topicData.thumbnail}}" alt="Description of the image" />
+			</a>
+			<figcaption class="slds-image__title slds-image__title--card">
+				<span class="slds-icon_container slds-m-right--x-small" title="image">
+      <svg aria-hidden="true" class="slds-icon slds-icon--x-small">
+        <use xlink:href="#image"></use>
+      </svg>
+      <span class="slds-assistive-text">image</span>
+				</span>
+				<span class="slds-image__text slds-truncate" title="Image Title">Chatter Annotated Dashboard Page</span>
+			</figcaption>
+		</figure>
 	</div>
 </div>
+
+
+
 <chatter-comments comments="chatterTopicCtrl.topicData.comments" topic-id="chatterTopicCtrl.topicData.id"></chatter-comments>

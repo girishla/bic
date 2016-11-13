@@ -10,13 +10,37 @@ interface IChatterTopicDirectiveController {
 class ChatterTopicDirectiveController implements IChatterTopicDirectiveController {
 
   topicData:any;
-  static $inject = ['TopicService'];
+  mdDialogService:any;
+  static $inject = ['TopicService','$mdDialog'];
 
-  constructor(private TopicService:any,focus:any) {
+  constructor(private TopicService:any,$mdDialog:any) {
   //TODO Do nothing at the moment. Will add more to this
-
+  this.mdDialogService=$mdDialog;
 
   }
+
+
+    showImageDialog = function (ev) {
+
+        this.mdDialogService.show({
+            controller: 'chatterFeedImageDialogController',
+            controllerAs: 'imageDialogCtrl',
+            bindToController: true,
+            templateUrl: "http://localhost:3000/app/chatter/chatter-feed/chatter-feed-image-dialog/chatter-feed-image-dialog.html",
+            parent: angular.element('.ComponentHeader'),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+            locals: {
+                dialogData: this.topicData,
+            }
+        })
+            .then(function (answer) {
+                //Do nothing
+            }, function () {
+               //Do nothing on cancel
+            });
+    };
+
 
 
 }

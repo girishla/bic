@@ -49,7 +49,7 @@ export function ObiSideNavDirective($sce) {
         level1Context: BIGate.currentDashPath,
         level2Context: '',
         level3Context: '',
-        level4Context: '',
+        level4Context: {filters:BIGate.instancePromptMap},
         contextDisplayData: {}
 
       }

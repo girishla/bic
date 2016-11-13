@@ -1,6 +1,7 @@
 import * as _ from "lodash"
+var SHA1 = <any>require("crypto-js/sha1")
 
-export default function ChatterFeedbackDirective() {
+export default function ChatterFeedbackDirective(TopicApi, BIGate) {
 
 
     var canDraw;
@@ -35,7 +36,7 @@ export default function ChatterFeedbackDirective() {
                 $.feedback = function (options) {
 
                     var settings = $.extend({
-                        ajaxURL: 'http://localhost:8000/api/attachmentfiles',
+                        ajaxURL: 'http://localhost:8000/api',
                         postBrowserInfo: false,
                         postHTML: false,
                         postURL: true,
@@ -58,11 +59,11 @@ export default function ChatterFeedbackDirective() {
                         onScreenshotTaken: function () { },
                         tpl: {
                             initButton: '<div id="feedback-button"></div><button class="feedback-btn feedback-btn-gray">Send feedback</button></div>',
-                            description: '<div id="feedback-welcome"><div class="feedback-logo">Feedback</div><p>Feedback lets you send us suggestions about our products. We welcome problem reports, feature ideas and general comments.</p><p>Start by writing a brief description:</p><textarea id="feedback-note-tmp"></textarea><p>Next we\'ll let you identify areas of the page related to your description.</p><button id="feedback-welcome-next" class="feedback-next-btn feedback-btn-gray">Next</button><div id="feedback-welcome-error">Please enter a description.</div><div class="feedback-wizard-close"></div></div>',
-                            highlighter: '<div id="feedback-highlighter"><div class="feedback-logo">Feedback</div><p>Click and drag on the page to help us better understand your feedback. You can move this dialog if it\'s in the way.</p><button class="feedback-sethighlight feedback-active"><div class="ico"></div><span>Highlight</span></button><label>Highlight areas relevant to your feedback.</label><button class="feedback-setblackout"><div class="ico"></div><span>Black out</span></button><label class="lower">Black out any personal information.</label><div class="feedback-buttons"><button id="feedback-highlighter-next" class="feedback-next-btn feedback-btn-gray">Next</button><button id="feedback-highlighter-back" class="feedback-back-btn feedback-btn-gray">Back</button></div><div class="feedback-wizard-close"></div></div>',
-                            overview: '<div id="feedback-overview"><div class="feedback-logo">Feedback</div><div id="feedback-overview-description"><div id="feedback-overview-description-text"><h3>Description</h3><h3 class="feedback-additional">Additional info</h3><div id="feedback-additional-none"><span>None</span></div><div id="feedback-browser-info"><span>Browser Info</span></div><div id="feedback-page-info"><span>Page Info</span></div><div id="feedback-timestamp"><span>Time Stamp</span></div><div id="feedback-page-structure"><span>Page Structure</span></div></div></div><div id="feedback-overview-screenshot"><h3>Screenshot</h3></div><div class="feedback-buttons"><button id="feedback-submit" class="feedback-submit-btn feedback-btn-blue">Submit</button><button id="feedback-overview-back" class="feedback-back-btn feedback-btn-gray">Back</button></div><div id="feedback-overview-error">Please enter a description.</div><div class="feedback-wizard-close"></div></div>',
-                            submitSuccess: '<div id="feedback-submit-success"><div class="feedback-logo">Feedback</div><p>Thank you for your feedback. We value every piece of feedback we receive.</p><p>We cannot respond individually to every one, but we will use your comments as we strive to improve your experience.</p><button class="feedback-close-btn feedback-btn-blue">OK</button><div class="feedback-wizard-close"></div></div>',
-                            submitError: '<div id="feedback-submit-error"><div class="feedback-logo">Feedback</div><p>Sadly an error occurred while sending your feedback. Please try again.</p><button class="feedback-close-btn feedback-btn-blue">OK</button><div class="feedback-wizard-close"></div></div>'
+                            description: '<div id="feedback-welcome"><div class="feedback-logo">Annotation</div><p>Chatter Annotation lets you annotate parts of the dashboard page. You can also use Annotations to submit feedback/support requests.</p><p>Start by writing a brief description:</p><textarea id="feedback-note-tmp"></textarea><p>Next we\'ll let you identify areas of the page related to your description.</p><button id="feedback-welcome-next" class="feedback-next-btn feedback-btn-gray">Next</button><div id="feedback-welcome-error">Please enter a description.</div><div class="feedback-wizard-close"></div></div>',
+                            highlighter: '<div id="feedback-highlighter"><div class="feedback-logo">Annotation</div><p>Click and drag on the page to mark areas you want to describe. You can move this dialog if it\'s in the way.</p><button class="feedback-sethighlight feedback-active"><div class="ico"></div><span>Highlight</span></button><label>Highlight areas you want to Annotate.</label><button class="feedback-setblackout"><div class="ico"></div><span>Black out</span></button><label class="lower">Black out any sensitive or confidential information.</label><div class="feedback-buttons"><button id="feedback-highlighter-next" class="feedback-next-btn feedback-btn-gray">Next</button><button id="feedback-highlighter-back" class="feedback-back-btn feedback-btn-gray">Back</button></div><div class="feedback-wizard-close"></div></div>',
+                            overview: '<div id="feedback-overview"><div class="feedback-logo">Annotation</div><div id="feedback-overview-description"><div id="feedback-overview-description-text"><h3>Description</h3><div id="feedback-additional-none"><span>None</span></div><div id="feedback-browser-info"><span>Browser Info</span></div><div id="feedback-page-info"><span>Page Info</span></div><div id="feedback-timestamp"><span>Time Stamp</span></div><div id="feedback-page-structure"><span>Page Structure</span></div></div></div><div id="feedback-overview-screenshot"><h3>Screenshot</h3></div><div class="feedback-buttons"><button id="feedback-submit" class="feedback-submit-btn feedback-btn-blue">Submit</button><button id="feedback-overview-back" class="feedback-back-btn feedback-btn-gray">Back</button></div><div id="feedback-overview-error">Please enter a description.</div><div class="feedback-wizard-close"></div></div>',
+                            submitSuccess: '<div id="feedback-submit-success"><div class="feedback-logo">Annotation</div><p>New Chatter Topic posted with annotated screenshot </p><button class="feedback-close-btn feedback-btn-blue">OK</button><div class="feedback-wizard-close"></div></div>',
+                            submitError: '<div id="feedback-submit-error"><div class="feedback-logo">Annotation</div><p>Sadly an error occurred while attempting to capture Annotation. Please try again later or contact your Administrator if this issue persists.</p><button class="feedback-close-btn feedback-btn-blue">OK</button><div class="feedback-wizard-close"></div></div>'
                         },
                         onClose: function () { },
                         screenshotStroke: true,
@@ -186,26 +187,26 @@ export default function ChatterFeedbackDirective() {
                                 $.each(navigator.plugins, function (i) {
                                     post.browser.plugins.push(navigator.plugins[i].name);
                                 });
-                                $('#feedback-browser-info').show();
+                                //$('#feedback-browser-info').show();
                             }
 
                             if (settings.postURL) {
                                 post.url = 'http://localhost:8000/api/attachmentfiles';
-                                $('#feedback-page-info').show();
+                                //$('#feedback-page-info').show();
                             }
 
                             if (settings.postTimeStamp) {
                                 post.timestamp = new Date().getTime();
-                                $('#feedback-timestamp').show();
+                                //$('#feedback-timestamp').show();
                             }
 
                             if (settings.postHTML) {
                                 post.html = $('html').html();
-                                $('#feedback-page-structure').show();
+                                //$('#feedback-page-structure').show();
                             }
 
-                            if (!settings.postBrowserInfo && !settings.postURL && !settings.postHTML)
-                                $('#feedback-additional-none').show();
+                            // if (!settings.postBrowserInfo && !settings.postURL && !settings.postHTML)
+                            //     $('#feedback-additional-none').show();
 
                             $(document).on('mousedown', '#feedback-canvas', function (e) {
                                 if (canDraw) {
@@ -509,14 +510,14 @@ export default function ChatterFeedbackDirective() {
 
                                         //Girish Added for thumbnail image
                                         var extra_canvas = document.createElement("canvas");
-                                        extra_canvas.setAttribute('width', "640");
-                                        extra_canvas.setAttribute('height', "480");
+                                        extra_canvas.setAttribute('width', "480");
+                                        extra_canvas.setAttribute('height', "270");
                                         var ctxThumbnail = extra_canvas.getContext('2d');
-                                        ctxThumbnail.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, 640, 480);
+                                        ctxThumbnail.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, 480, 270);
                                         var dataURLThumbnail = extra_canvas.toDataURL();
-                                        post.thumbnail=dataURLThumbnail;
+                                        post.thumbnail = dataURLThumbnail;
                                         //End Thumbnail
-                                        
+
                                         _canvas = $('<canvas id="feedback-canvas-tmp" width="' + w + '" height="' + dh + '"/>').hide().appendTo('body');
                                         var _ctxElem = <HTMLCanvasElement>_canvas.get(0);
                                         _ctx = _ctxElem.getContext('2d');
@@ -574,10 +575,10 @@ export default function ChatterFeedbackDirective() {
 
                                     post.img = img;
                                     post.note = $('#feedback-note').val();
-                                    var data = { feedback: post };
+                                    var data = { img: post.img };
                                     var jsonData = JSON.stringify(data);
                                     $.ajax({
-                                        url: typeof settings.ajaxURL === 'function' ? settings.ajaxURL() : settings.ajaxURL,
+                                        url: typeof settings.ajaxURL === 'function' ? settings.ajaxURL() : settings.ajaxURL + '/attachmentfiles',
                                         dataType: 'json',
                                         contentType: 'application/json',
                                         type: 'POST',
@@ -585,8 +586,51 @@ export default function ChatterFeedbackDirective() {
                                         headers: {
                                             'Content-Type': 'application/json'
                                         },
-                                        success: function () {
-                                            $('#feedback-module').append(settings.tpl.submitSuccess);
+                                        success: function (successData) {
+                                            //var topicData = { feedback: post };
+                                            var topicData = {
+                                                "text": post.note,
+                                                "thumbnail":post.thumbnail,
+                                                "imageURL": successData.url,
+                                                "level1Context": BIGate.currentDashPath,
+                                                "level2Context": "",
+                                                "level3Context": "",
+                                                "level4Context": {filters:BIGate.instancePromptMap},
+                                                "level1ContextHash": SHA1(JSON.stringify(BIGate.currentDashPath)).toString(),
+                                                "level2ContextHash": "",
+                                                "level3ContextHash": "",
+                                                "level4ContextHash": SHA1(JSON.stringify({filters:BIGate.instancePromptMap})).toString()
+
+                                            }
+
+
+
+                                            // $.ajax({
+                                            //     url: typeof settings.ajaxURL === 'function' ? settings.ajaxURL() : settings.ajaxURL + '/topics',
+                                            //     dataType: 'json',
+                                            //     contentType: 'application/json',
+                                            //     type: 'POST',
+                                            //     data: topicJsonData,
+                                            //     headers: {
+                                            //         'Content-Type': 'application/json'
+                                            //     },
+                                            //     success: function () {
+                                            //         $('#feedback-module').append(settings.tpl.submitSuccess);
+                                            //     },
+                                            //     error: function () {
+                                            //         $('#feedback-module').append(settings.tpl.submitError);
+                                            //     }
+                                            // });
+
+                                            var apiResult = TopicApi.save(topicData).$promise.then(
+                                                function (topic) {
+                                                    $('#feedback-module').append(settings.tpl.submitSuccess);
+                                                }, function (err) {
+                                                    $('#feedback-module').append(settings.tpl.submitError);
+
+                                                });
+
+
                                         },
                                         error: function () {
                                             $('#feedback-module').append(settings.tpl.submitError);

@@ -4,6 +4,7 @@ import CellContext from "./chatter-cell-context.service";
 import CellDirective from "./chatter-obi-table-cell.directive";
 import CellPopoverDirective from "./chatter-cell-popover/chatter-cell-popover.directive";
 import ChatterDialogController from "./chatter-cell-dialog/chatter-cell-dialog.controller";
+import ChatterFeedImageDialogController from "./chatter-feed//chatter-feed-image-dialog/chatter-feed-image-dialog.controller";
 import ChatterFeedDirective from "./chatter-feed/chatter-feed.directive";
 import ChatterCommentDirective from "./chatter-feed/chatter-feed-comment.directive";
 import ChatterCommentsDirective from "./chatter-feed/chatter-feed-comments.directive";
@@ -26,7 +27,7 @@ import ChatterFeedbackDirective from "./chatter-feedback/chatter-feedback.direct
 
 
 export default angular
-  .module('chatter.module', ['ngAria', 'ngAnimate', 'ngMaterial', 'ngResource', 'btford.socket-io', 'ui.bootstrap.module.popover','angularMoment'])
+  .module('chatter.module', ['ngAria', 'ngAnimate', 'ngMaterial', 'ngResource', 'btford.socket-io', 'ui.bootstrap.module.popover', 'angularMoment'])
   .config(ChatterConfig)
   .factory('BIGate', BIGateService)
   .factory('CellContext', CellContext)
@@ -34,6 +35,7 @@ export default angular
   .directive('obiTableCell', ['$parse', '$compile', 'TopicService', CellDirective])
   .directive('obiTableCellPopover', ['$parse', '$compile', '$timeout', CellPopoverDirective])
   .controller('chatterDialogController', ['$mdDialog', '$sce', 'context', ChatterDialogController])
+  .controller('chatterFeedImageDialogController', ['$mdDialog','dialogData', ChatterFeedImageDialogController])
   .directive('chatterFeed', ChatterFeedDirective.factory())
   .directive('chatterComment', ChatterCommentDirective.factory())
   .directive('chatterComments', ChatterCommentsDirective.factory())
@@ -42,7 +44,7 @@ export default angular
   .directive('chatterTopic', ChatterTopicDirective.factory())
   .directive('chatterTopics', ChatterTopicsDirective.factory())
   .directive('sidenavPushIn', SidenavPushInDirective)
-  .directive('obiSideNav', ['$sce',ObiSideNavDirective])
+  .directive('obiSideNav', ['$sce', ObiSideNavDirective])
   .factory('AppUIState', AppUIStateFactory)
   .directive('obiSideNavButton', ['AppUIState', ObiSideNavButtonDirective])
   .factory('CommentApi', CommentApi)
@@ -51,6 +53,6 @@ export default angular
   .factory('TopicApi', TopicApi)
   .factory('TopicService', ['$rootScope', '$q', 'TopicApi', 'CommentApi', 'TopicCommentApi', 'Socket', TopicService])
   .filter('toArray', ToArrayFilter)
-  .directive('chatterFeedback', [ChatterFeedbackDirective]);
+  .directive('chatterFeedback', ['TopicApi', 'BIGate', ChatterFeedbackDirective]);
 
 

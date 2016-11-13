@@ -52,7 +52,7 @@ class ChatterNewTopicDirectiveController implements IChatterNewTopicDirectiveCon
     close = function () {
         this.sidenavService('right').close()
           .then(function () {
-            this.uistateService.sideNavOpened = false;
+            //this.uistateService.sideNavOpened = false;
           });
       };
 
