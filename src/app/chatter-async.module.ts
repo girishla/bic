@@ -24,7 +24,7 @@ import "./chatter/chatter-feedback/chatter-feedback.styles.scss"
 import "nprogress/nprogress.css";
 
 
-setTimeout(function(){ BootstrapService.boot();}, 10000);
+setTimeout(function(){ BootstrapService.boot();}, window.chatterDelay?window.chatterDelay:1000);
 
 
 import BootstrapService from "./chatter/chatter-bootstrap.service";

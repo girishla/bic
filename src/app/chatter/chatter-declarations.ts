@@ -4,7 +4,8 @@ interface Window {
   WebKitMutationObserver:any,
   MozMutationObserver:any,
   bootstrapChatter:()=>boolean,
-  HTMLCanvasElement:any
+  HTMLCanvasElement:any,
+  chatterDelay:number
 }
 
 //added for feedback functionality
