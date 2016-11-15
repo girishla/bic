@@ -13,9 +13,6 @@ class ChatterTopicsDirectiveController implements IChatterTopicsDirectiveControl
 
     TopicService.getAll().then((data:any)=>{
       this.topics=data;
-      console.log('logging from topics directive ctrller');
-      console.log(Object.prototype.toString.call(data));
-      console.log(data);
 
     });
 

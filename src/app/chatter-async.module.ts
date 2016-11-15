@@ -16,13 +16,8 @@ import "angular-moment/angular-moment.js"
 
 
 import "./chatter/chatter.module";
-import "./chatter/chatter-feed/chatter-feed.scss"
 import "angular-material/angular-material.scss"
-import "salesforce-lightning-design-system-scoped/scss/index-vf.scss"
-import "./chatter/chatter.scss"
-import "./chatter/chatter-feedback/chatter-feedback.styles.scss"
-import "./chatter/chatter-declarations"
-import "nprogress/nprogress.css";
+// import "nprogress/nprogress.css";
 
 if (typeof chatterDelay !== "undefined") {
     setTimeout(function () { BootstrapService.boot(); }, chatterDelay);

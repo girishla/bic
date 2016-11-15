@@ -16,8 +16,8 @@ export default function CellDirective($parse, $compile, TopicService) {
     bindToController: true,
     compile: function (tElm, tAttrs) {
 
-      var cellContents = tElm.html();
-      tElm.empty().append("<obi-table-cell-popover context='cellCtrl.context'>" + cellContents + "</obi-table-cell-popover>")
+      // var cellContents = tElm.html();
+      // tElm.empty().append("<obi-table-cell-popover context='cellCtrl.context'>" + cellContents + "</obi-table-cell-popover>")
 
       return function (scope, elm, attr, controllers) {
 

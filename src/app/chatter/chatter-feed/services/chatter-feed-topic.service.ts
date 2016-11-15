@@ -7,6 +7,7 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
   var contextCache = {};
 
 
+
   var initObject = function (data) {
 
     if (cache[data.id]) {
@@ -15,7 +16,7 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
     } else {
       cache[data.id] = new Topic(data);
 
-      console.log('context data:',data)
+      console.log('context data:', data)
 
       var contextCacheIndex = SHA1(JSON.stringify(data.level1ContextHash + data.level2ContextHash + data.level3ContextHash + data.level4ContextHash)).toString();
 
@@ -102,6 +103,12 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
 
 
   };
+
+  Topic.isEmpty = function () {
+
+    return lodash.isEmpty(cache)
+
+  }
 
 
   Topic.create = function (data) {

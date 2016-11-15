@@ -63,6 +63,8 @@ function OBITableDirectiveController($scope, BIGate, metaDataResponses, CellCont
 
   function init() {
 
+
+
     // init controller
     var viewReport = $.grep(metaDataResponses, function (e: any) {
       return e.searchId === vm.sid;

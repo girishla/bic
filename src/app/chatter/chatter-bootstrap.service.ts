@@ -37,7 +37,6 @@ export default class BootstrapService {
     BootstrapService.chatterLoading = true;
     var contextCollection = BIGate.getViewDataReferences();
 
-    //console.log(contextCollection);
 
     var allReportsPromises = BIGate.getAllReportsXML();
 
@@ -56,13 +55,16 @@ export default class BootstrapService {
           .module('chatter.module')
           .constant('metaDataResponses', metaDataResponses)
           .value('contextCollection', mergedCollection);
-          
+
         BootstrapService.chatterLoaded = true;
         BootstrapService.chatterLoading = false;
         BootstrapService.bootstrapApp();
         BootstrapService.observeSensitiveDOMChanges();
       })
     });
+
+
+
 
   }
 
@@ -86,7 +88,7 @@ export default class BootstrapService {
       // BootstrapService.dashboardContentJQElement = $('.DashboardPageContentDiv');
 
 
-      
+
 
       BootstrapService.dashboardContentJQElement = $('.ComponentHeader');
 
@@ -100,7 +102,11 @@ export default class BootstrapService {
       BootstrapService.dashboardContentJQElement.find('.DashboardPageContentDiv').after("<div obi-side-nav='true'></div>");
       //  pageContentDiv.setAttribute('obi-fab-menu', 'true');
       console.log('New - Attempt to attach angular to page content DIV');
-      angular.bootstrap(BootstrapService.chatterBaseJQElement, ['chatter.module']);
+      var initInjector = angular.injector(["ng", "chatter.module"]);
+      //var TopicService: any = initInjector.get("TopicService");
+
+
+      angular.bootstrap(BootstrapService.chatterBaseJQElement, ['chatter.module', 'oc.lazyLoad']);
       console.log('Angular Bootstraped: ' + 'chatter.module');
 
       //moved here from else block
@@ -116,6 +122,8 @@ export default class BootstrapService {
         console.log('In bootstrapApp(): linking mutated DOM with scope...');
         linkFn(scope);
       })
+
+
 
 
     } /*else {
@@ -142,21 +150,21 @@ export default class BootstrapService {
 
     var newScope: any;
     var table = viewElement;
-    
-    
+
+
     //Reextract Prompts for Mutation Processing because Prompts could have changed
     // var initInjector = angular.injector(["ng", "chatter.module"]);
     // var BIGate: any = initInjector.get("BIGate");
     // BIGate.instancePromptMap=BIGate.resetPrompts();
 
 
-    if (!table.getAttribute('sid') || (!($(viewElement).find('td[id^=e_saw]')[0].getAttribute("obi-table-cell")=="true"))) {
+    if (!table.getAttribute('sid') || (!($(viewElement).find('td[id^=e_saw]')[0].getAttribute("obi-table-cell") == "true"))) {
 
       //Recompile to cater to the changes
       var injector = angular.element(BootstrapService.chatterBaseJQElement).injector();
       var compileService = injector.get('$compile');
       table.setAttribute('obi-table', 'true');
-     $(table).addClass('bic');
+      $(table).addClass('bic');
       if (newScope) {
         newScope.$destroy();
       }
