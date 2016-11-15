@@ -40,9 +40,9 @@
 		<div class="slds-comment__content slds-text-longform">
 			<p>{{chatterTopicCtrl.topicData.text}}</p>
 		</div>
-		<figure ng-if="chatterTopicCtrl.topicData.thumbnail" class="slds-image slds-image--card">
+		<figure ng-if="chatterTopicCtrl.topicData.thumbnailURL" class="slds-image slds-image--card">
 			<a ng-click="chatterTopicCtrl.showImageDialog()" class="slds-image__crop slds-image__crop--16-by-9">
-				<img ng-src="{{chatterTopicCtrl.topicData.thumbnail}}" alt="Description of the image" />
+				<img ng-src="{{'http://localhost:8000' + chatterTopicCtrl.topicData.thumbnailURL}}" alt="Annotated image" />
 			</a>
 			<figcaption class="slds-image__title slds-image__title--card">
 				<span class="slds-icon_container slds-m-right--x-small" title="image">

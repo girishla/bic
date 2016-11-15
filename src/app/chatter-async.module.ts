@@ -21,10 +21,16 @@ import "angular-material/angular-material.scss"
 import "salesforce-lightning-design-system-scoped/scss/index-vf.scss"
 import "./chatter/chatter.scss"
 import "./chatter/chatter-feedback/chatter-feedback.styles.scss"
+import "./chatter/chatter-declarations"
 import "nprogress/nprogress.css";
 
+if (typeof chatterDelay !== "undefined") {
+    setTimeout(function () { BootstrapService.boot(); }, chatterDelay);
+}
+else {
+    setTimeout(function () { BootstrapService.boot(); }, 1000);
+}
 
-setTimeout(function(){ BootstrapService.boot();}, window.chatterDelay?window.chatterDelay:1000);
 
 
 import BootstrapService from "./chatter/chatter-bootstrap.service";

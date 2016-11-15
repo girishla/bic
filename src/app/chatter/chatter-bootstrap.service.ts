@@ -54,10 +54,9 @@ export default class BootstrapService {
         //Load metadata and Context Info into an app Constant so it is available as a service throughout
         angular
           .module('chatter.module')
-          .constant('metaDataResponses', metaDataResponses);
-        angular
-          .module('chatter.module')
+          .constant('metaDataResponses', metaDataResponses)
           .value('contextCollection', mergedCollection);
+          
         BootstrapService.chatterLoaded = true;
         BootstrapService.chatterLoading = false;
         BootstrapService.bootstrapApp();
@@ -107,7 +106,7 @@ export default class BootstrapService {
       //moved here from else block
       var injector = angular.element(BootstrapService.chatterBaseJQElement).injector()
       var compileService = injector.get('$compile');
-      angular.forEach($("[viewtype='tableView'],[viewtype='pivotTableView']"), function (value, key) {
+      angular.forEach($("[viewtype='tableView'][id*='tableView'],[viewtype='pivotTableView'][id*='pivotTableView']"), function (value, key) {
         //Return if the directive is already compiled and linked.(if the searchId(sid) is associated to the table then it is already linked)
         if (value.getAttribute('sid')) return;
         value.setAttribute('obi-table', 'true');
@@ -190,7 +189,7 @@ export default class BootstrapService {
 
         //console.log(mutations);
 
-        $.each($(targetView).find("[viewtype='tableView'],[viewtype='pivotTableView']"), function (viewIdx, viewElement) {
+        $.each($(targetView).find("[viewtype='tableView'][id*='tableView'],[viewtype='pivotTableView'][id*='pivotTableView']"), function (viewIdx, viewElement) {
 
           // console.log('mutated ' + viewElement.getAttribute('id'));
           BootstrapService.processMutations(viewElement);

@@ -84,10 +84,7 @@ module.exports = function makeWebpackConfig() {
     // Initialize module
     config.module = {
         preLoaders: [
-            {
-                test: /\.ts$/,
-                loader: 'baggage?[file].html&[file].css'
-            }
+            
         ],
         loaders: [{ test: /\.ts$/, exclude: /node_modules|bower_components|cli.d.ts/, loaders: ['ng-annotate', 'awesome-typescript-loader'] },
         {
@@ -161,7 +158,7 @@ module.exports = function makeWebpackConfig() {
      * Reference: http://webpack.github.io/docs/configuration.html#plugins
      * List: http://webpack.github.io/docs/list-of-plugins.html
      */
-    config.plugins = [];
+    config.plugins = [new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)];
 
     // Skip rendering index.html in test mode
     // if (!isTest) {
@@ -217,8 +214,6 @@ module.exports = function makeWebpackConfig() {
             "Access-Control-Allow-Origin": "*",
         }
     };
-
-    console.log(config.output);
     return config;
 } ();
 

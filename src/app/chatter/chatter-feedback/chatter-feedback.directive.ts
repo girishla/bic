@@ -69,7 +69,7 @@ export default function ChatterFeedbackDirective(TopicApi, BIGate) {
                             submitError: '<div id="feedback-submit-error"><div class="feedback-logo">Annotation</div><p>Sadly an error occurred while attempting to capture Annotation. Please try again later or contact your Administrator if this issue persists.</p><button class="feedback-close-btn feedback-btn-blue">OK</button><div class="feedback-wizard-close"></div></div>'
                         },
                         onClose: function () { },
-                        screenshotStroke: true,
+                        screenshotStroke: false,
                         highlightElement: true,
                         initialBox: false
                     }, options);
@@ -505,47 +505,60 @@ export default function ChatterFeedbackDirective(TopicApi, BIGate) {
                                 if (!settings.screenshotStroke) {
                                     redraw(ctx, false);
                                 }
-                                html2canvas($('body'), {
-                                    onrendered: function (canvas) {
-                                        if (!settings.screenshotStroke) {
-                                            redraw(ctx, null);
-                                        }
 
-                                        //Girish Added for thumbnail image
-                                        var extra_canvas = document.createElement("canvas");
-                                        extra_canvas.setAttribute('width', "480");
-                                        extra_canvas.setAttribute('height', "270");
-                                        var ctxThumbnail = extra_canvas.getContext('2d');
-                                        ctxThumbnail.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, 480, 270);
-                                        var dataURLThumbnail = extra_canvas.toDataURL();
-                                        post.thumbnail = dataURLThumbnail;
-                                        //End Thumbnail
 
-                                        _canvas = $('<canvas id="feedback-canvas-tmp" width="' + w + '" height="' + dh + '"/>').hide().appendTo('body');
-                                        var _ctxElem = <HTMLCanvasElement>_canvas.get(0);
-                                        _ctx = _ctxElem.getContext('2d');
-                                        _ctx.drawImage(canvas, 0, sy, w, dh, 0, 0, w, dh);
-                                        img = (<HTMLCanvasElement>_canvas.get(0)).toDataURL();
-                                        $(document).scrollTop(sy);
-                                        post.img = img;
-                                        settings.onScreenshotTaken(post.img);
-                                        if (settings.showDescriptionModal) {
-                                            $('#feedback-canvas-tmp').remove();
-                                            $('#feedback-overview').show();
-                                            $('#feedback-overview-description-text>textarea').remove();
-                                            $('#feedback-overview-screenshot>img').remove();
-                                            $('<textarea id="feedback-overview-note">' + $('#feedback-note').val() + '</textarea>').insertAfter('#feedback-overview-description-text h3:eq(0)');
-                                            $('#feedback-overview-screenshot').append('<img class="feedback-screenshot" src="' + img + '" />');
-                                        }
-                                        else {
-                                            $('#feedback-module').remove();
-                                            close();
-                                            _canvas.remove();
-                                        }
-                                    },
-                                    proxy: settings.proxy,
-                                    letterRendering: settings.letterRendering
-                                });
+                                //Girish added timeout to make the dialog disappear immediately without waiting for the next tick
+                                setTimeout(function () {
+
+                                    html2canvas($('body'), {
+                                        onrendered: function (canvas) {
+                                            if (!settings.screenshotStroke) {
+                                                redraw(ctx, null);
+                                            }
+
+                                            //Girish Added for thumbnail image
+                                            var extra_canvas = document.createElement("canvas");
+                                            extra_canvas.setAttribute('width', "480");
+                                            extra_canvas.setAttribute('height', "270");
+                                            var ctxThumbnail = extra_canvas.getContext('2d');
+                                            ctxThumbnail.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, 480, 270);
+                                            var dataURLThumbnail = extra_canvas.toDataURL();
+                                            post.thumbnail = dataURLThumbnail;
+                                            //End Thumbnail
+
+                                            _canvas = $('<canvas id="feedback-canvas-tmp" width="' + w + '" height="' + dh + '"/>').hide().appendTo('body');
+                                            var _ctxElem = <HTMLCanvasElement>_canvas.get(0);
+                                            _ctx = _ctxElem.getContext('2d');
+                                            _ctx.drawImage(canvas, 0, sy, w, dh, 0, 0, w, dh);
+                                            img = (<HTMLCanvasElement>_canvas.get(0)).toDataURL();
+                                            $(document).scrollTop(sy);
+                                            post.img = img;
+                                            settings.onScreenshotTaken(post.img);
+                                            if (settings.showDescriptionModal) {
+                                                $('#feedback-canvas-tmp').remove();
+                                                $('#feedback-overview').show();
+                                                $('#feedback-overview-description-text>textarea').remove();
+                                                $('#feedback-overview-screenshot>img').remove();
+                                                $('<textarea id="feedback-overview-note">' + $('#feedback-note').val() + '</textarea>').insertAfter('#feedback-overview-description-text h3:eq(0)');
+                                                $('#feedback-overview-screenshot').append('<img class="feedback-screenshot" src="' + img + '" />');
+                                            }
+                                            else {
+                                                $('#feedback-module').remove();
+                                                close();
+                                                _canvas.remove();
+                                            }
+                                        },
+                                        proxy: settings.proxy,
+                                        letterRendering: settings.letterRendering
+                                    });
+
+
+
+
+                                }, 10)
+
+
+
                             });
 
                             $(document).on('click', '#feedback-overview-back', function (e) {
@@ -589,49 +602,55 @@ export default function ChatterFeedbackDirective(TopicApi, BIGate) {
                                         headers: {
                                             'Content-Type': 'application/json'
                                         },
-                                        success: function (successData) {
-                                            //var topicData = { feedback: post };
-                                            var topicData = {
-                                                "text": post.note,
-                                                "thumbnail":post.thumbnail,
-                                                "imageURL": successData.url,
-                                                "level1Context": BIGate.currentDashPath,
-                                                "level2Context": "",
-                                                "level3Context": "",
-                                                "level4Context": {filters:BIGate.instancePromptMap},
-                                                "level1ContextHash": SHA1(JSON.stringify(BIGate.currentDashPath)).toString(),
-                                                "level2ContextHash": "",
-                                                "level3ContextHash": "",
-                                                "level4ContextHash": SHA1(JSON.stringify({filters:BIGate.instancePromptMap})).toString()
-
-                                            }
+                                        success: function (successDataMain) {
 
 
+                                            $.ajax({
+                                                url: typeof settings.ajaxURL === 'function' ? settings.ajaxURL() : settings.ajaxURL + '/attachmentfiles',
+                                                dataType: 'json',
+                                                contentType: 'application/json',
+                                                type: 'POST',
+                                                data: JSON.stringify({ img: post.thumbnail }),
+                                                headers: {
+                                                    'Content-Type': 'application/json'
+                                                },
+                                                success: function (successDataThumb) {
 
-                                            // $.ajax({
-                                            //     url: typeof settings.ajaxURL === 'function' ? settings.ajaxURL() : settings.ajaxURL + '/topics',
-                                            //     dataType: 'json',
-                                            //     contentType: 'application/json',
-                                            //     type: 'POST',
-                                            //     data: topicJsonData,
-                                            //     headers: {
-                                            //         'Content-Type': 'application/json'
-                                            //     },
-                                            //     success: function () {
-                                            //         $('#feedback-module').append(settings.tpl.submitSuccess);
-                                            //     },
-                                            //     error: function () {
-                                            //         $('#feedback-module').append(settings.tpl.submitError);
-                                            //     }
-                                            // });
+                                                    var topicData = {
+                                                        "text": post.note,
+                                                        // "thumbnail": post.thumbnail,
+                                                        "thumbnailURL": successDataThumb.url,
+                                                        "imageURL": successDataMain.url,
+                                                        "level1Context": BIGate.currentDashPath,
+                                                        "level2Context": "",
+                                                        "level3Context": "",
+                                                        "level4Context": { filters: BIGate.instancePromptMap },
+                                                        "level1ContextHash": SHA1(JSON.stringify(BIGate.currentDashPath)).toString(),
+                                                        "level2ContextHash": "",
+                                                        "level3ContextHash": "",
+                                                        "level4ContextHash": SHA1(JSON.stringify({ filters: BIGate.instancePromptMap })).toString()
 
-                                            var apiResult = TopicApi.save(topicData).$promise.then(
-                                                function (topic) {
-                                                    $('#feedback-module').append(settings.tpl.submitSuccess);
-                                                }, function (err) {
+                                                    }
+
+
+                                                    var apiResult = TopicApi.save(topicData).$promise.then(
+                                                        function (topic) {
+                                                            $('#feedback-module').append(settings.tpl.submitSuccess);
+                                                        }, function (err) {
+                                                            $('#feedback-module').append(settings.tpl.submitError);
+
+                                                        });
+
+                                                },
+                                                error: function () {
                                                     $('#feedback-module').append(settings.tpl.submitError);
+                                                }
+                                            });
 
-                                                });
+
+
+                                            //var topicData = { feedback: post };
+
 
 
                                         },

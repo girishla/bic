@@ -4,8 +4,7 @@ interface Window {
   WebKitMutationObserver:any,
   MozMutationObserver:any,
   bootstrapChatter:()=>boolean,
-  HTMLCanvasElement:any,
-  chatterDelay:number
+  HTMLCanvasElement:any
 }
 
 //added for feedback functionality
@@ -14,3 +13,4 @@ interface JQueryStatic {
 }
 
 declare var html2canvas;
+declare var chatterDelay;

@@ -23,6 +23,7 @@ export default function OBITableDirective(BIGate, metaDataResponses, $compile) {
 
       //Find Report Metadata and put the searchId as an Attribute on the element. This will also be stored on the scope
       var reportRegex = /~r:(.*?)~v:/;
+
       var reportId = 'r:' + reportRegex.exec(viewUniqueId)[1]
       var viewReport = $.grep(metaDataResponses, function (e: any) {
         return e.reportId == reportId;

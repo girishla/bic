@@ -109,7 +109,7 @@ export default function BIGateService($http, $q) {
       gateInstance.resetPrompts();
 
       //Collect Data references for Table views
-      $.each($("td[id*=tableView] .PTChildPivotTable table[id*='saw']"), function (viewIndex, view) {
+      $.each($("[id*=tableView] .PTChildPivotTable table[id*='saw']"), function (viewIndex, view) {
 
         var viewModel = obips.ViewModel.getViewModelById(view.getAttribute('Id'))
 
@@ -117,7 +117,7 @@ export default function BIGateService($http, $q) {
 
         if (edgeDefinition) {
           //for each table cell collect data references
-          $.each($("td[id*=tableView] .PTChildPivotTable table[id='" + view.getAttribute('Id') + "']").find('td[id^=e_saw]'), function (elementIndex, element) {
+          $.each($("[id*=tableView] .PTChildPivotTable table[id='" + view.getAttribute('Id') + "']").find('td[id^=e_saw]'), function (elementIndex, element) {
 
             var elementId = element.getAttribute('Id');
 
@@ -184,7 +184,7 @@ export default function BIGateService($http, $q) {
 
       //Collect Data references for Pivot views. The key difference is that we process db_saw elements and DatabodyCoords which means there is no need to extract measures.(As They are all measures)
 
-      $.each($("td[id*=pivotTableView] .PTChildPivotTable table[id*='saw']"), function (viewIndex, view) {
+      $.each($("[id*=pivotTableView] .PTChildPivotTable table[id*='saw']"), function (viewIndex, view) {
 
         var viewModel = obips.ViewModel.getViewModelById(view.getAttribute('Id'))
 
@@ -192,7 +192,7 @@ export default function BIGateService($http, $q) {
 
 
         //for each pivot data cell, collect data references
-        $.each($("td[id*=pivotTableView] .PTChildPivotTable table[id='" + view.getAttribute('Id') + "']").find('td[id^=db_saw]'), function (elementIndex, element) {
+        $.each($("[id*=pivotTableView] .PTChildPivotTable table[id='" + view.getAttribute('Id') + "']").find('td[id^=db_saw]'), function (elementIndex, element) {
 
           var elementId = element.getAttribute('Id');
 
