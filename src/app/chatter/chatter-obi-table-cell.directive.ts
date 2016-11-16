@@ -16,8 +16,12 @@ export default function CellDirective($parse, $compile, TopicService) {
     bindToController: true,
     compile: function (tElm, tAttrs) {
 
-      // var cellContents = tElm.html();
-      // tElm.empty().append("<obi-table-cell-popover context='cellCtrl.context'>" + cellContents + "</obi-table-cell-popover>")
+
+      var cellContents = tElm.html();
+      tElm.empty().append("<obi-table-cell-popover context='cellCtrl.context'>" + cellContents + "</obi-table-cell-popover>")
+
+
+    // var fn = $compile(tElm);
 
       return function (scope, elm, attr, controllers) {
 
@@ -25,6 +29,8 @@ export default function CellDirective($parse, $compile, TopicService) {
         var cellController = controllers[1];
 
         var contextCollection = tableController.getCellContextCollection();
+
+        console.log('in link function for:', elm)
 
         //Copy viewId over to the cell
         cellController.viewId = tableController.viewId;
@@ -60,8 +66,8 @@ export default function CellDirective($parse, $compile, TopicService) {
             // console.log(cachedContextHashes);
             if (cachedContextHashes.hasOwnProperty(combinedHash) && cachedContextHashes[combinedHash] > 0) {
               //elm.css({ backgroundColor: 'red' });
-              console.log('Found Topics for cell:' ,elm)
-              if (elm.find('.bic-cell-badge-container').length==0) {
+              console.log('Found Topics for cell:', elm)
+              if (elm.find('.bic-cell-badge-container').length == 0) {
                 elm.append("<div class='bic-cell-badge-container'></div>");
                 elm.find('.bic-cell-badge-container').append('<div id="badge-container"><span class="bic-cell-badge">' + cachedContextHashes[combinedHash] + '</span></div>')
               }
@@ -87,7 +93,7 @@ export default function CellDirective($parse, $compile, TopicService) {
         cellController.setReportContext(tableController.getReportContext());
         //console.log($parse('cellCtrl.elemId')(scope));
 
-        // fn(scope);
+         //fn(scope);
       };
     }
   };

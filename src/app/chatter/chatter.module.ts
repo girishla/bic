@@ -1,7 +1,7 @@
-import OBITableDirective from "./chatter-obi-table.directive";
-import CellContext from "./chatter-cell-context.service";
-import CellDirective from "./chatter-obi-table-cell.directive";
-import CellPopoverDirective from "./chatter-cell-popover/chatter-cell-popover.directive";
+// import OBITableDirective from "./chatter-obi-table.directive";
+// import CellContext from "./chatter-cell-context.service";
+// import CellDirective from "./chatter-obi-table-cell.directive";
+// import CellPopoverDirective from "./chatter-cell-popover/chatter-cell-popover.directive";
 import ChatterDialogController from "./chatter-cell-dialog/chatter-cell-dialog.controller";
 import { TopicCommentApi, CommentApi } from "./chatter-feed/services/chatter-feed-comment-api.service";
 import Socket from "./chatter-feed/services/chatter-feed-socket.service";
@@ -16,18 +16,20 @@ import "angular-ui-bootstrap/src/popover"
 import ChatterFeedbackDirective from "./chatter-feedback/chatter-feedback.directive";
 import "./chatter-bi/chatter-bi.module";
 import "oclazyload/dist/ocLazyload.js";
+import {MetadataService} from "./chatter-bi/chatter-bi-metadata.service"
 // import "./chatter-feed/chatter-feed.module"
 import "./chatter-declarations";
 require("./chatter.scss");
 
 
+
 export default angular
   .module('chatter.module', ['ngAria', 'ngAnimate', 'ngMaterial', 'ngResource', 'btford.socket-io', 'ui.bootstrap.module.popover', 'angularMoment', 'chatter-bi.module'])
   .config(ChatterConfig)
-  .factory('CellContext', CellContext)
-  .directive("obiTable", ['BIGate', 'metaDataResponses', '$compile', 'CellContext', OBITableDirective])
-  .directive('obiTableCell', ['$parse', '$compile', 'TopicService', CellDirective])
-  .directive('obiTableCellPopover', ['$parse', '$compile', '$timeout', CellPopoverDirective])
+  // .factory('CellContext', CellContext)
+  // .directive("obiTable", ['BIGate', 'MetadataService', '$compile', OBITableDirective])
+  // .directive('obiTableCell', ['$parse', '$compile', 'TopicService', CellDirective])
+  // .directive('obiTableCellPopover', ['$parse', '$compile', '$timeout', CellPopoverDirective])
   .controller('chatterDialogController', ['$mdDialog', '$sce', 'context', ChatterDialogController])
   .directive('sidenavPushIn', SidenavPushInDirective)
   .directive('obiSideNav', ['$sce', ObiSideNavDirective])
@@ -39,6 +41,7 @@ export default angular
   .factory('TopicApi', TopicApi)
   .factory('TopicService', ['$rootScope', '$q', 'TopicApi', 'CommentApi', 'TopicCommentApi', 'Socket', TopicService])
   .filter('toArray', ToArrayFilter)
-  .directive('chatterFeedback', ['TopicApi', 'BIGate', ChatterFeedbackDirective]);
+  .directive('chatterFeedback', ['TopicApi', 'BIGate', ChatterFeedbackDirective])
+  .service('MetadataService',MetadataService);
 
 

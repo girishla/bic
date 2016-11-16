@@ -1,6 +1,6 @@
 
 
-export default function OBITableDirective(BIGate, metaDataResponses, $compile) {
+export default function OBITableDirective(BIGate, MetadataService, $compile) {
   return {
     restrict: 'A',
     replace: true,
@@ -17,6 +17,8 @@ export default function OBITableDirective(BIGate, metaDataResponses, $compile) {
     compile: function (tElement, attrs) {
       tElement.removeAttr('obi-table'); // necessary to avoid infinite compile loop
 
+
+
       var viewUniqueId = BIGate.getReportIdFromElement(tElement);
 
       //console.log('viewUniqueId:' + viewUniqueId)
@@ -25,7 +27,7 @@ export default function OBITableDirective(BIGate, metaDataResponses, $compile) {
       var reportRegex = /~r:(.*?)~v:/;
 
       var reportId = 'r:' + reportRegex.exec(viewUniqueId)[1]
-      var viewReport = $.grep(metaDataResponses, function (e: any) {
+      var viewReport = $.grep(MetadataService.metaDataCollection, function (e: any) {
         return e.reportId == reportId;
       });
       attrs.$set('sid', viewReport[0].searchId);
@@ -41,21 +43,28 @@ export default function OBITableDirective(BIGate, metaDataResponses, $compile) {
           //Set child directives before compile
 
           tableCell.attr('obi-table-cell', 'true');
+          console.log('setting cell directive for:', value)
 
 
         }
       })
 
+
+
+
       var fn = $compile(tElement);
       return function (scope) {
         fn(scope);
+        console.log('in Table directive link function')
       };
+
+
     }
   };
 }
 
 
-function OBITableDirectiveController($scope, BIGate, metaDataResponses, CellContext, $timeout) {
+function OBITableDirectiveController($scope, BIGate, MetadataService, $timeout) {
 
   var vm = this;
   vm.viewReport = {};
@@ -64,20 +73,19 @@ function OBITableDirectiveController($scope, BIGate, metaDataResponses, CellCont
   function init() {
 
 
-
     // init controller
-    var viewReport = $.grep(metaDataResponses, function (e: any) {
+    var viewReport = $.grep(MetadataService.metaDataCollection, function (e: any) {
       return e.searchId === vm.sid;
     });
     vm.viewReport = viewReport[0];
 
-    vm.CellContextCollection = CellContext.getContextCollection()
+    vm.CellContextCollection = MetadataService.getContextCollection()
 
     // TODO discard colmaps as we dont need them. deletion  is causing an issue as the colmaps are refenced in the collection population
     //delete vm.viewReport.colMap;
 
-  }
 
+  }
   init();
 
   vm.getReportContext = function () {

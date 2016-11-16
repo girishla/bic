@@ -32,36 +32,65 @@ export default class BootstrapService {
 
     console.info('in initOBIMetadataAndBootstrap');
 
-    var initInjector = angular.injector(["ng", "chatter.module"]);
-    var BIGate: any = initInjector.get("BIGate");
-    BootstrapService.chatterLoading = true;
-    var contextCollection = BIGate.getViewDataReferences();
+    // var initInjector = angular.injector(["ng", "chatter.module"]);
+    // var BIGate: any = initInjector.get("BIGate");
+    // BootstrapService.chatterLoading = true;
+    // var contextCollection = BIGate.getViewDataReferences();
 
 
-    var allReportsPromises = BIGate.getAllReportsXML();
+    // var allReportsPromises = BIGate.getAllReportsXML();
 
-    allReportsPromises.then(function (responses: any) {
-      var allMetadataPromises = BIGate.getAllReportsMetadata(responses);
+    // allReportsPromises.then(function (responses: any) {
+    //   var allMetadataPromises = BIGate.getAllReportsMetadata(responses);
 
 
-      console.log('allMetadataPromises', allMetadataPromises);
+    //   console.log('allMetadataPromises', allMetadataPromises);
 
-      allMetadataPromises.then(function (metaDataResponses: any) {
-        console.info('Report metadata loaded for ' + metaDataResponses.length + ' Reports.');
-        //console.log(metaDataResponses);
-        var mergedCollection = BIGate.getMergedContextCollection(metaDataResponses, contextCollection);
-        //Load metadata and Context Info into an app Constant so it is available as a service throughout
-        angular
-          .module('chatter.module')
-          .constant('metaDataResponses', metaDataResponses)
-          .value('contextCollection', mergedCollection);
+    //   allMetadataPromises.then(function (metaDataResponses: any) {
+    //     console.info('Report metadata loaded for ' + metaDataResponses.length + ' Reports.');
+    //     //console.log(metaDataResponses);
+    //     var mergedCollection = BIGate.getMergedContextCollection(metaDataResponses, contextCollection);
+    //     //Load metadata and Context Info into an app Constant so it is available as a service throughout
+    //     angular
+    //       .module('chatter.module')
+    //       .constant('metaDataResponses', metaDataResponses)
+    //       .value('contextCollection', mergedCollection);
+
+    //     BootstrapService.chatterLoaded = true;
+    //     BootstrapService.chatterLoading = false;
+    //     BootstrapService.bootstrapApp();
+    //     //BootstrapService.observeSensitiveDOMChanges();
+    //   })
+    // });
 
         BootstrapService.chatterLoaded = true;
         BootstrapService.chatterLoading = false;
         BootstrapService.bootstrapApp();
-        BootstrapService.observeSensitiveDOMChanges();
-      })
-    });
+
+
+  }
+
+  public static attachDirectives(): void {
+
+    BootstrapService.dashboardContentJQElement.append("<div chatter-feedback></div>");
+    BootstrapService.dashboardContentJQElement.find('.DashboardPageContentDiv').after("<div obi-side-nav='true'></div>");
+    //  pageContentDiv.setAttribute('obi-fab-menu', 'true');
+
+
+    //moved here from else block
+    var injector = angular.element(BootstrapService.chatterBaseJQElement).injector()
+    var compileService = injector.get('$compile');
+    angular.forEach($("[viewtype='tableView'][id*='tableView'],[viewtype='pivotTableView'][id*='pivotTableView']"), function (value, key) {
+      //Return if the directive is already compiled and linked.(if the searchId(sid) is associated to the table then it is already linked)
+      if (value.getAttribute('sid')) return;
+      value.setAttribute('obi-table', 'true');
+      $(value).addClass('bic');
+      var scope = ((angular.element(value).scope()));
+      var linkFn = compileService(value, scope);
+      console.log('In bootstrapApp(): linking mutated DOM with scope...');
+      linkFn(scope);
+    })
+
 
 
 
@@ -94,53 +123,26 @@ export default class BootstrapService {
 
       BootstrapService.dashboardContentJQElement.find('.DashboardPageContentDiv').addClass('md-sidenav-push-in-target');
 
+
+
+
       //se the css scope used in the slds scoped version
       // BootstrapService.dashboardContentJQElement.addClass('biview');
       //$('.DashboardPageContentDiv').append("<div obi-fab-menu='true'></div>");
       BootstrapService.dashboardContentJQElement.append("<div obi-side-nav-button='true'></div>")
-      BootstrapService.dashboardContentJQElement.append("<div chatter-feedback></div>");
-      BootstrapService.dashboardContentJQElement.find('.DashboardPageContentDiv').after("<div obi-side-nav='true'></div>");
-      //  pageContentDiv.setAttribute('obi-fab-menu', 'true');
-      console.log('New - Attempt to attach angular to page content DIV');
-      var initInjector = angular.injector(["ng", "chatter.module"]);
-      //var TopicService: any = initInjector.get("TopicService");
 
+
+      console.log('New - Attempt to attach angular to page content DIV');
 
       angular.bootstrap(BootstrapService.chatterBaseJQElement, ['chatter.module', 'oc.lazyLoad']);
       console.log('Angular Bootstraped: ' + 'chatter.module');
 
-      //moved here from else block
-      var injector = angular.element(BootstrapService.chatterBaseJQElement).injector()
-      var compileService = injector.get('$compile');
-      angular.forEach($("[viewtype='tableView'][id*='tableView'],[viewtype='pivotTableView'][id*='pivotTableView']"), function (value, key) {
-        //Return if the directive is already compiled and linked.(if the searchId(sid) is associated to the table then it is already linked)
-        if (value.getAttribute('sid')) return;
-        value.setAttribute('obi-table', 'true');
-        $(value).addClass('bic');
-        var scope = ((angular.element(value).scope()));
-        var linkFn = compileService(value, scope);
-        console.log('In bootstrapApp(): linking mutated DOM with scope...');
-        linkFn(scope);
-      })
+      //BootstrapService.attachDirectives();
 
 
 
 
-    } /*else {
-      //Angular is already bootstrapped but the views might have been re-rendered by OBI. This requires a re-compile of the views with the existing scope.
-      //This is a more performant alternative to re-bootstrapping the entire App.
-      var injector = angular.element(BootstrapService.chatterBaseJQElement).injector()
-      var compileService = injector.get('$compile');
-      angular.forEach($("[viewtype='tableView']"), function (value, key) {
-        //Return if the directive is already compiled and linked.(if the searchId(sid) is associated to the table then it is already linked)
-        if (value.getAttribute('sid')) return;
-        value.setAttribute('obi-table', 'true');
-        var scope = ((angular.element(value).scope()));
-        var linkFn = compileService(value, scope);
-        console.log('In bootstrapApp(): linking mutated DOM with scope...');
-        linkFn(scope);
-      });
-    }*/
+    } 
     BootstrapService.chatterBooting = false;
 
   }
@@ -158,7 +160,7 @@ export default class BootstrapService {
     // BIGate.instancePromptMap=BIGate.resetPrompts();
 
 
-    if (!table.getAttribute('sid') || (!($(viewElement).find('td[id^=e_saw]')[0].getAttribute("obi-table-cell") == "true"))) {
+    if (!table.getAttribute('sid') || (!($(viewElement).find('td[id^=e_saw],td[id^=db_saw]')[0].getAttribute("obi-table-cell") == "true"))) {
 
       //Recompile to cater to the changes
       var injector = angular.element(BootstrapService.chatterBaseJQElement).injector();
