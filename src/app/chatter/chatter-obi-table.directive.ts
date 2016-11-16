@@ -43,7 +43,6 @@ export default function OBITableDirective(BIGate, MetadataService, $compile) {
           //Set child directives before compile
 
           tableCell.attr('obi-table-cell', 'true');
-          console.log('setting cell directive for:', value)
 
 
         }
@@ -55,7 +54,6 @@ export default function OBITableDirective(BIGate, MetadataService, $compile) {
       var fn = $compile(tElement);
       return function (scope) {
         fn(scope);
-        console.log('in Table directive link function')
       };
 
 

@@ -20,55 +20,25 @@ export default class BootstrapService {
     console.log('in boot');
 
     if ((!BootstrapService.chatterLoaded) && (!BootstrapService.chatterLoading)) { //chatter.module Loaded for the first time - Load JS and CSS files
-      BootstrapService.chatterLoading = true;
-      BootstrapService.initOBIMetadataAndBootstrap();
+      // BootstrapService.chatterLoading = true;
+      // BootstrapService.initOBIMetadataAndBootstrap();
+      BootstrapService.chatterLoaded = true
+      BootstrapService.bootstrapApp();
     }
     return true;
   }
 
 
   //Load OBI report metadata into an angular constant/value and then bootstrap
-  public static initOBIMetadataAndBootstrap(): void {
+  // public static initOBIMetadataAndBootstrap(): void {
 
-    console.info('in initOBIMetadataAndBootstrap');
+  //   console.info('in initOBIMetadataAndBootstrap');
 
-    // var initInjector = angular.injector(["ng", "chatter.module"]);
-    // var BIGate: any = initInjector.get("BIGate");
-    // BootstrapService.chatterLoading = true;
-    // var contextCollection = BIGate.getViewDataReferences();
+  //   BootstrapService.chatterLoaded = true;
+  //   BootstrapService.chatterLoading = false;
+  //   BootstrapService.bootstrapApp();
 
-
-    // var allReportsPromises = BIGate.getAllReportsXML();
-
-    // allReportsPromises.then(function (responses: any) {
-    //   var allMetadataPromises = BIGate.getAllReportsMetadata(responses);
-
-
-    //   console.log('allMetadataPromises', allMetadataPromises);
-
-    //   allMetadataPromises.then(function (metaDataResponses: any) {
-    //     console.info('Report metadata loaded for ' + metaDataResponses.length + ' Reports.');
-    //     //console.log(metaDataResponses);
-    //     var mergedCollection = BIGate.getMergedContextCollection(metaDataResponses, contextCollection);
-    //     //Load metadata and Context Info into an app Constant so it is available as a service throughout
-    //     angular
-    //       .module('chatter.module')
-    //       .constant('metaDataResponses', metaDataResponses)
-    //       .value('contextCollection', mergedCollection);
-
-    //     BootstrapService.chatterLoaded = true;
-    //     BootstrapService.chatterLoading = false;
-    //     BootstrapService.bootstrapApp();
-    //     //BootstrapService.observeSensitiveDOMChanges();
-    //   })
-    // });
-
-        BootstrapService.chatterLoaded = true;
-        BootstrapService.chatterLoading = false;
-        BootstrapService.bootstrapApp();
-
-
-  }
+  // }
 
   public static attachDirectives(): void {
 
@@ -142,7 +112,7 @@ export default class BootstrapService {
 
 
 
-    } 
+    }
     BootstrapService.chatterBooting = false;
 
   }

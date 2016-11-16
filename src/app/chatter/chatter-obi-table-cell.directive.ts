@@ -30,7 +30,6 @@ export default function CellDirective($parse, $compile, TopicService) {
 
         var contextCollection = tableController.getCellContextCollection();
 
-        console.log('in link function for:', elm)
 
         //Copy viewId over to the cell
         cellController.viewId = tableController.viewId;
