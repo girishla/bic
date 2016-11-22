@@ -47,7 +47,12 @@ export default class BootstrapService {
     //  pageContentDiv.setAttribute('obi-fab-menu', 'true');
 
 
+
+
     //moved here from else block
+
+
+
     var injector = angular.element(BootstrapService.chatterBaseJQElement).injector()
     var compileService = injector.get('$compile');
     angular.forEach($("[viewtype='tableView'][id*='tableView'],[viewtype='pivotTableView'][id*='pivotTableView']"), function (value, key) {
@@ -55,10 +60,10 @@ export default class BootstrapService {
       if (value.getAttribute('sid')) return;
       value.setAttribute('obi-table', 'true');
       $(value).addClass('bic');
-      var scope = ((angular.element(value).scope()));
-      var linkFn = compileService(value, scope);
-      console.log('In bootstrapApp(): linking mutated DOM with scope...');
-      linkFn(scope);
+      // var scope = ((angular.element(value).scope()));
+      // var linkFn = compileService(value, scope);
+      // console.log('In bootstrapApp(): linking mutated DOM with scope...');
+      // linkFn(scope);
     })
 
 
@@ -100,7 +105,7 @@ export default class BootstrapService {
       // BootstrapService.dashboardContentJQElement.addClass('biview');
       //$('.DashboardPageContentDiv').append("<div obi-fab-menu='true'></div>");
       BootstrapService.dashboardContentJQElement.append("<div obi-side-nav-button='true'></div>")
-
+      BootstrapService.dashboardContentJQElement.append("<obi-progress-circular></obi-progress-circular>");
 
       console.log('New - Attempt to attach angular to page content DIV');
 

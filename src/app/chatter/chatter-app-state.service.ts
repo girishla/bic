@@ -1,13 +1,26 @@
 
-export default function AppUIStateFactory() {
+export default class AppUIStateService {
 
-  var stateInstance = {
+  public sideNavOpened: Boolean = false;
+  private showProgress: Boolean = false;
 
-    sideNavOpened:false
+  static $inject = ['$rootScope']
+
+  constructor(public $rootScope: ng.IScope) {
+
 
   }
-  return stateInstance; // jshint ignore:line
+
+  progressOn = (rootscope: ng.IScope) => {
+
+    this.$rootScope.$broadcast("eventProgressToggled", { showProgress: true });
+
+  }
+
+  progressOff = (rootscope: ng.IScope) => {
+
+    this.$rootScope.$broadcast("eventProgressToggled", { showProgress: false });
+
+  }
+
 }
-
-
-

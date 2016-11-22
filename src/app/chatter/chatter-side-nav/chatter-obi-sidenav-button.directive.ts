@@ -22,9 +22,13 @@ export default function ObiSideNavButtonDirective(AppUIState) {
     vm.openSideNav = function () {
 
 
+
+
       try {
+        AppUIState.progressOn();
         angular.module("chatter-feed.module");
         AppUIState.sideNavOpened = true;
+        AppUIState.progressOff();
 
       } catch (err) {
 
@@ -48,8 +52,10 @@ export default function ObiSideNavButtonDirective(AppUIState) {
             $ocLazyLoad.inject({
               name: 'chatter-feed.module'
             }).then(function () {
+
+              $compile(angular.element('.ComponentHeader .PrimaryTabTable'))($scope);
+              AppUIState.progressOff();
               AppUIState.sideNavOpened = true;
-              $compile(angular.element('.ComponentHeader'))($scope);
 
             }, function (err) {
               console.log('lazy load errors', err)
@@ -63,53 +69,6 @@ export default function ObiSideNavButtonDirective(AppUIState) {
         })
 
 
-
-        // var contextCollection = BIGate.getViewDataReferences();
-
-
-        // var allReportsPromises = BIGate.getAllReportsXML();
-
-        // allReportsPromises.then(function (responses: any) {
-        //   var allMetadataPromises = BIGate.getAllReportsMetadata(responses);
-
-
-        //   console.log('allMetadataPromises', allMetadataPromises);
-
-        //   allMetadataPromises.then(function (metaDataResponses: any) {
-        //     console.info('Report metadata loaded for ' + metaDataResponses.length + ' Reports.');
-        //     //console.log(metaDataResponses);
-        //     var mergedCollection = BIGate.getMergedContextCollection(metaDataResponses, contextCollection);
-        //     //Load metadata and Context Info into an app Constant so it is available as a service throughout
-        //     angular
-        //       .module('chatter.module')
-        //       .constant('metaDataResponses', metaDataResponses)
-        //       .value('contextCollection', mergedCollection);
-
-        //     BootstrapService.chatterLoaded = true;
-        //     BootstrapService.chatterLoading = false;
-        //     BootstrapService.attachDirectives();
-        //     BootstrapService.observeSensitiveDOMChanges();
-
-        //     require.ensure(['../chatter-feed/chatter-feed.module.ts'], function () {
-        //       // let module = require('../chatter-feed/chatter-feed.module.ts');
-
-        //       console.log('attempting to lazy load');
-        //       var module = (<any>require('chatter/chatter-feed/chatter-feed.module')).default();
-        //       $ocLazyLoad.inject({
-        //         name: 'chatter-feed.module'
-        //       }).then(function () {
-        //         AppUIState.sideNavOpened = true;
-        //         $compile(angular.element('[obi-side-nav]'))($scope);
-
-        //       }, function (err) {
-        //         console.log('lazy load errors', err)
-        //       });
-
-
-        //     })
-
-        //   })
-        // });
 
 
 

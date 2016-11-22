@@ -11,13 +11,13 @@ import ChatterConfig from "./chatter.config";
 import ToArrayFilter from "./util/chatter-util-to-array.filter";
 import { SidenavPushInDirective, ObiSideNavDirective } from "./chatter-side-nav/chatter-obi-sidenav.directive";
 import ObiSideNavButtonDirective from "./chatter-side-nav/chatter-obi-sidenav-button.directive";
-import AppUIStateFactory from "./chatter-app-state.service";
+import AppUIStateService from "./chatter-app-state.service";
 import "angular-ui-bootstrap/src/popover"
 import ChatterFeedbackDirective from "./chatter-feedback/chatter-feedback.directive";
 import "./chatter-bi/chatter-bi.module";
 import "oclazyload/dist/ocLazyload.js";
 import {MetadataService} from "./chatter-bi/chatter-bi-metadata.service"
-// import "./chatter-feed/chatter-feed.module"
+import ChatterProgressCircularDirective from "./chatter-progress-circular/chatter-progress-circular.directive"
 import "./chatter-declarations";
 require("./chatter.scss");
 
@@ -33,8 +33,9 @@ export default angular
   .controller('chatterDialogController', ['$mdDialog', '$sce', 'context', ChatterDialogController])
   .directive('sidenavPushIn', SidenavPushInDirective)
   .directive('obiSideNav', ['$sce', ObiSideNavDirective])
-  .factory('AppUIState', AppUIStateFactory)
+  .service('AppUIState', AppUIStateService)
   .directive('obiSideNavButton', ['AppUIState', ObiSideNavButtonDirective])
+  .directive('obiProgressCircular', ChatterProgressCircularDirective.factory())
   .factory('CommentApi', CommentApi)
   .factory('TopicCommentApi', TopicCommentApi)
   .factory('Socket', Socket)
