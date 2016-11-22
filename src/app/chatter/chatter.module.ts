@@ -18,6 +18,7 @@ import "./chatter-bi/chatter-bi.module";
 import "oclazyload/dist/ocLazyload.js";
 import {MetadataService} from "./chatter-bi/chatter-bi-metadata.service"
 import ChatterProgressCircularDirective from "./chatter-progress-circular/chatter-progress-circular.directive"
+import WaitCtrl from "./chatter-progress-circular/chatter-progress-circular.directive"
 import "./chatter-declarations";
 require("./chatter.scss");
 
@@ -31,6 +32,8 @@ export default angular
   // .directive('obiTableCell', ['$parse', '$compile', 'TopicService', CellDirective])
   // .directive('obiTableCellPopover', ['$parse', '$compile', '$timeout', CellPopoverDirective])
   .controller('chatterDialogController', ['$mdDialog', '$sce', 'context', ChatterDialogController])
+  .controller('waitCtrl', ['$mdDialog','$rootScope', WaitCtrl])
+ 
   .directive('sidenavPushIn', SidenavPushInDirective)
   .directive('obiSideNav', ['$sce', ObiSideNavDirective])
   .service('AppUIState', AppUIStateService)

@@ -112,6 +112,12 @@ export default class BootstrapService {
       angular.bootstrap(BootstrapService.chatterBaseJQElement, ['chatter.module', 'oc.lazyLoad']);
       console.log('Angular Bootstraped: ' + 'chatter.module');
 
+      var initInjector = angular.injector(["ng", "chatter.module"]);
+      var BIGate: any = initInjector.get("BIGate");
+      
+      console.log('Edge Definitions in Cache');
+
+
       //BootstrapService.attachDirectives();
 
 
@@ -122,6 +128,61 @@ export default class BootstrapService {
 
   }
 
+
+
+  public static startChatterFeed(MetadataService, $ocLazyLoad, AppUIState,$compile,$scope) {
+
+
+    // var BootstrapService: any = (<any>require("../chatter-bootstrap.service")).default;
+    var initInjector = angular.injector(["ng", "chatter.module"]);
+    var BIGate: any = initInjector.get("BIGate");
+    BootstrapService.chatterLoading = true;
+
+    MetadataService.getMedataCollection().then(function () {
+
+      BootstrapService.chatterLoaded = true;
+      BootstrapService.chatterLoading = false;
+      BootstrapService.attachDirectives();
+      BootstrapService.observeSensitiveDOMChanges();
+
+      require.ensure(['./chatter-feed/chatter-feed.module.ts'], function () {
+        // let module = require('../chatter-feed/chatter-feed.module.ts');
+
+        console.log('attempting to lazy load');
+        var module = (<any>require('./chatter-feed/chatter-feed.module')).default();
+        $ocLazyLoad.inject({
+          name: 'chatter-feed.module'
+        }).then(function () {
+
+          $compile(angular.element('.ComponentHeader .PrimaryTabTable'))($scope);
+
+          // angular.forEach($("[viewtype='tableView'][id*='tableView'],[viewtype='pivotTableView'][id*='pivotTableView']"), function (value, key) {
+          //   //Return if the directive is already compiled and linked.(if the searchId(sid) is associated to the table then it is already linked)
+          //   if (value.getAttribute('sid')) return;
+          //   value.setAttribute('obi-table', 'true');
+          //   $(value).addClass('bic');
+          //   var scope = ((angular.element(value).scope()));
+          //   var linkFn =  $compile(value, scope);
+          //   console.log('In bootstrapApp(): linking mutated DOM with scope...');
+          //   linkFn(scope);
+          // })
+
+          AppUIState.progressOff();
+          AppUIState.sideNavOpened = true;
+
+        }, function (err) {
+          console.log('lazy load errors', err)
+        });
+
+
+      })
+
+
+
+    })
+
+
+  }
 
   public static processMutations(viewElement): void {
 

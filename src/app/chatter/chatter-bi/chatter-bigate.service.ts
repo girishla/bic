@@ -62,7 +62,7 @@ export default function BIGateService($http, $q) {
       var firstStatePath = $(xmlIsland).find("ref[statePath]").attr('statePath');
 
       //in some cases there is no statepath refs so just return
-      if(!firstStatePath) return [];
+      if (!firstStatePath) return [];
 
       var pageId = (/~p:(.*?)~r:/).exec(firstStatePath)[1];
 
@@ -99,6 +99,7 @@ export default function BIGateService($http, $q) {
     },
 
 
+
     getViewDataReferences: function (viewId) {
 
 
@@ -113,7 +114,12 @@ export default function BIGateService($http, $q) {
 
         var viewModel = obips.ViewModel.getViewModelById(view.getAttribute('Id'))
 
-        var edgeDefinition = viewModel.getEdgeDefinition(view.getAttribute('Id'));
+        //var edgeDefinition = viewModel.getEdgeDefinition(view.getAttribute('Id'));
+
+        var edgeDefinition = viewModel.getEdgeDefinition(viewModel.masterClientId);
+
+
+        //var edgeDefinition=viewModel.edgeDefinition;
 
         if (edgeDefinition) {
           //for each table cell collect data references
@@ -188,16 +194,21 @@ export default function BIGateService($http, $q) {
 
         var viewModel = obips.ViewModel.getViewModelById(view.getAttribute('Id'))
 
-        var edgeDefinition = viewModel.getEdgeDefinition(view.getAttribute('Id'));
+        var edgeDefinition = viewModel.getEdgeDefinition(viewModel.masterClientId);
+
+
+
+        var pivotCellJQElements = $("[id*=pivotTableView] .PTChildPivotTable table[id='" + view.getAttribute('Id') + "']").find('td[id^=db_saw]');
+
+        var bodyCoords = obips.DatabodyCoords.findCoords($('#' + pivotCellJQElements[0].getAttribute('Id'))[0])
+        var bodyDef = viewModel.getBodyDefinition(bodyCoords.getId());
 
 
         //for each pivot data cell, collect data references
-        $.each($("[id*=pivotTableView] .PTChildPivotTable table[id='" + view.getAttribute('Id') + "']").find('td[id^=db_saw]'), function (elementIndex, element) {
+        $.each(pivotCellJQElements, function (elementIndex, element) {
 
-          var elementId = element.getAttribute('Id');
+          //var elementId = element.getAttribute('Id');
 
-
-          var bodyCoords = obips.DatabodyCoords.findCoords($('#' + elementId)[0])
 
           var rowNum = bodyCoords.getRow();
           var colNum = bodyCoords.getCol();
@@ -205,7 +216,6 @@ export default function BIGateService($http, $q) {
 
 
           //get Column Id so we can subsequently map it to the Metadata column details
-          var bodyDef = viewModel.getBodyDefinition(bodyCoords.getId());
 
 
           var columnId = bodyDef.getID(bodyCoords.getRow(), bodyCoords.getCol());
@@ -235,7 +245,7 @@ export default function BIGateService($http, $q) {
           });
 
           contextCollection.push({
-            element: elementId,
+            element: pivotCellJQElements[0].getAttribute('Id'),
             reportStatePath: viewModel.reportStatePath,
             columnId: columnId,
             columnValue: columnValue,

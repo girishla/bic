@@ -25,59 +25,19 @@ export default function ObiSideNavButtonDirective(AppUIState) {
 
 
       try {
-        AppUIState.progressOn();
+
         angular.module("chatter-feed.module");
         AppUIState.sideNavOpened = true;
-        AppUIState.progressOff();
 
       } catch (err) {
-
-        var BootstrapService: any = (<any>require("../chatter-bootstrap.service")).default;
-        var initInjector = angular.injector(["ng", "chatter.module"]);
-        var BIGate: any = initInjector.get("BIGate");
-        BootstrapService.chatterLoading = true;
-
-        MetadataService.getMedataCollection().then(function () {
-
-          BootstrapService.chatterLoaded = true;
-          BootstrapService.chatterLoading = false;
-          BootstrapService.attachDirectives();
-          BootstrapService.observeSensitiveDOMChanges();
-
-          require.ensure(['../chatter-feed/chatter-feed.module.ts'], function () {
-            // let module = require('../chatter-feed/chatter-feed.module.ts');
-
-            console.log('attempting to lazy load');
-            var module = (<any>require('chatter/chatter-feed/chatter-feed.module')).default();
-            $ocLazyLoad.inject({
-              name: 'chatter-feed.module'
-            }).then(function () {
-
-              $compile(angular.element('.ComponentHeader .PrimaryTabTable'))($scope);
-              AppUIState.progressOff();
-              AppUIState.sideNavOpened = true;
-
-            }, function (err) {
-              console.log('lazy load errors', err)
-            });
-
-
-          })
-
-
-
-        })
-
-
-
-
-
-
-
+        AppUIState.progressOn();
+        //give angular a chance to display the wait dialog
+        setTimeout(function () {
+          var BootstrapService: any = (<any>require("../chatter-bootstrap.service")).default;
+          BootstrapService.startChatterFeed(MetadataService, $ocLazyLoad, AppUIState, $compile, $scope);
+        }, 100);
 
       }
-
-
 
 
       //do something

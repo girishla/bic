@@ -12,22 +12,50 @@ class ChatterProgressCircularDirectiveController implements IChatterProgressCirc
     public showProgress: Boolean = false;
 
 
-    static $inject = ['$scope'];
-    constructor(scope: ng.IScope) {
+    static $inject = ['$scope', '$mdDialog'];
+    constructor(scope: ng.IScope, $mdDialog: any) {
         //init controller
 
         scope.$on('eventProgressToggled', (event, payload) => {
-            if (payload.showProgress==true) {
+            if (payload.showProgress == true) {
                 console.log('setting showProgress to true');
-                this.showProgress = true;
+                $mdDialog.show({
+                    controller: 'waitCtrl',
+                    template: '<md-dialog style="min-height:10%">' + '<md-dialog-content class="md-padding">' +
+                    '<div class="container" aria-label="wait">' +
+                    '<md-progress-linear md-mode="query" ></md-progress-linear>' + '<div style="display: inline-block;margin-top: 10px;padding: 25px;"><span>Please wait. Loading chatter topics for this page...</span><div>' +
+                    '</div>' + '</md-dialog-content>' +
+                    '</md-dialog>',
+                    parent: angular.element('.ComponentHeader'),
+                    clickOutsideToClose: false,
+                    fullscreen: false,
+                    escapeToClose:false
+                })
+                    .then(function (answer) {
+
+                    });
+
             }
             else {
-                this.showProgress = false;
-                console.log('setting showProgress to false');
+                
+                $mdDialog.cancel();
 
             }
         })
     };
+
+}
+
+//Empty Controller - required for material dialog to work quirk free
+export class WaitCtrl {
+
+    static $inject = ['$mdDialog', '$rootScope'];
+
+    constructor($mdDialog, $rootScope) {
+
+
+    }
+
 
 }
 
@@ -38,7 +66,7 @@ export default class ChatterProgressCircularDirective implements ng.IDirective {
     //require = 'ngModel';
     controller = ChatterProgressCircularDirectiveController;
     controllerAs = 'chatterProgressCircularCtrl';
-    templateUrl = 'http://localhost:3000/app/chatter/chatter-progress-circular/chatter-progress-circular.html';
+    //templateUrl = 'http://localhost:3000/app/chatter/chatter-progress-circular/chatter-progress-circular.html';
 
 
     constructor() {
