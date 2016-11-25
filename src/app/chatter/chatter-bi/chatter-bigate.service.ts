@@ -200,14 +200,15 @@ export default function BIGateService($http, $q) {
 
         var pivotCellJQElements = $("[id*=pivotTableView] .PTChildPivotTable table[id='" + view.getAttribute('Id') + "']").find('td[id^=db_saw]');
 
-        var bodyCoords = obips.DatabodyCoords.findCoords($('#' + pivotCellJQElements[0].getAttribute('Id'))[0])
-        var bodyDef = viewModel.getBodyDefinition(bodyCoords.getId());
 
 
         //for each pivot data cell, collect data references
         $.each(pivotCellJQElements, function (elementIndex, element) {
 
           //var elementId = element.getAttribute('Id');
+
+          var bodyCoords = obips.DatabodyCoords.findCoords($('#' + element.getAttribute('Id'))[0])
+          var bodyDef = viewModel.getBodyDefinition(bodyCoords.getId());
 
 
           var rowNum = bodyCoords.getRow();
@@ -245,7 +246,7 @@ export default function BIGateService($http, $q) {
           });
 
           contextCollection.push({
-            element: pivotCellJQElements[0].getAttribute('Id'),
+            element: element.getAttribute('Id'),
             reportStatePath: viewModel.reportStatePath,
             columnId: columnId,
             columnValue: columnValue,
