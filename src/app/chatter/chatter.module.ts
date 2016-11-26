@@ -1,9 +1,7 @@
-// import OBITableDirective from "./chatter-obi-table.directive";
-// import CellContext from "./chatter-cell-context.service";
-// import CellDirective from "./chatter-obi-table-cell.directive";
-// import CellPopoverDirective from "./chatter-cell-popover/chatter-cell-popover.directive";
+
 import ChatterDialogController from "./chatter-cell-dialog/chatter-cell-dialog.controller";
 import { TopicCommentApi, CommentApi } from "./chatter-feed/services/chatter-feed-comment-api.service";
+import { TopicFollowerApi, FollowerApi } from "./chatter-feed/services/chatter-feed-topic-follower-api.service";
 import Socket from "./chatter-feed/services/chatter-feed-socket.service";
 import TopicApi from "./chatter-feed/services/chatter-topic-api.service";
 import TopicService from "./chatter-feed/services/chatter-feed-topic.service";
@@ -16,21 +14,22 @@ import "angular-ui-bootstrap/src/popover"
 import ChatterFeedbackDirective from "./chatter-feedback/chatter-feedback.directive";
 import "./chatter-bi/chatter-bi.module";
 import "oclazyload/dist/ocLazyload.js";
+import "ns-popover/src/nsPopover.js"
+
+
 import {MetadataService} from "./chatter-bi/chatter-bi-metadata.service"
 import ChatterProgressCircularDirective from "./chatter-progress-circular/chatter-progress-circular.directive"
 import WaitCtrl from "./chatter-progress-circular/chatter-progress-circular.directive"
+
+
 import "./chatter-declarations";
 require("./chatter.scss");
-
+// require("./chatter-feed/chatter-feed-followers-popover.html");
 
 
 export default angular
-  .module('chatter.module', ['ngAria', 'ngAnimate', 'ngMaterial', 'ngResource', 'btford.socket-io', 'ui.bootstrap.module.popover', 'angularMoment', 'chatter-bi.module'])
+  .module('chatter.module', ['ngAria', 'ngAnimate', 'ngMaterial', 'ngResource', 'btford.socket-io', 'ui.bootstrap.module.popover', 'angularMoment', 'chatter-bi.module','nsPopover'])
   .config(ChatterConfig)
-  // .factory('CellContext', CellContext)
-  // .directive("obiTable", ['BIGate', 'MetadataService', '$compile', OBITableDirective])
-  // .directive('obiTableCell', ['$parse', '$compile', 'TopicService', CellDirective])
-  // .directive('obiTableCellPopover', ['$parse', '$compile', '$timeout', CellPopoverDirective])
   .controller('chatterDialogController', ['$mdDialog', '$sce', 'context', ChatterDialogController])
   .controller('waitCtrl', ['$mdDialog','$rootScope', WaitCtrl])
  
@@ -41,9 +40,11 @@ export default angular
   .directive('obiProgressCircular', ChatterProgressCircularDirective.factory())
   .factory('CommentApi', CommentApi)
   .factory('TopicCommentApi', TopicCommentApi)
+    .factory('FollowerApi', FollowerApi)
+  .factory('TopicFollowerApi', TopicFollowerApi)
   .factory('Socket', Socket)
   .factory('TopicApi', TopicApi)
-  .factory('TopicService', ['$rootScope', '$q', 'TopicApi', 'CommentApi', 'TopicCommentApi', 'Socket', TopicService])
+  .factory('TopicService', ['$rootScope', '$q', 'TopicApi', 'CommentApi', 'TopicCommentApi', 'Socket','FollowerApi','TopicFollowerApi', TopicService])
   .filter('toArray', ToArrayFilter)
   .directive('chatterFeedback', ['TopicApi', 'BIGate', ChatterFeedbackDirective])
   .service('MetadataService',MetadataService);

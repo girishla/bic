@@ -47,6 +47,9 @@ class ChatterNewTopicDirectiveController implements IChatterNewTopicDirectiveCon
     this.topicText = '';
     this.isActive = false;
     this.hasFocus = false;
+
+
+
     return newTopic;
   };
     close = function () {

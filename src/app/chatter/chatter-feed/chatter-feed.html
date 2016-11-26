@@ -1,8 +1,20 @@
-  <div class="slds">
-    <div  class="slds-feed">
-      <chatter-new-topic feed-context="chatterFeedCtrl.feedContext"></chatter-new-topic>
-      <chatter-topics></chatter-topics>
-    </div>
+<div class="slds">
+
+
+
+<!--This script tag is to hold Angular Template Cache Items for the Chatter Feed. This will be processed by Angular when the feed directive is compiled-->
+<script type="text/ng-template" id="popover-followers.html">
+<div class="slds-popover slds-nubbin--top" role="dialog">
+  <div class="slds-popover__body">
+    <p>{{chatterTopicCtrl.topicData.followers}}</p>
   </div>
+</div>
+</script>
 
 
+
+  <div class="slds-feed">
+    <chatter-new-topic feed-context="chatterFeedCtrl.feedContext"></chatter-new-topic>
+    <chatter-topics></chatter-topics>
+  </div>
+</div>

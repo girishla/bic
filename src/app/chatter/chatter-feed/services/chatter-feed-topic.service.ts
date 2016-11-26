@@ -1,7 +1,7 @@
 import * as lodash from "lodash"
 var SHA1 = <any>require("crypto-js/sha1")
 
-export default function TopicService($rootScope, $q, TopicApi, CommentApi, TopicCommentApi, Socket) {
+export default function TopicService($rootScope, $q, TopicApi, CommentApi, TopicCommentApi, Socket, FollowerApi, TopicFollowerApi) {
   // here we use a simple in memory cache in order to keep actual data synced up in the client
   var cache = {};
   var contextCache = {};
@@ -33,6 +33,10 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
     }
     if (!(cache[data.id].hasOwnProperty('comments'))) {
       cache[data.id].comments = [];
+    }
+
+    if (!(cache[data.id].hasOwnProperty('followers'))) {
+      cache[data.id].followers = [];
     }
 
 
@@ -115,8 +119,13 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
 
     var apiResult = TopicApi.save(data).$promise.then(
       function (topic) {
+
+        //Topic creator is a follower by default
+        Topic.createFollower({ topicId: topic.id }, { "userId": 1 });
         return initObject(topic);
+
       });
+
 
     if (lodash.isEmpty(cache[data.id])) {
       return apiResult;
@@ -176,6 +185,29 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
     );
 
   };
+
+  Topic.createFollower = function (params, data) {
+    var self = this;
+    TopicFollowerApi.save(params, data).$promise.then(
+      function (newFollower) {
+
+        if (!(lodash.find(cache[params.topicId].followers, 'id', newFollower.id))) {
+          cache[params.topicId].followers.push(newFollower)
+          console.log('follower ADDED...');
+        }
+
+      }
+    );
+
+  };
+
+  Topic.removeFollower = function (followerId) {
+    var self = this;
+    FollowerApi.remove({ followerId: followerId });
+    console.log('follower removed...');
+
+  };
+
 
 
 
@@ -247,6 +279,46 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
 
 
   });
+
+
+
+  Socket.on('Follower.Create', function (topicId, newFollower) {
+    // as we should already have the Topic we just add the follower to cache ...
+    console.log('new follower received for topic:', topicId);
+    console.log(newFollower);
+
+    var result = lodash.pick(cache, function (value, key) {
+      return (key == topicId);
+    });
+
+    if (result) {
+      if (!(lodash.find(cache[topicId].followers, 'id', newFollower.id))) {
+        cache[topicId].followers.push(newFollower)
+        console.log('added follower into topic');
+      }
+
+    }
+    else {
+      console.log('cannot find topic in local memory cache so cant add follower into cache...');
+
+    }
+
+  });
+
+  Socket.on('Follower.Delete', function (followerId) {
+
+    console.log('follower to be deleted:', followerId);
+
+    lodash.forEach(cache, function (topic: any) {
+      lodash.remove(cache[topic.id].followers, function (currentObject: any) {
+        return currentObject.id == followerId;
+      });
+
+    });
+
+
+  });
+
 
   return Topic;
 };

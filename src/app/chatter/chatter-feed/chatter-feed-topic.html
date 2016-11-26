@@ -10,22 +10,26 @@
 		<div class="slds-grid slds-grid--align-spread slds-has-flexi-truncate">
 			<p class="slds-truncate"><a href="javascript:void(0)" title="Developer">Project EU</a> - <a href="javascript:void(0)" title="Girish Lakshmanan">Girish Lakshmanan</a>
 				<span am-time-ago="chatterTopicCtrl.topicData.updatedAt"></span>
+				<button class="slds-button slds-button--icon-container" title="followers" ns-popover ns-popover-template="popover-followers.html"
+					ns-popover-trigger="click" ns-popover-placement="bottom" ns-popover-container="body" ns-popover-mouseRelative="true"
+					ns-popover-theme='slds'>
+									<svg aria-hidden="true" class="slds-button__icon"  style="fill: lightgrey">
+										<use xlink:href="#people"></use>
+									</svg>
+									<span class="slds-assistive-text">Followers</span>
+								</button>
 			</p>
-			<!--<button class="slds-button slds-button--icon-container" title="settings">
-						<svg aria-hidden="true" class="slds-button__icon">
-							<use xlink:href="#settings"></use>
-						</svg>
-						<span class="slds-assistive-text">Settings</span>
-					</button>-->
+
 			<div class="slds-grid slds-grid--align-end">
+
 				<md-menu md-position-mode="target-right target">
 					<button ng-click="$mdOpenMenu($event)" class="slds-button slds-button--icon-border-filled slds-button--icon-x-small slds-shrink-none">
-               <svg aria-hidden="true"
-                  class="slds-button__icon slds-button__icon--hint slds-button__icon--small">
-                  <use xlink:href="#down"></use>
-               </svg>
-               <span class="slds-assistive-text">Show More</span>
-            </button>
+						<svg aria-hidden="true"
+							class="slds-button__icon slds-button__icon--hint slds-button__icon--small">
+							<use xlink:href="#down"></use>
+						</svg>
+						<span class="slds-assistive-text">Show More</span>
+						</button>
 					<md-menu-content width="2">
 						<md-menu-item>
 							<md-button ng-click="chatterTopicCtrl.topicData.remove()"><span md-menu-align-target="">Delete</span>
@@ -33,7 +37,6 @@
 						</md-menu-item>
 					</md-menu-content>
 				</md-menu>
-
 
 			</div>
 		</div>
