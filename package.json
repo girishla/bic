@@ -18,8 +18,10 @@
     "install": "^0.8.1",
     "jquery": "^3.1.1",
     "lodash": "^3.10.1",
+    "ment.io": "^0.9.23",
     "moment": "^2.15.2",
     "npm": "^3.9.5",
+    "ns-popover": "^0.6.8",
     "oclazyload": "^1.0.9",
     "socket.io": "^1.4.6",
     "socket.io-client": "^1.5.1"

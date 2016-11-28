@@ -11,9 +11,14 @@
             <dt class="slds-list__item slds-text-body--small">To:</dt>
             <dd class="slds-list__item">All Followers</dd>
           </dl>
+          
           <textarea ng-focus="chatterNewTopicCtrl.isActive=true" ng-blur="chatterNewTopicCtrl.hasFocus=false" ng-keyup="chatterNewTopicCtrl.hasFocus=true"
-            ng-model="chatterNewTopicCtrl.topicText" class="slds-publisher__input slds-textarea slds-text-longform" placeholder="Start a new Conversation…"
-            md-autofocus></textarea>
+            ng-model="chatterNewTopicCtrl.topicText" class="slds-publisher__input slds-textarea slds-text-longform" placeholder="Start a new Conversation…" 
+             mentio  mentio-id="'newTopicTextArea' + chatterNewTopicCtrl.feedMode"></textarea>
+
+          <mentio-menu mentio-apply-element mentio-for="'newTopicTextArea' + chatterNewTopicCtrl.feedMode" mentio-trigger-char="'@'" mentio-items="chatterNewTopicCtrl.filteredUsers" 
+            mentio-search="chatterNewTopicCtrl.searchUsers(term)" mentio-select="chatterNewTopicCtrl.getUsersextRaw(item)" mentio-template-url="mentions-menu.html"></mentio-menu>
+
           <div class="slds-attachments"></div>
 
           <div class="slds-publisher__actions slds-grid slds-grid--align-spread">
@@ -43,6 +48,7 @@
           </div>
         </div>
 
+ 
 
       </md-content>
     </md-tab>

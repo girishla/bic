@@ -10,15 +10,21 @@ import CellPopoverDirective from "../chatter-cell-popover/chatter-cell-popover.d
 import OBITableDirective from "../chatter-obi-table.directive";
 import CellDirective from "../chatter-obi-table-cell.directive";
 
+
 require("./chatter-feed.scss")
 require("salesforce-lightning-design-system-scoped/scss/index-vf.scss");
 require("../chatter-feedback/chatter-feedback.styles.scss")
+// require('ment.io')
+
+
+require("mentio/mentio.directive.js")
+require("mentio/mentio.service.js")
 
 
 export default () => {
 
     angular
-        .module('chatter-feed.module', [])
+        .module('chatter-feed.module', ['mentio'])
         .directive("obiTable", ['BIGate', 'MetadataService', '$compile', OBITableDirective])
         .directive('obiTableCell', ['$parse', '$compile', 'TopicService', CellDirective])
         .controller('chatterFeedImageDialogController', ['$mdDialog', 'dialogData', ChatterFeedImageDialogController])

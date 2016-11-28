@@ -40,7 +40,8 @@ export default class ChatterFeedDirective implements ng.IDirective {
   templateUrl = 'http://localhost:3000/app/chatter/chatter-feed/chatter-feed.html';
 
   scope = {
-    feedContext:'='
+    feedContext:'=',
+    feedMode: '='
   };
   bindToController = true;
 

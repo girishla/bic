@@ -36,7 +36,7 @@
                                 <div class="slds-media__body">
                                     <span class="slds-pill">
                                 <span class="slds-pill__label" title="Full pill label verbiage mirrored here">{{follower.userName}}</span>
-                                     
+
                                     <button ng-click="chatterTopicCtrl.deleteFollower($index)" class="slds-button slds-button--icon slds-pill__remove" title="Remove">
                                     <svg aria-hidden="true" class="slds-button__icon">
                                       <use xlink:href="#close"></use>
@@ -62,9 +62,27 @@
     </script>
 
 
+    <script type="text/ng-template" id="mentions-menu.html">
+        <style>
+            
+            .menu-highlighted {
+                font-weight: bold;
+            }
+        </style>
+        <ul class="list-group mentio-user-search mentio-scrollable-menu">
+            <li mentio-menu-item="item" ng-repeat="item in items track by $index" class="list-group-item">
+                <!--<a class="text-primary" ng-bind-html="item.label | mentioHighlight:typedTerm:'menu-highlighted' | unsafe"></a>-->
+                <img ng-src="{{item.imageUrl}}" class="user-photo">
+                <span class="text-primary" ng-bind-html="user.label | mentioHighlight:typedTerm:'menu-highlighted' | unsafe"></span>
+                <em class="text-muted" ng-bind="item.label"></em>
+            </li>
+        </ul>
+    </script>
+
+
 
     <div class="slds-feed">
-        <chatter-new-topic feed-context="chatterFeedCtrl.feedContext"></chatter-new-topic>
+        <chatter-new-topic feed-context="chatterFeedCtrl.feedContext" feed-mode='chatterFeedCtrl.feedMode'></chatter-new-topic>
         <chatter-topics></chatter-topics>
     </div>
 </div>

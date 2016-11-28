@@ -1,10 +1,10 @@
 
 
 interface IChatterNewTopicDirectiveController {
-  isActive:boolean;
-  topicText:string;
-  hasFocus:boolean;
-  createTopic(text:any):any
+  isActive: boolean;
+  topicText: string;
+  hasFocus: boolean;
+  createTopic(text: any): any
 
 }
 
@@ -12,24 +12,28 @@ interface IChatterNewTopicDirectiveController {
 class ChatterNewTopicDirectiveController implements IChatterNewTopicDirectiveController {
 
 
-  isActive:boolean;
-  hasFocus:boolean;
-  topicText:string;
-  feedContext:any;
-  sidenavService:any;
-  uistateService:any;
+  isActive: boolean;
+  hasFocus: boolean;
+  topicText: string;
+  feedContext: any;
+  sidenavService: any;
+  uistateService: any;
+  filteredUsers: {}[];
+  typedTerm:string='';
+  mode:string='';
 
-  static $inject = ['TopicService','$mdSidenav','AppUIState'];
+  static $inject = ['TopicService', '$mdSidenav', 'AppUIState', 'UserService', '$q'];
 
-  constructor(private TopicService:any,Sidenav:any,AppUIState:any) {
+  constructor(private TopicService: any, Sidenav: any, AppUIState: any, private UserService: any, private $q: ng.IQService) {
 
     this.isActive = false;
     this.hasFocus = false;
-    this.sidenavService=Sidenav;
-    this.uistateService=AppUIState;
+    this.sidenavService = Sidenav;
+    this.uistateService = AppUIState;
+
   }
 
-  createTopic = (text:any)=> {
+  createTopic = (text: any) => {
     var newTopic = this.TopicService.create(
       {
         "text": text,
@@ -52,12 +56,40 @@ class ChatterNewTopicDirectiveController implements IChatterNewTopicDirectiveCon
 
     return newTopic;
   };
-    close = function () {
-        this.sidenavService('right').close()
-          .then(function () {
-            //this.uistateService.sideNavOpened = false;
-          });
-      };
+
+
+  getUsersextRaw = function (item) {
+    return '@' + item.label;
+  };
+
+
+  searchUsers = (term) => {
+
+    this.filteredUsers = [];
+    let userList = [];
+
+    return this.UserService.getAll().then((users: any) => {
+
+      angular.forEach(users, function (item) {
+        if (item.userName.toUpperCase().indexOf(term.toUpperCase()) >= 0) {
+          userList.push({ label: item.userName });
+        }
+      });
+
+      this.filteredUsers = userList;
+      return this.$q.when(userList);
+
+    });
+
+
+  };
+
+  close = function () {
+    this.sidenavService('right').close()
+      .then(function () {
+        //this.uistateService.sideNavOpened = false;
+      });
+  };
 
 }
 
@@ -68,19 +100,20 @@ export default class ChatterNewTopicDirective implements ng.IDirective {
   controllerAs = 'chatterNewTopicCtrl';
   templateUrl = 'http://localhost:3000/app/chatter/chatter-feed/chatter-feed-new-topic.html';
   scope = {
-    feedContext: '='
+    feedContext: '=',
+    feedMode: '='
   };
   bindToController = true;
 
 
 
 
-  link = function (scope:ng.IScope, element:ng.IAugmentedJQuery, attrs:ng.IAttributes, ctrl:IChatterNewTopicDirectiveController) {
+  link = function (scope: ng.IScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes, ctrl: IChatterNewTopicDirectiveController) {
 
 
-    scope.$watch(()=> {
+    scope.$watch(() => {
       return ctrl.topicText
-    }, (oldvalue, newvalue)=> {
+    }, (oldvalue, newvalue) => {
 
       if (oldvalue != newvalue) {
 
@@ -96,14 +129,14 @@ export default class ChatterNewTopicDirective implements ng.IDirective {
   };
 
 
-  constructor(private TopicService:any) {
+  constructor(private TopicService: any) {
     console.log('in ChatterNewTopicDirective ')
 
   }
 
 
-  static factory():ng.IDirectiveFactory {
-    const directive = (TopicService:any) => new ChatterNewTopicDirective(TopicService);
+  static factory(): ng.IDirectiveFactory {
+    const directive = (TopicService: any) => new ChatterNewTopicDirective(TopicService);
     directive.$inject = ['TopicService'];
     return directive;
   }
