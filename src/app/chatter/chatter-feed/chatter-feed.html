@@ -1,15 +1,58 @@
 <div class="slds">
+  <!--This script tag is to hold Angular Template Cache Items for the Chatter Feed. This will be processed by Angular when the feed directive is compiled-->
+  <script type="text/ng-template" id="popover-followers.html">
+      <div class="slds-popover slds-popover--panel slds-nubbin--top" role="dialog">
+       <div class="slds-popover__header">
+      
+        <div class="slds-media slds-m-bottom--small slds-media--center">
+         <div class="slds-media__figure">
+            <span class="slds-icon_container">
+               <svg aria-hidden="true" style="fill:black" class="slds-icon slds-icon--small">
+                  <use xlink:href="#people"></use>
+               </svg>
+               <span class="slds-assistive-text">Followers</span>
+            </span>
+         </div>
+         <div class="slds-media__body">
+            <p class="slds-text-heading--small"><span>Topic Followers</span></p>
+         </div>
+      </div>
+      
+       </div>
+      
+      <div class="slds-popover__body">
+        <dl class="slds-popover__body-list">
+            <dt class="slds-m-bottom--small">
+              <div class="slds-media slds-media--center">
+                  <div class="slds-media__figure">
+                    <div class="slds-avatar slds-avatar--circle slds-avatar--small">
+                        <a href="javascript:void(0)" title="Jason Rodgers">
+                        <img src="//localhost:3000/assets/images/avatars/avatar3.jpg" alt="user" />
+                        </a>
+                    </div>
+                  </div>
+                  <div class="slds-media__body">
+                    <div ng-repeat="follower in chatterTopicCtrl.topicData.followers">
+                        <span class="slds-pill">
+                          <span class="slds-pill__label" title="Full pill label verbiage mirrored here">{{follower.id}} Girish Lakshmanan</span>
+                          <button class="slds-button slds-button--icon slds-pill__remove" title="Remove">
+                              <svg aria-hidden="true" class="slds-button__icon">
+                                <use xlink:href="#close"></use>
+                              </svg>
+                              <span class="slds-assistive-text">Remove Follower</span>
+                          </button>
+                        </span>
+                    </div>
+                  </div>
+              </div>
+            </dt>
+        </dl>
+      </div>
 
 
-
-<!--This script tag is to hold Angular Template Cache Items for the Chatter Feed. This will be processed by Angular when the feed directive is compiled-->
-<script type="text/ng-template" id="popover-followers.html">
-<div class="slds-popover slds-nubbin--top" role="dialog">
-  <div class="slds-popover__body">
-    <p>{{chatterTopicCtrl.topicData.followers}}</p>
-  </div>
-</div>
-</script>
+        
+      </div>
+   </script>
 
 
 
