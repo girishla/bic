@@ -4,7 +4,9 @@ import { TopicCommentApi, CommentApi } from "./chatter-feed/services/chatter-fee
 import { TopicFollowerApi, FollowerApi } from "./chatter-feed/services/chatter-feed-topic-follower-api.service";
 import Socket from "./chatter-feed/services/chatter-feed-socket.service";
 import TopicApi from "./chatter-feed/services/chatter-topic-api.service";
+import UserApi from "./chatter-feed/services/chatter-user-api.service";
 import TopicService from "./chatter-feed/services/chatter-feed-topic.service";
+import UserService from "./chatter-feed/services/chatter-user.service";
 import ChatterConfig from "./chatter.config";
 import ToArrayFilter from "./util/chatter-util-to-array.filter";
 import { SidenavPushInDirective, ObiSideNavDirective } from "./chatter-side-nav/chatter-obi-sidenav.directive";
@@ -40,13 +42,22 @@ export default angular
   .directive('obiProgressCircular', ChatterProgressCircularDirective.factory())
   .factory('CommentApi', CommentApi)
   .factory('TopicCommentApi', TopicCommentApi)
-    .factory('FollowerApi', FollowerApi)
+  .factory('FollowerApi', FollowerApi)
   .factory('TopicFollowerApi', TopicFollowerApi)
   .factory('Socket', Socket)
   .factory('TopicApi', TopicApi)
-  .factory('TopicService', ['$rootScope', '$q', 'TopicApi', 'CommentApi', 'TopicCommentApi', 'Socket','FollowerApi','TopicFollowerApi', TopicService])
+  .factory('UserApi', UserApi)
+  .factory('TopicService', ['$rootScope', '$q', 'TopicApi', 'CommentApi', 'TopicCommentApi', 'Socket','FollowerApi','TopicFollowerApi','UserService', TopicService])
+  .factory('UserService', ['$q', 'UserApi', 'Socket', UserService])
   .filter('toArray', ToArrayFilter)
   .directive('chatterFeedback', ['TopicApi', 'BIGate', ChatterFeedbackDirective])
-  .service('MetadataService',MetadataService);
+  .service('MetadataService',MetadataService)
+  .run(function(UserService){
+    UserService.getAll().then((data:any)=>{
+      //Users Cached in Service. Nothing more to be done for now.
+
+    });
+
+  })
 
 

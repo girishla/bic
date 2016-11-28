@@ -1,5 +1,7 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-    "typescript.check.workspaceVersion": false
+    "typescript.check.workspaceVersion": false,
+    "html.suggest.angular1": true,
+    "html.format.unformatted": "a, abbr, acronym, b, bdo, big, br, button, cite, code, dfn, em, i, img, input, kbd, label, map, object, q, samp,  select, small, span, strong, sub, sup, textarea, tt, var"
     // "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\git-bash.exe"
 }

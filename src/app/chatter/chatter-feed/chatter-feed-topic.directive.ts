@@ -43,6 +43,12 @@ class ChatterTopicDirectiveController implements IChatterTopicDirectiveControlle
 
 
 
+   deleteFollower = (index)=> {
+     this.TopicService.removeFollower(this.topicData.followers[index].id);
+     return true;
+   };
+
+
 }
 
 

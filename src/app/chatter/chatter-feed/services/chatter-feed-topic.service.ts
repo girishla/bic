@@ -1,7 +1,7 @@
 import * as lodash from "lodash"
 var SHA1 = <any>require("crypto-js/sha1")
 
-export default function TopicService($rootScope, $q, TopicApi, CommentApi, TopicCommentApi, Socket, FollowerApi, TopicFollowerApi) {
+export default function TopicService($rootScope, $q, TopicApi, CommentApi, TopicCommentApi, Socket, FollowerApi, TopicFollowerApi, UserService) {
   // here we use a simple in memory cache in order to keep actual data synced up in the client
   var cache = {};
   var contextCache = {};
@@ -31,12 +31,31 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
       console.log('contextCache[contextCacheIndex] is:', contextCache[contextCacheIndex])
 
     }
+
+
     if (!(cache[data.id].hasOwnProperty('comments'))) {
       cache[data.id].comments = [];
     }
 
     if (!(cache[data.id].hasOwnProperty('followers'))) {
       cache[data.id].followers = [];
+    } else {
+
+
+      // Merge User properties into Followers - Similar to SQL Join
+      UserService.getAll().then((users: any) => {
+
+        angular.forEach(cache[data.id].followers, function (follower,index) {
+          let user = lodash.find(users, function (o: any) { return o.id = follower.userId; });
+          if (user.id) {
+            cache[data.id].followers[index] = angular.extend({}, user, follower);
+          }
+
+        })
+
+
+      });
+
     }
 
 
@@ -192,8 +211,23 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
       function (newFollower) {
 
         if (!(lodash.find(cache[params.topicId].followers, 'id', newFollower.id))) {
-          cache[params.topicId].followers.push(newFollower)
-          console.log('follower ADDED...');
+
+
+          UserService.getAll().then((users: any) => {
+            //Users Cached in Service. Nothing more to be done for now.
+            console.log('users:', users)
+            let user = lodash.find(users, function (o: any) { return o.id = newFollower.userId; });
+            console.log('userIndex', user)
+            if (user.id) {
+              newFollower = angular.extend({}, user, newFollower);
+            }
+            cache[params.topicId].followers.push(newFollower)
+            console.log('follower ADDED...', newFollower);
+
+          });
+
+
+
         }
 
       }
@@ -293,7 +327,23 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
 
     if (result) {
       if (!(lodash.find(cache[topicId].followers, 'id', newFollower.id))) {
-        cache[topicId].followers.push(newFollower)
+
+
+        UserService.getAll().then((users: any) => {
+          //Users Cached in Service. Nothing more to be done for now.
+          console.log('users:', users)
+          let user = lodash.find(users, function (o: any) { return o.id = newFollower.userId; });
+          console.log('userIndex', user)
+          if (user.id) {
+            newFollower = angular.extend({}, user, newFollower);
+          }
+          cache[topicId].followers.push(newFollower)
+          console.log('follower ADDED...', newFollower);
+
+        });
+
+
+
         console.log('added follower into topic');
       }
 
