@@ -1,50 +1,54 @@
 <li>
-<div class="chatter-new-comment slds-media slds-comment slds-hint-parent">
-  <div class="slds-media__figure">
-    <div class="slds-avatar slds-avatar--circle slds-avatar--small">
-      <a href="javascript:void(0)" title="Jenna Davis">
-        <img
-          src="//localhost:3000/assets/images/avatars/avatar3.jpg"
-          alt="Jenna Davis"/>
-      </a>
+  <div class="chatter-new-comment slds-media slds-comment slds-hint-parent">
+    <div class="slds-media__figure">
+      <div class="slds-avatar slds-avatar--circle slds-avatar--small">
+        <a href="javascript:void(0)" title="Jenna Davis">
+          <img src="//localhost:3000/assets/images/avatars/avatar3.jpg" alt="Jenna Davis" />
+        </a>
+      </div>
     </div>
-  </div>
-  <div class="slds-media__body">
-    <div class="slds-publisher slds-publisher--comment" ng-class="{'slds-is-active': chatterNewCommentCtrl.isActive, 'slds-has-focus':chatterNewCommentCtrl.hasFocus}">
-                          <textarea ng-focus="chatterNewCommentCtrl.isActive=true"
-                                    ng-blur="chatterNewCommentCtrl.hasFocus=false"
-                                    ng-keyup="chatterNewCommentCtrl.hasFocus=true"
-                                    ng-model="chatterNewCommentCtrl.commentText"
-                                    class="slds-publisher__input slds-input--bare slds-text-longform"
-                                    placeholder="Write a comment…"></textarea>
+    <div class="slds-media__body">
+      <div class="slds-publisher slds-publisher--comment" ng-class="{'slds-is-active': chatterNewCommentCtrl.isActive, 'slds-has-focus':chatterNewCommentCtrl.hasFocus}">
+        
+        <textarea ng-focus="chatterNewCommentCtrl.isActive=true" ng-blur="chatterNewCommentCtrl.hasFocus=false" ng-keyup="chatterNewCommentCtrl.hasFocus=true"
+          ng-model="chatterNewCommentCtrl.commentText" class="slds-publisher__input slds-input--bare slds-text-longform" placeholder="Write a comment…"
+          mentio mentio-id="'newCommentTextArea' + chatterCommentsCtrl.feedMode + chatterCommentsCtrl.topicId"></textarea>
 
-      <div class="slds-attachments"></div>
-      <div class="slds-publisher__actions slds-grid slds-grid--align-spread">
-        <ul class="slds-grid">
-          <li>
-            <button class="slds-button slds-button--icon-container">
+        <!--
+      <textarea ng-focus="chatterNewCommentCtrl.isActive=true" ng-blur="chatterNewCommentCtrl.hasFocus=false" md-autofocus ng-keyup="chatterNewCommentCtrl.hasFocus=true"
+            ng-model="chatterNewCommentCtrl.topicText" class="slds-publisher__input slds-textarea slds-text-longform" placeholder="Start a new Conversation…" 
+             mentio  mentio-id="'newCommentTextArea' + chatterNewCommentCtrl.feedMode"></textarea>-->
+
+
+        <mentio-menu mentio-apply-element mentio-for="'newCommentTextArea' + chatterCommentsCtrl.feedMode + chatterCommentsCtrl.topicId" mentio-trigger-char="'@'"
+          mentio-items="chatterNewCommentCtrl.filteredUsers" mentio-search="chatterNewCommentCtrl.searchUsers(term)" mentio-select="chatterNewCommentCtrl.getUsersextRaw(item)"
+          mentio-template-url="mentions-menu.html"></mentio-menu>
+
+
+        <div class="slds-attachments"></div>
+        <div class="slds-publisher__actions slds-grid slds-grid--align-spread">
+          <ul class="slds-grid">
+            <li>
+              <button class="slds-button slds-button--icon-container">
               <svg aria-hidden="true" class="slds-button__icon">
                 <use xlink:href="#adduser"></use>
               </svg>
               <span class="slds-assistive-text">Add User</span>
             </button>
-          </li>
-          <li>
-            <button class="slds-button slds-button--icon-container">
+            </li>
+            <li>
+              <button class="slds-button slds-button--icon-container">
               <svg aria-hidden="true" class="slds-button__icon">
                 <use xlink:href="#attach"></use>
               </svg>
               <span class="slds-assistive-text">Attach a file</span>
             </button>
-          </li>
-        </ul>
-        <button disabled="" ng-click="chatterNewCommentCtrl.createComment(chatterCommentsCtrl.topicId,chatterNewCommentCtrl.commentText)"
-                ng-class="{'share-button': chatterNewCommentCtrl.isActive}" class="slds-button slds-button--brand">Comment</button>
+            </li>
+          </ul>
+          <button disabled="" ng-click="chatterNewCommentCtrl.createComment(chatterCommentsCtrl.topicId,chatterNewCommentCtrl.commentText)"
+            ng-class="{'share-button': chatterNewCommentCtrl.isActive}" class="slds-button slds-button--brand">Comment</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </li>
-
-
-

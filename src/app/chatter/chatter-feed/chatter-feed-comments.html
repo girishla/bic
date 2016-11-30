@@ -3,7 +3,8 @@
     <li ng-repeat="comment in chatterCommentsCtrl.comments | toArray | orderBy:'id': false" class="chatter-comments">
       <chatter-comment  comment-data="comment"></chatter-comment>
     </li>
-    <chatter-new-comment></chatter-new-comment>
+    <!--{{chatterCommentsCtrl.feedMode}}-->
+    <chatter-new-comment feed-mode='chatterCommentsCtrl.feedMode'></chatter-new-comment>
   </ul>
 </div>
 

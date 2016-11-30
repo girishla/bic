@@ -43,10 +43,11 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
 
 
       // Merge User properties into Followers - Similar to SQL Join
+
       UserService.getAll().then((users: any) => {
 
-        angular.forEach(cache[data.id].followers, function (follower,index) {
-          let user = lodash.find(users, function (o: any) { return o.id = follower.userId; });
+        angular.forEach(cache[data.id].followers, function (follower, index) {
+          let user = lodash.find(users, function (o: any) { return o.id == follower.userId; });
           if (user.id) {
             cache[data.id].followers[index] = angular.extend({}, user, follower);
           }
@@ -139,8 +140,8 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
     var apiResult = TopicApi.save(data).$promise.then(
       function (topic) {
 
-        //Topic creator is a follower by default
-        Topic.createFollower({ topicId: topic.id }, { "userId": 1 });
+
+
         return initObject(topic);
 
       });
@@ -195,7 +196,8 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
     TopicCommentApi.save(params, data).$promise.then(
       function (newComment) {
 
-        if (!(lodash.find(cache[params.topicId].comments, 'id', newComment.id))) {
+        //if (!(lodash.find(cache[params.topicId].comments, 'id', newComment.id))) {
+        if (!(lodash.findIndex(cache[params.topicId].comments, { 'id': newComment.id }) > -1)) {
           cache[params.topicId].comments.push(newComment)
           console.log('comment ADDED...');
         }
@@ -207,17 +209,27 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
 
   Topic.createFollower = function (params, data) {
     var self = this;
+
+    console.log('cache[params.topicId].followers',cache[params.topicId].followers)
+
+    //if already following topic, nothing to do, just return;
+    if((cache[params.topicId]) && ((lodash.findIndex(cache[params.topicId].followers, { 'userId': data.userId }) > -1))) return;
+
     TopicFollowerApi.save(params, data).$promise.then(
       function (newFollower) {
 
-        if (!(lodash.find(cache[params.topicId].followers, 'id', newFollower.id))) {
+        console.log('newFollower', newFollower, cache[params.topicId].followers)
+
+        if (!(lodash.findIndex(cache[params.topicId].followers, { 'id': newFollower.id }) > -1)) {
 
 
           UserService.getAll().then((users: any) => {
             //Users Cached in Service. Nothing more to be done for now.
             console.log('users:', users)
-            let user = lodash.find(users, function (o: any) { return o.id = newFollower.userId; });
+            let user = lodash.find(users, function (o: any) { return o.id == newFollower.userId; });
             console.log('userIndex', user)
+
+
             if (user.id) {
               newFollower = angular.extend({}, user, newFollower);
             }
@@ -266,7 +278,9 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
     });
 
     if (result) {
-      if (!(lodash.find(cache[topicId].comments, 'id', newComment.id))) {
+      //   if (!(lodash.find(cache[topicId].comments, 'id', newComment.id))) {
+      if (!(lodash.findIndex(cache[topicId].comments, { 'id': newComment.id }) > -1)) {
+
         cache[topicId].comments.push(newComment)
         console.log('added comment into topic');
       }
@@ -319,20 +333,22 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
   Socket.on('Follower.Create', function (topicId, newFollower) {
     // as we should already have the Topic we just add the follower to cache ...
     console.log('new follower received for topic:', topicId);
-    console.log(newFollower);
+    console.log(newFollower, cache[topicId].followers);
+
+    if((cache[topicId]) && ((lodash.findIndex(cache[topicId].followers, { 'id': newFollower.id }) > -1))) return;
 
     var result = lodash.pick(cache, function (value, key) {
       return (key == topicId);
     });
 
     if (result) {
-      if (!(lodash.find(cache[topicId].followers, 'id', newFollower.id))) {
-
+      // if (!(lodash.find(cache[topicId].followers, 'id', newFollower.id))) {
+      if (!(lodash.findIndex(cache[topicId].followers, { 'id': newFollower.id }) > -1)) {
 
         UserService.getAll().then((users: any) => {
           //Users Cached in Service. Nothing more to be done for now.
           console.log('users:', users)
-          let user = lodash.find(users, function (o: any) { return o.id = newFollower.userId; });
+          let user = lodash.find(users, function (o: any) { return o.id == newFollower.userId; });
           console.log('userIndex', user)
           if (user.id) {
             newFollower = angular.extend({}, user, newFollower);

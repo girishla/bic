@@ -73,6 +73,32 @@ export default function UserService($q, UserApi, Socket) {
 
   }
 
+  User.getUsersextRaw = function (item) {
+    return '@' + item.userAlias;
+  };
+
+
+  User.searchUsers = (term) => {
+
+    // this.filteredUsers = [];
+    let userList = [];
+
+    return User.getAll().then((users: any) => {
+
+      angular.forEach(users, function (item) {
+        if (item.userName.toUpperCase().indexOf(term.toUpperCase()) >= 0) {
+          userList.push({ label: item.userName, userAlias: item.userAlias });
+        }
+      });
+
+      // this.filteredUsers = userList;
+      return $q.when(userList);
+
+    });
+
+
+  };
+
 
   User.create = function (data) {
 
@@ -106,9 +132,9 @@ export default function UserService($q, UserApi, Socket) {
       function () {
 
         if (cache.hasOwnProperty(self.id)) {
-		//in case the user was already deleted because the socket io notification
+          //in case the user was already deleted because the socket io notification
           delete cache[self.id];
-         
+
         }
 
       });

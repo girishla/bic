@@ -1,3 +1,4 @@
+import * as _ from "lodash"
 
 
 interface IChatterNewTopicDirectiveController {
@@ -19,10 +20,11 @@ class ChatterNewTopicDirectiveController implements IChatterNewTopicDirectiveCon
   sidenavService: any;
   uistateService: any;
   filteredUsers: {}[];
-  typedTerm:string='';
-  mode:string='';
+  typedTerm: string = '';
+  mode: string = '';
+  mentionedMatchedUsers = [];
 
-  static $inject = ['TopicService', '$mdSidenav', 'AppUIState', 'UserService', '$q'];
+  static $inject = ['TopicService', '$mdSidenav', 'AppUIState', 'UserService', '$q', 'TopicService'];
 
   constructor(private TopicService: any, Sidenav: any, AppUIState: any, private UserService: any, private $q: ng.IQService) {
 
@@ -34,53 +36,90 @@ class ChatterNewTopicDirectiveController implements IChatterNewTopicDirectiveCon
   }
 
   createTopic = (text: any) => {
-    var newTopic = this.TopicService.create(
-      {
-        "text": text,
-        "level1Context": this.feedContext.level1Context,
-        "level2Context": this.feedContext.level2Context,
-        "level3Context": this.feedContext.level3Context,
-        "level4Context": this.feedContext.level4Context,
-        "level1ContextHash": this.feedContext.level1ContextHash,
-        "level2ContextHash": this.feedContext.level2ContextHash,
-        "level3ContextHash": this.feedContext.level3ContextHash,
-        "level4ContextHash": this.feedContext.level4ContextHash
+    var newTopicPromise;
 
-      }
-    );
+    const mentionPattern = /\B@[a-z0-9_-]+/gi;
+
+    let mentionedUsers = text.match(mentionPattern);
+
+    if (mentionedUsers) {
+      mentionedUsers = mentionedUsers.map((mentionedUser) => {
+        return { userAlias: mentionedUser.replace('@', '') }
+
+      })
+
+    }
+
+
+
+    this.UserService.getAll().then((users: any) => {
+
+      //Add topic creator as follower by default
+      mentionedUsers.push({ userAlias: 'admin' })
+
+      //find user objects matching mentioned users. We need the user Ids to create followers
+      this.mentionedMatchedUsers = _.intersectionBy(_.values(users), mentionedUsers, 'userAlias');
+
+      //Keep only unique values
+      this.mentionedMatchedUsers = _.uniqBy(this.mentionedMatchedUsers, 'userAlias');
+
+      console.log('mentionedMatchedUsers', this.mentionedMatchedUsers)
+
+      newTopicPromise = this.TopicService.create(
+        {
+          "text": text,
+          "level1Context": this.feedContext.level1Context,
+          "level2Context": this.feedContext.level2Context,
+          "level3Context": this.feedContext.level3Context,
+          "level4Context": this.feedContext.level4Context,
+          "level1ContextHash": this.feedContext.level1ContextHash,
+          "level2ContextHash": this.feedContext.level2ContextHash,
+          "level3ContextHash": this.feedContext.level3ContextHash,
+          "level4ContextHash": this.feedContext.level4ContextHash
+
+        }
+      );
+
+      angular.forEach(this.mentionedMatchedUsers, (matchedUser: any) => {
+        newTopicPromise.then((topic: any) => {
+          this.TopicService.createFollower({ topicId: topic.id }, { "userId": matchedUser.id });
+
+        })
+
+      })
+
+      // //Topic creator is a follower by default
+      // newTopicPromise.then((topic: any) => {
+      //   this.TopicService.createFollower({ topicId: topic.id }, { "userId": 1 });
+      // })
+
+
+    })
+
+
+
+
     this.topicText = '';
     this.isActive = false;
     this.hasFocus = false;
 
 
 
-    return newTopic;
+    return newTopicPromise;
   };
 
 
-  getUsersextRaw = function (item) {
-    return '@' + item.userLogin;
+  getUsersextRaw = (item) => {
+    return this.UserService.getUsersextRaw(item)
   };
 
 
   searchUsers = (term) => {
 
-    this.filteredUsers = [];
-    let userList = [];
+    return this.UserService.searchUsers(term).then((filteredUsers)=>{
+      this.filteredUsers=filteredUsers;
 
-    return this.UserService.getAll().then((users: any) => {
-
-      angular.forEach(users, function (item) {
-        if (item.userName.toUpperCase().indexOf(term.toUpperCase()) >= 0) {
-          userList.push({ label: item.userName,userLogin:item.userLogin });
-        }
-      });
-
-      this.filteredUsers = userList;
-      return this.$q.when(userList);
-
-    });
-
+    })
 
   };
 

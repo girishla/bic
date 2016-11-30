@@ -28,7 +28,8 @@ export default class ChatterCommentsDirective implements ng.IDirective {
   templateUrl = 'http://localhost:3000/app/chatter/chatter-feed/chatter-feed-comments.html';
   scope = {
     comments: '=',
-    topicId:'='
+    topicId:'=',
+    feedMode:'='
   };
   bindToController = true;
 
