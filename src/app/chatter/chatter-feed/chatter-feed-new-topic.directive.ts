@@ -59,7 +59,7 @@ class ChatterNewTopicDirectiveController implements IChatterNewTopicDirectiveCon
 
 
   getUsersextRaw = function (item) {
-    return '@' + item.label;
+    return '@' + item.userLogin;
   };
 
 
@@ -72,7 +72,7 @@ class ChatterNewTopicDirectiveController implements IChatterNewTopicDirectiveCon
 
       angular.forEach(users, function (item) {
         if (item.userName.toUpperCase().indexOf(term.toUpperCase()) >= 0) {
-          userList.push({ label: item.userName });
+          userList.push({ label: item.userName,userLogin:item.userLogin });
         }
       });
 

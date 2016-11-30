@@ -69,11 +69,11 @@
             }
         </style>
         <ul class="list-group mentio-user-search mentio-scrollable-menu">
-            <li mentio-menu-item="item" ng-repeat="item in items track by $index" ng-if="$index<6" class="list-group-item">
+            <li mentio-menu-item="item" ng-repeat="item in items track by $index"  class="list-group-item">
                 <!--<a class="text-primary" ng-bind-html="item.label | mentioHighlight:typedTerm:'menu-highlighted' | unsafe"></a>-->
-                <img ng-src="{{item.imageUrl}}" class="user-photo">
-                <span class="text-primary" ng-bind-html="user.label | mentioHighlight:typedTerm:'menu-highlighted' | unsafe"></span>
-                <em class="text-muted" ng-bind="item.label"></em>
+                <!--<img ng-src="{{item.imageUrl}}" class="user-photo">-->
+                <span class="text-primary" ng-bind-html="item.label | mentioHighlight:typedTerm:'menu-highlighted' | unsafe"></span>
+                <em class="text-muted" ng-bind="item.userLogin"></em>
             </li>
         </ul>
     </script>
