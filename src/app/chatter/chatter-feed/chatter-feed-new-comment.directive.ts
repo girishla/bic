@@ -45,7 +45,7 @@ class ChatterNewCommentDirectiveController implements IChatterNewCommentDirectiv
     var newCommentPromise;
     let mentionedUsers;
 
-    const mentionPattern = /\B@[a-z0-9_-]+/gi;
+    const mentionPattern = /@[a-z0-9_-]+/gi;
 
     mentionedUsers = text.match(mentionPattern);
 

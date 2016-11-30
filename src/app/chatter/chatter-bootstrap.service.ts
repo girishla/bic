@@ -155,6 +155,8 @@ export default class BootstrapService {
         }).then(function () {
 
           $compile(angular.element('.ComponentHeader .PrimaryTabTable'))($scope);
+          $compile(angular.element('[chatter-feedback]'))($scope);
+
 
           // angular.forEach($("[viewtype='tableView'][id*='tableView'],[viewtype='pivotTableView'][id*='pivotTableView']"), function (value, key) {
           //   //Return if the directive is already compiled and linked.(if the searchId(sid) is associated to the table then it is already linked)
@@ -168,7 +170,7 @@ export default class BootstrapService {
           // })
 
           AppUIState.progressOff();
-          AppUIState.sideNavOpened = true;
+          // AppUIState.sideNavOpened = true;
 
         }, function (err) {
           console.log('lazy load errors', err)

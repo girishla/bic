@@ -508,7 +508,7 @@ export default function ChatterFeedbackDirective(TopicApi, BIGate) {
 
 
                                 //Girish added timeout to make the dialog disappear immediately without waiting for the next tick
-                                setTimeout(function () {
+  
 
                                     html2canvas($('body'), {
                                         onrendered: function (canvas) {
@@ -517,13 +517,13 @@ export default function ChatterFeedbackDirective(TopicApi, BIGate) {
                                             }
 
                                             //Girish Added for thumbnail image
-                                            var extra_canvas = document.createElement("canvas");
-                                            extra_canvas.setAttribute('width', "480");
-                                            extra_canvas.setAttribute('height', "270");
-                                            var ctxThumbnail = extra_canvas.getContext('2d');
-                                            ctxThumbnail.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, 480, 270);
-                                            var dataURLThumbnail = extra_canvas.toDataURL();
-                                            post.thumbnail = dataURLThumbnail;
+                                            // var extra_canvas = document.createElement("canvas");
+                                            // extra_canvas.setAttribute('width', "480");
+                                            // extra_canvas.setAttribute('height', "270");
+                                            // var ctxThumbnail = extra_canvas.getContext('2d');
+                                            // ctxThumbnail.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, 480, 270);
+                                            // var dataURLThumbnail = extra_canvas.toDataURL();
+                                            // post.thumbnail = dataURLThumbnail;
                                             //End Thumbnail
 
                                             _canvas = $('<canvas id="feedback-canvas-tmp" width="' + w + '" height="' + dh + '"/>').hide().appendTo('body');
@@ -553,9 +553,7 @@ export default function ChatterFeedbackDirective(TopicApi, BIGate) {
                                     });
 
 
-
-
-                                }, 10)
+                                
 
 
 

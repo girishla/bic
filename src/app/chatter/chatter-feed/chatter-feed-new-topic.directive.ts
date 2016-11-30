@@ -49,6 +49,9 @@ class ChatterNewTopicDirectiveController implements IChatterNewTopicDirectiveCon
       })
 
     }
+    else{
+      mentionedUsers=[];
+    }
 
 
 
