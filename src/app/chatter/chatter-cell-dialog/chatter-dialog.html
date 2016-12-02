@@ -34,28 +34,28 @@
 
     </md-dialog-content>-->
 
-<div class="md-dialog-container" style="height: 100%;">
-	<md-dialog style="max-height:100%;min-width:40%;">
-			<md-toolbar style="background-color:white;">
-				<div class="md-toolbar-tools">
-					<h3>
-						<span>Cell Chatter Feed</span>
-					</h3>
-					<!-- Spacer element -->
-					<span style="visibility: hidden;flex-grow:1"></span>
-					<!--<md-button class="md-icon-button" ng-click="cancel()">
+<!--<div class="md-dialog-container" style="height: 100%;z-index:6001">-->
+<md-dialog style="max-height:100%;min-width:40%;">
+	<md-toolbar style="background-color:white;">
+		<div class="md-toolbar-tools">
+			<h3>
+				<span>Cell Chatter Feed</span>
+			</h3>
+			<!-- Spacer element -->
+			<span style="visibility: hidden;flex-grow:1"></span>
+			<!--<md-button class="md-icon-button" ng-click="cancel()">
           <i class="material-icons">clear</i>
         </md-button>-->
-					<md-button class="md-icon-button" ng-click="dialogCtrl.answer('Done')" aria-label="Close">
-						<md-icon style="color:lightgrey"  md-font-icon="fa fa-close fa-2x"></md-icon>
-					</md-button>
-				</div>
-			</md-toolbar>
-		<md-dialog-content style="overflow:auto" class="md-padding">
-			<chatter-feed feed-context="dialogCtrl.feedContext" feed-mode="'cell'">
-			</chatter-feed>
-		</md-dialog-content>
-		<!--
+			<md-button class="md-icon-button" ng-click="dialogCtrl.answer('Done')" aria-label="Close">
+				<md-icon style="color:lightgrey" md-font-icon="fa fa-close fa-2x"></md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<md-dialog-content style="overflow:auto" class="md-padding">
+		<chatter-feed feed-context="dialogCtrl.feedContext" feed-mode="'cell'">
+		</chatter-feed>
+	</md-dialog-content>
+	<!--
 		<md-dialog-actions class="chatter-dialog-actions" layout="row">
 			<md-button href="https://en.wikipedia.org/wiki/Conversation" target="_blank" md-autofocus>
 				Help: How do I start a Chatter Conversation?
@@ -65,6 +65,6 @@
 				OK
 			</md-button>
 		</md-dialog-actions>-->
-		<!--</form>-->
-	</md-dialog>
-</div>
+	<!--</form>-->
+</md-dialog>
+<!--</div>-->

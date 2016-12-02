@@ -8,3 +8,4 @@ dist/
 .tmp/backup/
 src/*.js
 vendor_components/
+npm-debug.log

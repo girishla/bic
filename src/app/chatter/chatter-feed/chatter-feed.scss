@@ -4,6 +4,12 @@
 // @import "bower_components/font-awesome/scss/font-awesome.scss";
 
 
+// hide popover behind dialog
+// .md-dialog-container{
+
+//   z-index:6001!important;
+// }
+
 .chatter-topics {
 
   margin-bottom: 20px;
@@ -175,3 +181,5 @@ z-index: 99999 !important;
     max-height: 75px;
     overflow-y: auto;
 }
+
+

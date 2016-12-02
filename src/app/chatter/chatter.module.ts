@@ -16,7 +16,9 @@ import "angular-ui-bootstrap/src/popover"
 import ChatterFeedbackDirective from "./chatter-feedback/chatter-feedback.directive";
 import "./chatter-bi/chatter-bi.module";
 import "oclazyload/dist/ocLazyload.js";
-import "ns-popover/src/nsPopover.js"
+import "ns-popover/nspopover.directive.js"
+
+
 
 
 import {MetadataService} from "./chatter-bi/chatter-bi-metadata.service"

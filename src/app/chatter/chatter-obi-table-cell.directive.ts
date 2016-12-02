@@ -20,8 +20,11 @@ export default function CellDirective($parse, $compile, TopicService) {
       var cellContents = tElm.html();
       tElm.empty().append("<obi-table-cell-popover context='cellCtrl.context'>" + cellContents + "</obi-table-cell-popover>")
 
+      // tElm.empty().append("<div context='cellCtrl.context' ns-popover ns-popover-template='http://localhost:3000/app/chatter/chatter-cell-popover/chatter-cell-popover.html' ns-popover-hide-on-outside-click='false' ns-popover-timeout ='1.5' ns-popover-trigger='mouseover' ns-popover-placement='right|center'  ns-popover-theme='slds'  >" + cellContents + "</div>")
 
-    // var fn = $compile(tElm);
+
+
+      // var fn = $compile(tElm);
 
       return function (scope, elm, attr, controllers) {
 
@@ -69,6 +72,8 @@ export default function CellDirective($parse, $compile, TopicService) {
               if (elm.find('.bic-cell-badge-container').length == 0) {
                 elm.append("<div class='bic-cell-badge-container'></div>");
                 elm.find('.bic-cell-badge-container').append('<div id="badge-container"><span class="bic-cell-badge">' + cachedContextHashes[combinedHash] + '</span></div>')
+                
+
               }
               else {
                 elm.find('.bic-cell-badge').html(cachedContextHashes[combinedHash])
@@ -92,7 +97,7 @@ export default function CellDirective($parse, $compile, TopicService) {
         cellController.setReportContext(tableController.getReportContext());
         //console.log($parse('cellCtrl.elemId')(scope));
 
-         //fn(scope);
+        //fn(scope);
       };
     }
   };
