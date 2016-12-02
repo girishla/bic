@@ -5,21 +5,20 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
   // here we use a simple in memory cache in order to keep actual data synced up in the client
   var cache = {};
   var contextCache = {};
+  var contextValueCache = {};
 
 
 
   var initObject = function (data) {
+
+
+    var contextCacheIndex = SHA1(JSON.stringify(data.level1ContextHash + data.level2ContextHash + data.level3ContextHash + data.level4ContextHash)).toString();
 
     if (cache[data.id]) {
       // only extend objects that already exist!!! in order to keep bindings
       angular.extend(cache[data.id], new Topic(data));
     } else {
       cache[data.id] = new Topic(data);
-
-      console.log('context data:', data)
-
-      var contextCacheIndex = SHA1(JSON.stringify(data.level1ContextHash + data.level2ContextHash + data.level3ContextHash + data.level4ContextHash)).toString();
-
 
       if (!contextCache.hasOwnProperty(contextCacheIndex)) {
         contextCache[contextCacheIndex] = 1;
@@ -32,6 +31,7 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
 
     }
 
+    contextValueCache[contextCacheIndex]=cache[data.id];
 
     if (!(cache[data.id].hasOwnProperty('comments'))) {
       cache[data.id].comments = [];
@@ -83,6 +83,12 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
   Topic.getContextCache = function () {
     return contextCache
   }
+
+
+  Topic.getContextValueCache = function (combinedHash) {
+    return contextValueCache[combinedHash]
+  }
+
 
   Topic.getAll = function (options) {
 

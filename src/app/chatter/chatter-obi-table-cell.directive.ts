@@ -1,7 +1,7 @@
 import * as _ from "lodash"
 
 
-export default function CellDirective($parse, $compile, TopicService) {
+export default function CellDirective($parse, $compile, TopicService,$templateCache) {
 
   var OBITableCellDirectiveController = ['$scope', '$mdDialog', '$mdMedia', '$timeout', '$sce', ChatterCellController];
 
@@ -59,6 +59,10 @@ export default function CellDirective($parse, $compile, TopicService) {
 
             var cachedContextHashes = TopicService.getContextCache();
 
+
+            console.log('TopicService.getContextCache()',TopicService.getContextValueCache(combinedHash));
+            cellController.topics=TopicService.getContextValueCache(combinedHash);
+
             //console.log('Cell Scope Watch:',elm,context[0])
 
             // console.log('combinedHash for');
@@ -68,11 +72,11 @@ export default function CellDirective($parse, $compile, TopicService) {
             // console.log(cachedContextHashes);
             if (cachedContextHashes.hasOwnProperty(combinedHash) && cachedContextHashes[combinedHash] > 0) {
               //elm.css({ backgroundColor: 'red' });
-              console.log('Found Topics for cell:', elm)
+              // console.log('Found Topics for cell:', $templateCache.get('popover-pinned.html'))
               if (elm.find('.bic-cell-badge-container').length == 0) {
                 elm.append("<div class='bic-cell-badge-container'></div>");
                 elm.find('.bic-cell-badge-container').append('<div id="badge-container"><span class="bic-cell-badge">' + cachedContextHashes[combinedHash] + '</span></div>')
-                
+               
 
               }
               else {

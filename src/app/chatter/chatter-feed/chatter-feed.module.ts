@@ -26,7 +26,7 @@ export default () => {
     angular
         .module('chatter-feed.module', ['mentio'])
         .directive("obiTable", ['BIGate', 'MetadataService', '$compile', OBITableDirective])
-        .directive('obiTableCell', ['$parse', '$compile', 'TopicService', CellDirective])
+        .directive('obiTableCell', ['$parse', '$compile', 'TopicService','$templateCache', CellDirective])
         .controller('chatterFeedImageDialogController', ['$mdDialog', 'dialogData', ChatterFeedImageDialogController])
         .directive('chatterFeed', ChatterFeedDirective.factory())
         .directive('chatterComment', ChatterCommentDirective.factory())

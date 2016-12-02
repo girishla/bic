@@ -23,23 +23,26 @@ export default function ChatterCellPopoverDirective($parse, $compile, $timeout) 
                 elm.on("mouseenter", function (e) {
 
                     controllers[1].context = controllers[0].context;
-                    timer = $timeout(function () {
-                        //Context only set for measure columns and the popover is shown only if its a measure.
-                        if(controllers[0].context){                            
-                            $(e.target).closest('obi-table-cell-popover').children().trigger('showcellpopover');
-                            console.log('triggering popover')
-                        }
-                    }, 500);
+                    controllers[1].topics = controllers[0].topics;
+
+                    
+                    // timer = $timeout(function () {
+                    //     //Context only set for measure columns and the popover is shown only if its a measure.
+                    //     if(controllers[0].context){                            
+                    //         $(e.target).closest('obi-table-cell-popover').children().trigger('showcellpopover');
+                    //         console.log('triggering popover')
+                    //     }
+                    // }, 500);
 
                 })
 
                 elm.on("mouseleave", function (e) {
 
-                    $timeout.cancel(timer);
-                    //in cases where the user hovers the cell and leaves
-                    $(e.target).trigger('hidecellpopover');
-                    //In cases where the user hovers over the popover and leaves
-                    $(e.target).closest('obi-table-cell-popover').children().trigger('hidecellpopover');
+                    // $timeout.cancel(timer);
+                    // //in cases where the user hovers the cell and leaves
+                    // $(e.target).trigger('hidecellpopover');
+                    // //In cases where the user hovers over the popover and leaves
+                    // $(e.target).closest('obi-table-cell-popover').children().trigger('hidecellpopover');
 
 
                 })

@@ -1,12 +1,158 @@
-
 <div class="obiSideNavButton" ng-cloak>
   <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
     <md-button class="md-fab md-primary" ng-click="sideNavButtonCtrl.openSideNav()" aria-label="Comment">
       <md-icon md-font-icon="fa fa-comments"></md-icon>
-<!--      <i class="material-icons">comment</i>-->
+      <!--      <i class="material-icons">comment</i>-->
 
     </md-button>
   </section>
 </div>
 
 
+
+<!--This script tag is to hold Angular Template Cache Items for the Chatter Feed. This will be processed by Angular when the feed directive is compiled-->
+<script type="text/ng-template" id="popover-followers.html">
+
+  <div class="slds-popover slds-popover--panel slds-nubbin--top" role="dialog">
+    <div class="slds-popover__header">
+
+      <div class="slds-media slds-m-bottom--small slds-media--center">
+        <div class="slds-media__figure">
+          <span class="slds-icon">
+                    <svg aria-hidden="true" style="fill:black" class="slds-icon slds-icon--small">
+                        <use xlink:href="#people"></use>
+                    </svg>
+                    <span class="slds-assistive-text">Followers</span>
+          </span>
+        </div>
+        <div class="slds-media__body">
+          <p class="slds-text-heading--small"><span>Topic Followers</span></p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="slds-popover__body">
+      <dl class="slds-popover__body-list">
+        <dt class="slds-m-bottom--small">
+          <div ng-repeat="follower in chatterTopicCtrl.topicData.followers">
+            <div class="slds-media slds-media--center">
+              <div class="slds-media__figure">
+                <div class="slds-avatar slds-avatar--circle slds-avatar--small">
+                  <a href="javascript:void(0)" title="User">
+                    <img src="//localhost:3000/assets/images/avatars/avatar3.jpg" alt="user" />
+                  </a>
+                </div>
+              </div>
+              <div class="slds-media__body">
+                <span class="slds-pill">
+                                <span class="slds-pill__label" title="Full pill label verbiage mirrored here">{{follower.userName}}</span>
+
+                <button ng-click="chatterTopicCtrl.deleteFollower($index)" class="slds-button slds-button--icon slds-pill__remove" title="Remove">
+                                    <svg aria-hidden="true" class="slds-button__icon">
+                                      <use xlink:href="#close"></use>
+                                    </svg>
+                                    <span class="slds-assistive-text">Remove Follower</span>
+                                </button>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div ng-if="chatterTopicCtrl.topicData.followers<1">
+            <p class="slds-text-body--regular"><span>No Followers for this topic</span></p>
+          </div>
+        </dt>
+      </dl>
+    </div>
+
+
+
+  </div>
+
+
+</script>
+
+
+<!--********************************************************************************************-->
+<!--********************************************************************************************-->
+
+
+<script type="text/ng-template" id="mentions-menu.html">
+  <style>
+    .menu-highlighted {
+      font-weight: bold;
+    }
+  </style>
+  <ul class="list-group mentio-user-search mentio-scrollable-menu">
+    <li mentio-menu-item="item" ng-repeat="item in items track by $index" class="list-group-item">
+      <!--<a class="text-primary" ng-bind-html="item.label | mentioHighlight:typedTerm:'menu-highlighted' | unsafe"></a>-->
+      <!--<img ng-src="{{item.imageUrl}}" class="user-photo">-->
+      <span class="text-primary" ng-bind-html="item.label | mentioHighlight:typedTerm:'menu-highlighted' | unsafe"></span>
+      <em class="text-muted" ng-bind="item.userAlias"></em>
+    </li>
+  </ul>
+</script>
+
+
+
+<!--********************************************************************************************-->
+<!--********************************************************************************************-->
+
+
+<script type="text/ng-template" id="popover-pinned.html">
+  <div class="slds-popover slds-popover--panel slds-nubbin--left" role="dialog">
+    <div class="slds-popover__header">
+
+      <div class="slds-media slds-m-bottom--small slds-media--center">
+        <div class="slds-media__figure">
+          <span class="slds-icon">
+                    <svg aria-hidden="true" style="fill:black" class="slds-icon slds-icon--small">
+                        <use xlink:href="#comments"></use>
+                    </svg>
+                    <span class="slds-assistive-text">Followers</span>
+          </span>
+        </div>
+        <div class="slds-media__body">
+          <p class="slds-text-heading--small"><span>Data Feed</span></p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="slds-popover__body">
+      <dl class="slds-popover__body-list">
+        <dt class="slds-m-bottom--small">
+          <div ng-repeat="follower in chatterTopicCtrl.topicData.followers">
+            <div class="slds-media slds-media--center">
+              <div class="slds-media__figure">
+                <div class="slds-avatar slds-avatar--circle slds-avatar--small">
+                  <a href="javascript:void(0)" title="User">
+                    <img src="//localhost:3000/assets/images/avatars/avatar3.jpg" alt="user" />
+                  </a>
+                </div>
+              </div>
+              <div class="slds-media__body">
+                <span class="slds-pill">
+                                <span class="slds-pill__label" title="Full pill label verbiage mirrored here">{{follower.userName}}</span>
+
+                <button ng-click="chatterTopicCtrl.deleteFollower($index)" class="slds-button slds-button--icon slds-pill__remove" title="Remove">
+                                    <svg aria-hidden="true" class="slds-button__icon">
+                                      <use xlink:href="#close"></use>
+                                    </svg>
+                                    <span class="slds-assistive-text">Remove Follower</span>
+                                </button>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div ng-if="chatterTopicCtrl.topicData.followers<1">
+            <p class="slds-text-body--regular"><span>No Followers for this topic</span></p>
+          </div>
+        </dt>
+      </dl>
+    </div>
+
+
+
+  </div>
+</script>
