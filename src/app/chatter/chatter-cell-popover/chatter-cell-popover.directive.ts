@@ -9,10 +9,11 @@ export default function ChatterCellPopoverDirective($parse, $compile, $timeout, 
         },
         transclude: true,
         controller: OBIChatterCellPopoverDirectiveController,
-        templateUrl: 'http://localhost:3000/app/chatter/chatter-cell-popover/chatter-cell-popover.html',
+        templateUrl: 'chatter-cell-popover.html',
+
         require: ['^obiTableCell', 'obiTableCellPopover'],
         controllerAs: 'cellPopoverCtrl',
-        // bindToController: true,
+        bindToController: true,
         compile: function (tElm, tAttrs) {
 
             return function (scope, elm, attr, controllers, transclude) {

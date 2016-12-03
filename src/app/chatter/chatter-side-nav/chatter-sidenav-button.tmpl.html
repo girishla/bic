@@ -11,6 +11,24 @@
 
 
 <!--This script tag is to hold Angular Template Cache Items for the Chatter Feed. This will be processed by Angular when the feed directive is compiled-->
+
+<script type="text/ng-template" id="chatter-cell-popover.html">
+  
+
+<span ng-if='!cellPopoverCtrl.topicsCache.hasPinnedTopics' ng-transclude ns-popover-group='cell-buttons' ns-popover ns-popover-template='http://localhost:3000/app/chatter/chatter-cell-popover/chatter-cell-popover-button.html'
+    ns-popover-hide-on-outside-click='false' ns-popover-timeout='1.5' ns-popover-trigger='mouseover' ns-popover-placement='right|center'
+    ns-popover-theme='slds'>
+
+</span>
+<span ng-if='cellPopoverCtrl.topicsCache.hasPinnedTopics' ng-transclude ns-popover ns-popover-template='http://localhost:3000/app/chatter/chatter-cell-popover/chatter-cell-popover-pinned.html'
+    ns-popover-hide-on-outside-click='false' ns-popover-timeout='-1' ns-popover-scope-event="rootEvent:showPinned"  ns-popover-placement='right|center'
+    ns-popover-theme='slds'>
+</span>
+
+</script>
+
+
+
 <script type="text/ng-template" id="popover-followers.html">
 
   <div class="slds-popover slds-popover--panel slds-nubbin--top" role="dialog">
