@@ -78,7 +78,8 @@ class ChatterNewTopicDirectiveController implements IChatterNewTopicDirectiveCon
           "level1ContextHash": this.feedContext.level1ContextHash,
           "level2ContextHash": this.feedContext.level2ContextHash,
           "level3ContextHash": this.feedContext.level3ContextHash,
-          "level4ContextHash": this.feedContext.level4ContextHash
+          "level4ContextHash": this.feedContext.level4ContextHash,
+          "pinned":true
 
         }
       );

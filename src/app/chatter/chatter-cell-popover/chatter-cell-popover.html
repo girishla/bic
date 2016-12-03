@@ -1,25 +1,8 @@
-<div>
-   <div ng-if="true" class="slds-popover slds-nubbin--left" style="width:3.5rem;z-index:70;" role="dialog">
-      <div class="slds-popover__body">
-         <button ng-click="showChatterDialog($event)" class="slds-button slds-button--icon" title="Comments">
-            <svg aria-hidden="true" class="slds-button__icon slds-button__icon--large">
-               <use xlink:href="#comments"></use>
-            </svg>
-            <span class="slds-assistive-text">Comments</span>
-         </button>
-      </div>
-   </div>
-   <div>
-      <div ng-if="false" class="slds-popover slds-nubbin--left" style="width:13.5rem;z-index:70;" role="dialog">
-         <div class="slds-popover__body">
-            <button ng-click="showChatterDialog($event)" class="slds-button slds-button--icon" title="Comments">
-               <svg aria-hidden="true" class="slds-button__icon slds-button__icon--large">
-                  <use xlink:href="#comments"></use>
-               </svg>
-               <span class="slds-assistive-text">Comments</span>
-            </button>
-            <span>Girish {{cellPopoverCtrl.topics | json}}</span>
-         </div>
-      </div>
-   </div>
-</div>
+<span ng-if='!cellPopoverCtrl.topicsCache.hasPinnedTopics' ng-transclude ns-popover-group='cell-buttons' ns-popover ns-popover-template='http://localhost:3000/app/chatter/chatter-cell-popover/chatter-cell-popover-button.html'
+    ns-popover-hide-on-outside-click='false' ns-popover-timeout='1.5' ns-popover-trigger='mouseover' ns-popover-placement='right|center'
+    ns-popover-theme='slds'>
+</span>
+<span ng-if='cellPopoverCtrl.topicsCache.hasPinnedTopics' ng-transclude ns-popover ns-popover-template='http://localhost:3000/app/chatter/chatter-cell-popover/chatter-cell-popover-pinned.html'
+    ns-popover-hide-on-outside-click='false' ns-popover-timeout='-1' ns-popover-trigger='mouseover' ns-popover-placement='right|center'
+    ns-popover-theme='slds'>
+</span>

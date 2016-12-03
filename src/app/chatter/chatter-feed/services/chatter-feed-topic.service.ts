@@ -30,8 +30,16 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
       console.log('contextCache[contextCacheIndex] is:', contextCache[contextCacheIndex])
 
     }
+    if (typeof contextValueCache[contextCacheIndex] == 'undefined') {
+      contextValueCache[contextCacheIndex] = {};
+      contextValueCache[contextCacheIndex].topics = [];
+    }
 
-    contextValueCache[contextCacheIndex]=cache[data.id];
+    contextValueCache[contextCacheIndex].topics.push({ topic: cache[data.id] });
+    if (cache[data.id].pinned == true) {
+      contextValueCache[contextCacheIndex].hasPinnedTopics = true
+      contextValueCache[contextCacheIndex];
+    }
 
     if (!(cache[data.id].hasOwnProperty('comments'))) {
       cache[data.id].comments = [];
@@ -216,10 +224,10 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
   Topic.createFollower = function (params, data) {
     var self = this;
 
-    console.log('cache[params.topicId].followers',cache[params.topicId].followers)
+    console.log('cache[params.topicId].followers', cache[params.topicId].followers)
 
     //if already following topic, nothing to do, just return;
-    if((cache[params.topicId]) && ((lodash.findIndex(cache[params.topicId].followers, { 'userId': data.userId }) > -1))) return;
+    if ((cache[params.topicId]) && ((lodash.findIndex(cache[params.topicId].followers, { 'userId': data.userId }) > -1))) return;
 
     TopicFollowerApi.save(params, data).$promise.then(
       function (newFollower) {
@@ -341,7 +349,7 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
     console.log('new follower received for topic:', topicId);
     console.log(newFollower, cache[topicId].followers);
 
-    if((cache[topicId]) && ((lodash.findIndex(cache[topicId].followers, { 'id': newFollower.id }) > -1))) return;
+    if ((cache[topicId]) && ((lodash.findIndex(cache[topicId].followers, { 'id': newFollower.id }) > -1))) return;
 
     var result = lodash.pick(cache, function (value, key) {
       return (key == topicId);

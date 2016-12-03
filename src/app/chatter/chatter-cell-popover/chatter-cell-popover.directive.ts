@@ -8,9 +8,8 @@ export default function ChatterCellPopoverDirective($parse, $compile, $timeout) 
             //  context: '&'
         },
         transclude: true,
-        // template: '<div style="display:inline" uib-popover-template="\'http://localhost:3000/app/chatter/chatter-cell-popover/chatter-cell-popover.html\'" popover-trigger="\'showcellpopover\'" popover-placement="right" ng-transclude></div>',
-        template:"<div ng-transclude ns-popover-group='cell' ns-popover ns-popover-template='http://localhost:3000/app/chatter/chatter-cell-popover/chatter-cell-popover.html' ns-popover-hide-on-outside-click='false' ns-popover-timeout ='1.5' ns-popover-trigger='mouseover' ns-popover-placement='right|center'  ns-popover-theme='slds'></div>",
         controller: OBIChatterCellPopoverDirectiveController,
+        templateUrl:'http://localhost:3000/app/chatter/chatter-cell-popover/chatter-cell-popover.html',
         require: ['^obiTableCell', 'obiTableCellPopover'],
         controllerAs: 'cellPopoverCtrl',
         bindToController: true,
@@ -23,7 +22,7 @@ export default function ChatterCellPopoverDirective($parse, $compile, $timeout) 
                 elm.on("mouseenter", function (e) {
 
                     controllers[1].context = controllers[0].context;
-                    controllers[1].topics = controllers[0].topics;
+                    controllers[1].topicsCache = controllers[0].topicsCache;
 
                     
                     // timer = $timeout(function () {
