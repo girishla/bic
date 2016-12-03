@@ -35,6 +35,6 @@ export default () => {
         .directive('chatterNewTopic', ChatterNewTopicDirective.factory())
         .directive('chatterTopic', ChatterTopicDirective.factory())
         .directive('chatterTopics', ChatterTopicsDirective.factory())
-        .directive('obiTableCellPopover', ['$parse', '$compile', '$timeout', CellPopoverDirective])
+        .directive('obiTableCellPopover', ['$parse', '$compile', '$timeout','TopicService','$rootScope', CellPopoverDirective])
 }
 

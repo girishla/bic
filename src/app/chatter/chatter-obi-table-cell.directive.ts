@@ -18,7 +18,7 @@ export default function CellDirective($parse, $compile, TopicService,$templateCa
 
 
       var cellContents = tElm.html();
-      tElm.empty().append("<obi-table-cell-popover context='cellCtrl.context'>" + cellContents + "</obi-table-cell-popover>")
+      tElm.empty().append("<obi-table-cell-popover>" + cellContents + "</obi-table-cell-popover>")
 
       // tElm.empty().append("<div context='cellCtrl.context' ns-popover ns-popover-template='http://localhost:3000/app/chatter/chatter-cell-popover/chatter-cell-popover.html' ns-popover-hide-on-outside-click='false' ns-popover-timeout ='1.5' ns-popover-trigger='mouseover' ns-popover-placement='right|center'  ns-popover-theme='slds'  >" + cellContents + "</div>")
 

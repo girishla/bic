@@ -1,4 +1,4 @@
-export default function ChatterCellPopoverDirective($parse, $compile, $timeout) {
+export default function ChatterCellPopoverDirective($parse, $compile, $timeout, TopicService, $rootScope) {
 
     var OBIChatterCellPopoverDirectiveController = ['$scope', '$mdDialog', '$mdMedia', '$timeout', '$sce', ChatterCellPopoverController];
 
@@ -9,42 +9,51 @@ export default function ChatterCellPopoverDirective($parse, $compile, $timeout) 
         },
         transclude: true,
         controller: OBIChatterCellPopoverDirectiveController,
-        templateUrl:'http://localhost:3000/app/chatter/chatter-cell-popover/chatter-cell-popover.html',
+        templateUrl: 'chatter-cell-popover.html',
         require: ['^obiTableCell', 'obiTableCellPopover'],
         controllerAs: 'cellPopoverCtrl',
         bindToController: true,
         compile: function (tElm, tAttrs) {
 
-            return function (scope, elm, attr, controllers) {
+            return function (scope, elm, attr, controllers, transclude) {
 
-                var timer;
-
-                elm.on("mouseenter", function (e) {
-
+                transclude(function (transcludeEl) {
+                    // transcludeScope.context = controllers[0].context;
+                    // transcludeScope.topicsCache = controllers[0].topicsCache;
                     controllers[1].context = controllers[0].context;
                     controllers[1].topicsCache = controllers[0].topicsCache;
-
-                    
-                    // timer = $timeout(function () {
-                    //     //Context only set for measure columns and the popover is shown only if its a measure.
-                    //     if(controllers[0].context){                            
-                    //         $(e.target).closest('obi-table-cell-popover').children().trigger('showcellpopover');
-                    //         console.log('triggering popover')
-                    //     }
-                    // }, 500);
-
-                })
-
-                elm.on("mouseleave", function (e) {
-
-                    // $timeout.cancel(timer);
-                    // //in cases where the user hovers the cell and leaves
-                    // $(e.target).trigger('hidecellpopover');
-                    // //In cases where the user hovers over the popover and leaves
-                    // $(e.target).closest('obi-table-cell-popover').children().trigger('hidecellpopover');
+                    // console.log('controllers[0].topicsCache', transcludeScope, scope)
 
 
-                })
+                    scope.$watch(function () {
+                        var combinedHash = controllers[0].context && controllers[0].context.cell.contextLevels.combinedHash
+                        TopicService.getContextValueCache(combinedHash);
+                        return TopicService.getContextValueCache(combinedHash);
+                    }, function (newVal) {
+
+                        controllers[1].topicsCache = newVal;
+
+                        //show popover after a slight delay
+
+                        console.log("processing watch",newVal)
+
+                        if (newVal && newVal.hasPinnedTopics==true) {
+
+                            setTimeout(function () {
+                                scope.$broadcast("rootEvent:showPinned");
+                            }, 500);
+
+                        } else {
+                            console.log('destroying scopes!!!', elm, newVal)
+                            // scope.$destroy();
+                            // transcludeScope.$destroy();
+
+                        }
+
+
+                    },true);
+
+                });
 
 
 
@@ -61,7 +70,7 @@ function ChatterCellPopoverController($scope, $mdDialog, $mdMedia, $timeout, $sc
 
     $scope.dialogStatus = '  ';
     $scope.dialogCustomFullscreen = $mdMedia('sm');
-//    vm.htmlPopover = $sce.trustAsHtml('<b style="color: red">I can</b> have <div class="label label-success">HTML</div> content');
+    //    vm.htmlPopover = $sce.trustAsHtml('<b style="color: red">I can</b> have <div class="label label-success">HTML</div> content');
 
     function init() {
         //Do any init activities - if any
@@ -69,33 +78,6 @@ function ChatterCellPopoverController($scope, $mdDialog, $mdMedia, $timeout, $sc
     }
 
     init();
-
-/*
-    vm.showCellPopover = function (event) {
-
-        console.log(event.target)
-        //$(event.target).trigger('click');
-
-        timer = $timeout(function () {
-            $(event.target).trigger('showcellpopover');
-        }, 500);
-
-    }
-
-
-    vm.hideCellPopover = function (event) {
-
-        console.log(event.target)
-
-        $timeout.cancel(timer);
-        $(event.target).trigger('hidecellpopover');
-        //Close the info again
-        // $timeout(function () {
-        //   $(event.target).trigger('hidecellpopover');
-        // }, 3000);
-
-    }
-*/
 
 
 
