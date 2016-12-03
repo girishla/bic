@@ -74,7 +74,7 @@ function ChatterCellPopoverController($scope, $mdDialog, $mdMedia, $timeout, $sc
     //    vm.htmlPopover = $sce.trustAsHtml('<b style="color: red">I can</b> have <div class="label label-success">HTML</div> content');
 
     function init() {
-        //Do any init activities - if any
+        //Do any init activities 
 
     }
 
@@ -113,5 +113,6 @@ function ChatterCellPopoverController($scope, $mdDialog, $mdMedia, $timeout, $sc
     $scope.showChatterDialog = vm.showChatterDialog;
 
 }
+
 
 
