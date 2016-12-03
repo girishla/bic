@@ -1,9 +1,9 @@
 import * as _ from "lodash"
 
 
-export default function CellDirective($parse, $compile, TopicService,$templateCache) {
+export default function CellDirective($parse, $compile, TopicService, $templateCache) {
 
-  var OBITableCellDirectiveController = ['$scope', '$mdDialog', '$mdMedia', '$timeout', '$sce', ChatterCellController];
+  var OBITableCellDirectiveController = ['$scope', '$mdDialog', '$mdMedia', '$timeout', '$sce','TopicService',ChatterCellController];
 
   return {
     restrict: 'EA', //Default in 1.3+
@@ -18,7 +18,7 @@ export default function CellDirective($parse, $compile, TopicService,$templateCa
 
 
       var cellContents = tElm.html();
-      tElm.empty().append("<obi-table-cell-popover context='cellCtrl.context'>" + cellContents + "</obi-table-cell-popover>")
+      tElm.empty().append("<obi-table-cell-popover>" + cellContents + "</obi-table-cell-popover>")
 
       // tElm.empty().append("<div context='cellCtrl.context' ns-popover ns-popover-template='http://localhost:3000/app/chatter/chatter-cell-popover/chatter-cell-popover.html' ns-popover-hide-on-outside-click='false' ns-popover-timeout ='1.5' ns-popover-trigger='mouseover' ns-popover-placement='right|center'  ns-popover-theme='slds'  >" + cellContents + "</div>")
 
@@ -33,10 +33,9 @@ export default function CellDirective($parse, $compile, TopicService,$templateCa
 
         var contextCollection = tableController.getCellContextCollection();
 
-
         //Copy viewId over to the cell
         cellController.viewId = tableController.viewId;
-
+       
 
         var context = $.grep(contextCollection, function (e: any) {
           return e.element == elm.attr('Id');
@@ -47,6 +46,11 @@ export default function CellDirective($parse, $compile, TopicService,$templateCa
 
           cellController.setContext(context[0], tableController.getReportContext());
           cellController.setCellType('Measure');
+          // var combinedHash = cellController.context.cell.contextLevels.combinedHash
+          
+
+          // cellController.topicsCache = TopicService.getContextValueCache(combinedHash);
+          console.log('cellController.topicsCache',cellController.topicsCache)
 
 
           scope.$watch(function () {
@@ -54,17 +58,12 @@ export default function CellDirective($parse, $compile, TopicService,$templateCa
           }, function (newVal) {
 
 
-
             var combinedHash = cellController.context.cell.contextLevels.combinedHash
 
-            var cachedContextHashes = TopicService.getContextCache();
+            var cachedContextHashes = newVal;
 
-
-            console.log('TopicService.getContextCache()',TopicService.getContextValueCache(combinedHash));
-            cellController.topicsCache=TopicService.getContextValueCache(combinedHash);
-
-            
-
+            console.log('TopicService.getContextCache()', TopicService.getContextValueCache(combinedHash));
+            cellController.topicsCache = TopicService.getContextValueCache(combinedHash);
 
             //console.log('Cell Scope Watch:',elm,context[0])
 
@@ -79,7 +78,7 @@ export default function CellDirective($parse, $compile, TopicService,$templateCa
               if (elm.find('.bic-cell-badge-container').length == 0) {
                 elm.append("<div class='bic-cell-badge-container'></div>");
                 elm.find('.bic-cell-badge-container').append('<div id="badge-container"><span class="bic-cell-badge">' + cachedContextHashes[combinedHash] + '</span></div>')
-               
+
 
               }
               else {
@@ -93,6 +92,7 @@ export default function CellDirective($parse, $compile, TopicService,$templateCa
 
             }
 
+
           }, true);
 
 
@@ -105,13 +105,14 @@ export default function CellDirective($parse, $compile, TopicService,$templateCa
         //console.log($parse('cellCtrl.elemId')(scope));
 
         //fn(scope);
+        
       };
     }
   };
 }
 
 
-function ChatterCellController($scope, $mdDialog, $mdMedia, $timeout, $sce) {
+function ChatterCellController($scope, $mdDialog, $mdMedia, $timeout, $sce,TopicService) {
 
   var vm = this;
   var timer;
@@ -139,7 +140,8 @@ function ChatterCellController($scope, $mdDialog, $mdMedia, $timeout, $sce) {
   }
 
   function init() {
-    //Do any init activities - if any
+  
+
   }
 
   init();

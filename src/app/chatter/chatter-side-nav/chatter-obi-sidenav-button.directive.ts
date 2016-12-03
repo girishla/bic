@@ -4,7 +4,7 @@
 
 export default function ObiSideNavButtonDirective(AppUIState) {
 
-  var controller = ['$scope', 'AppUIState', '$ocLazyLoad', '$compile', 'MetadataService', function ($scope, AppUIState, $ocLazyLoad, $compile, MetadataService) {
+  var controller = ['$scope', 'AppUIState', '$ocLazyLoad', '$compile', 'MetadataService','$rootScope','TopicService', function ($scope, AppUIState, $ocLazyLoad, $compile, MetadataService,$rootScope:ng.IRootScopeService,TopicService) {
 
 
     var vm = this;
@@ -34,7 +34,8 @@ export default function ObiSideNavButtonDirective(AppUIState) {
         //give angular a chance to display the wait dialog
         setTimeout(function () {
           var BootstrapService: any = (<any>require("../chatter-bootstrap.service")).default;
-          BootstrapService.startChatterFeed(MetadataService, $ocLazyLoad, AppUIState, $compile, $scope);
+          BootstrapService.startChatterFeed(MetadataService, $ocLazyLoad, AppUIState, $compile, $scope,$rootScope,TopicService);
+
         }, 100);
 
       }

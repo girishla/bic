@@ -114,7 +114,7 @@ export default class BootstrapService {
 
       var initInjector = angular.injector(["ng", "chatter.module"]);
       var BIGate: any = initInjector.get("BIGate");
-      
+
       console.log('Edge Definitions in Cache');
 
 
@@ -130,7 +130,7 @@ export default class BootstrapService {
 
 
 
-  public static startChatterFeed(MetadataService, $ocLazyLoad, AppUIState,$compile,$scope) {
+  public static startChatterFeed(MetadataService, $ocLazyLoad, AppUIState, $compile, $scope, $rootScope, TopicService) {
 
 
     // var BootstrapService: any = (<any>require("../chatter-bootstrap.service")).default;
@@ -153,24 +153,38 @@ export default class BootstrapService {
         $ocLazyLoad.inject({
           name: 'chatter-feed.module'
         }).then(function () {
+          //Cache all topics before compile
+        //  TopicService.getAll().then((data: any) => {
+            $compile(angular.element('.ComponentHeader .PrimaryTabTable'))($scope);
+            $compile(angular.element('[chatter-feedback]'))($scope);
 
-          $compile(angular.element('.ComponentHeader .PrimaryTabTable'))($scope);
-          $compile(angular.element('[chatter-feedback]'))($scope);
+            // angular.forEach($("[viewtype='tableView'][id*='tableView'],[viewtype='pivotTableView'][id*='pivotTableView']"), function (value, key) {
+            //   //Return if the directive is already compiled and linked.(if the searchId(sid) is associated to the table then it is already linked)
+            //   if (value.getAttribute('sid')) return;
+            //   value.setAttribute('obi-table', 'true');
+            //   $(value).addClass('bic');
+            //   var scope = ((angular.element(value).scope()));
+            //   var linkFn =  $compile(value, scope);
+            //   console.log('In bootstrapApp(): linking mutated DOM with scope...');
+            //   linkFn(scope);
+            // })
+
+            AppUIState.progressOff();
+            // AppUIState.sideNavOpened = true;
 
 
-          // angular.forEach($("[viewtype='tableView'][id*='tableView'],[viewtype='pivotTableView'][id*='pivotTableView']"), function (value, key) {
-          //   //Return if the directive is already compiled and linked.(if the searchId(sid) is associated to the table then it is already linked)
-          //   if (value.getAttribute('sid')) return;
-          //   value.setAttribute('obi-table', 'true');
-          //   $(value).addClass('bic');
-          //   var scope = ((angular.element(value).scope()));
-          //   var linkFn =  $compile(value, scope);
-          //   console.log('In bootstrapApp(): linking mutated DOM with scope...');
-          //   linkFn(scope);
-          // })
 
-          AppUIState.progressOff();
-          // AppUIState.sideNavOpened = true;
+            // //show pinned comments after a second
+            // setTimeout(() => {
+
+            //   $rootScope.$broadcast("rootEvent:showPinned");
+
+            // }, 1000)
+
+
+       //   });
+
+
 
         }, function (err) {
           console.log('lazy load errors', err)
