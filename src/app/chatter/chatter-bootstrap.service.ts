@@ -68,6 +68,16 @@ export default class BootstrapService {
 
 
 
+    angular.forEach($(".CVView:not([vid*='tableView'],[vid*='pivotTableView'])"), function (value, key) {
+      //Return if the directive is already compiled and linked.(if the searchId(sid) is associated to the table then it is already linked)
+      // if (value.getAttribute('sid')) return;
+      value.setAttribute('obi-view', 'true');
+      $(value).addClass('bic');
+
+    })
+
+
+
 
 
   }

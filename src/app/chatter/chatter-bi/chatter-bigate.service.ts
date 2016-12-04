@@ -56,9 +56,6 @@ export default function BIGateService($http, $q) {
       var xmlIsland = saw.getXmlIsland("idClientStateXml", null, null, true);
 
 
-
-
-
       var firstStatePath = $(xmlIsland).find("ref[statePath]").attr('statePath');
 
       //in some cases there is no statepath refs so just return
@@ -351,7 +348,7 @@ export default function BIGateService($http, $q) {
         ).then(function (response) {
 
           // console.log("Report XML from Search Id:");
-          // console.log(response);
+          //  console.log('Report XML from Search Id:',response);
 
 
           resolve({ report: report, xml: response })
@@ -391,7 +388,6 @@ export default function BIGateService($http, $q) {
 
         var colMap = [];
 
-        console.log('columnIDToColumnInfo:', inst.columnIDToColumnInfo)
 
         angular.forEach(inst.columnIDToColumnInfo, function (value, key) {
           var colInfo = inst.getColumnInfoByID(key);
@@ -442,7 +438,7 @@ export default function BIGateService($http, $q) {
 
       return $q(function (resolve, reject) {
 
-        console.log('reportDetails.statePath', reportDetails)
+        //console.log('reportDetails.statePath', reportDetails)
 
         var inst: any;
 
@@ -451,7 +447,7 @@ export default function BIGateService($http, $q) {
           resolve(extractMetadataFromInstance(inst));
         }
         else {
-          console.log('statepath was null: loading instance from reportXML')
+          //console.log('statepath was null: loading instance from reportXML')
           inst = new obips.ReportMetadata();
           if (!inst) {
             inst = obips.ReportMetadata.GetInstance(false);
@@ -491,7 +487,7 @@ export default function BIGateService($http, $q) {
     getAllReportsMetadata: function (reportXMLs) {
 
 
-      console.log('In getAllReportsMetadata', reportXMLs);
+      //console.log('In getAllReportsMetadata', reportXMLs);
 
       var metadataPromisesArray = [];
 

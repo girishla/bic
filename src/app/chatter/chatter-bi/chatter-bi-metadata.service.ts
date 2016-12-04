@@ -39,10 +39,10 @@ export class MetadataService implements IMetadataService {
                     var allMetadataPromises = this.BIGate.getAllReportsMetadata(responses);
 
 
-                    console.log('allMetadataPromises', allMetadataPromises);
+                    //console.log('allMetadataPromises', allMetadataPromises);
 
                     allMetadataPromises.then( (metaDataResponses: any) => {
-                        console.info('Report metadata loaded for ' + metaDataResponses.length + ' Reports.');
+                        //console.info('Report metadata loaded for ' + metaDataResponses.length + ' Reports.');
                         //console.log(metaDataResponses);
                         this.metaDataCollection = metaDataResponses;
 
@@ -88,7 +88,7 @@ export class MetadataService implements IMetadataService {
 
 
       //Repopulate viewDatareferences in case they changed
-      console.log('calling getViewDataReferences');
+      //console.log('calling getViewDataReferences');
 
       this.contextCollection = this.BIGate.getViewDataReferences();
 

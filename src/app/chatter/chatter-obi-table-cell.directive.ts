@@ -62,7 +62,7 @@ export default function CellDirective($parse, $compile, TopicService, $templateC
 
             var cachedContextHashes = newVal;
 
-            console.log('TopicService.getContextCache()', TopicService.getContextValueCache(combinedHash));
+            //console.log('TopicService.getContextCache()', TopicService.getContextValueCache(combinedHash));
             cellController.topicsCache = TopicService.getContextValueCache(combinedHash);
 
             //console.log('Cell Scope Watch:',elm,context[0])

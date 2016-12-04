@@ -7,7 +7,9 @@ import ChatterNewTopicDirective from "./chatter-feed-new-topic.directive";
 import ChatterTopicDirective from "./chatter-feed-topic.directive";
 import ChatterTopicsDirective from "./chatter-feed-topics.directive";
 import CellPopoverDirective from "../chatter-cell-popover/chatter-cell-popover.directive";
+import ViewPopoverDirective from "../chatter-view-popover/chatter-view-popover.directive";
 import OBITableDirective from "../chatter-obi-table.directive";
+import OBIViewDirective from "../chatter-obi-view.directive";
 import CellDirective from "../chatter-obi-table-cell.directive";
 
 
@@ -25,8 +27,9 @@ export default () => {
 
     angular
         .module('chatter-feed.module', ['mentio'])
+        .directive("obiView", ['BIGate', 'MetadataService', '$compile', OBIViewDirective])
         .directive("obiTable", ['BIGate', 'MetadataService', '$compile', OBITableDirective])
-        .directive('obiTableCell', ['$parse', '$compile', 'TopicService','$templateCache', CellDirective])
+        .directive('obiTableCell', ['$parse', '$compile', 'TopicService', '$templateCache', CellDirective])
         .controller('chatterFeedImageDialogController', ['$mdDialog', 'dialogData', ChatterFeedImageDialogController])
         .directive('chatterFeed', ChatterFeedDirective.factory())
         .directive('chatterComment', ChatterCommentDirective.factory())
@@ -35,6 +38,7 @@ export default () => {
         .directive('chatterNewTopic', ChatterNewTopicDirective.factory())
         .directive('chatterTopic', ChatterTopicDirective.factory())
         .directive('chatterTopics', ChatterTopicsDirective.factory())
-        .directive('obiTableCellPopover', ['$parse', '$compile', '$timeout','TopicService','$rootScope', CellPopoverDirective])
+        .directive('obiTableCellPopover', ['$parse', '$compile', '$timeout', 'TopicService', '$rootScope', CellPopoverDirective])
+        .directive('obiTableViewPopover', ['$parse', '$compile', '$timeout', 'TopicService', '$rootScope', ViewPopoverDirective])
 }
 
