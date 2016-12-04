@@ -247,9 +247,13 @@ export default class BootstrapService {
 
       console.log('processing mutations for ', viewElement)
 
+
       var ngScoped = $(viewElement).attr('ng-scope');
 
       if ((typeof ngScoped == typeof undefined) && (!($(viewElement).hasClass('bic')))) {
+
+
+
         //Recompile to cater to the changes
         var injector = angular.element(BootstrapService.chatterBaseJQElement).injector();
         var compileService = injector.get('$compile');
@@ -299,11 +303,68 @@ export default class BootstrapService {
 
         })
 
-        $.each($(targetView).find(".CVView:not([vid*='tableView'],[vid*='pivotTableView'])"), function (viewIdx, viewElement) {
+      });
 
-          BootstrapService.processMutations(viewElement, "view");
+      viewObserver.observe(targetView, {
+        childList: true,
+        subtree: true
+      });
+
+
+
+    });
+
+
+
+    $.each(targetSectionArray, function (viewIdx, targetView) {
+
+
+
+      var viewObserver = new MutationObserver(function (mutations: any) {
+
+
+        var needsProcessing = false;
+
+        $.each(mutations, (mutationIndex, mutation) => {
+
+          console.log('mutation.removedNodes', mutation.removedNodes)
+
+          $(mutation.removedNodes).each(function (value, index) {
+            if (this.nodeType === 1) {
+
+              var viewid = this.getAttribute('vid');
+              if (viewid) {
+                console.log('viewid after', viewid);
+                //just before recompiling remove all previous popovers associated with the view
+                $('[id*="nspopover"][viewid="' + viewid + '"]').remove();
+
+              }
+            }
+          });
+
+
+          $(mutation.addedNodes).each(function (value, index) {
+            if (this.nodeType === 1) {
+              var viewid = this.getAttribute('vid');
+              if (viewid) {
+                console.log('added node', viewid);
+                //just before recompiling remove all previous popovers associated with the view
+                needsProcessing = true;
+              }
+            }
+          });
 
         })
+
+        if (needsProcessing) {
+          $.each($(targetView).find(".CVView:not([vid*='tableView'],[vid*='pivotTableView'])"), function (viewIdx, viewElement) {
+
+            BootstrapService.processMutations(viewElement, "view");
+
+          })
+
+
+        }
 
 
       });
