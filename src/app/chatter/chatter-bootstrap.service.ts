@@ -164,35 +164,35 @@ export default class BootstrapService {
           name: 'chatter-feed.module'
         }).then(function () {
           //Cache all topics before compile
-        //  TopicService.getAll().then((data: any) => {
-            $compile(angular.element('.ComponentHeader .PrimaryTabTable'))($scope);
-            $compile(angular.element('[chatter-feedback]'))($scope);
+          //  TopicService.getAll().then((data: any) => {
+          $compile(angular.element('.ComponentHeader .PrimaryTabTable'))($scope);
+          $compile(angular.element('[chatter-feedback]'))($scope);
 
-            // angular.forEach($("[viewtype='tableView'][id*='tableView'],[viewtype='pivotTableView'][id*='pivotTableView']"), function (value, key) {
-            //   //Return if the directive is already compiled and linked.(if the searchId(sid) is associated to the table then it is already linked)
-            //   if (value.getAttribute('sid')) return;
-            //   value.setAttribute('obi-table', 'true');
-            //   $(value).addClass('bic');
-            //   var scope = ((angular.element(value).scope()));
-            //   var linkFn =  $compile(value, scope);
-            //   console.log('In bootstrapApp(): linking mutated DOM with scope...');
-            //   linkFn(scope);
-            // })
+          // angular.forEach($("[viewtype='tableView'][id*='tableView'],[viewtype='pivotTableView'][id*='pivotTableView']"), function (value, key) {
+          //   //Return if the directive is already compiled and linked.(if the searchId(sid) is associated to the table then it is already linked)
+          //   if (value.getAttribute('sid')) return;
+          //   value.setAttribute('obi-table', 'true');
+          //   $(value).addClass('bic');
+          //   var scope = ((angular.element(value).scope()));
+          //   var linkFn =  $compile(value, scope);
+          //   console.log('In bootstrapApp(): linking mutated DOM with scope...');
+          //   linkFn(scope);
+          // })
 
-            AppUIState.progressOff();
-            // AppUIState.sideNavOpened = true;
-
-
-
-            // //show pinned comments after a second
-            // setTimeout(() => {
-
-            //   $rootScope.$broadcast("rootEvent:showPinned");
-
-            // }, 1000)
+          AppUIState.progressOff();
+          // AppUIState.sideNavOpened = true;
 
 
-       //   });
+
+          // //show pinned comments after a second
+          // setTimeout(() => {
+
+          //   $rootScope.$broadcast("rootEvent:showPinned");
+
+          // }, 1000)
+
+
+          //   });
 
 
 
@@ -210,34 +210,65 @@ export default class BootstrapService {
 
   }
 
-  public static processMutations(viewElement): void {
+  public static processMutations(viewElement, type): void {
 
     var newScope: any;
-    var table = viewElement;
+
+    if (type == "table") {
+
+      var table = viewElement;
 
 
-    //Reextract Prompts for Mutation Processing because Prompts could have changed
-    // var initInjector = angular.injector(["ng", "chatter.module"]);
-    // var BIGate: any = initInjector.get("BIGate");
-    // BIGate.instancePromptMap=BIGate.resetPrompts();
+      //Reextract Prompts for Mutation Processing because Prompts could have changed
+      // var initInjector = angular.injector(["ng", "chatter.module"]);
+      // var BIGate: any = initInjector.get("BIGate");
+      // BIGate.instancePromptMap=BIGate.resetPrompts();
 
 
-    if (!table.getAttribute('sid') || (!($(viewElement).find('td[id^=e_saw],td[id^=db_saw]')[0].getAttribute("obi-table-cell") == "true"))) {
+      if (!table.getAttribute('sid') || (!($(viewElement).find('td[id^=e_saw],td[id^=db_saw]')[0].getAttribute("obi-table-cell") == "true"))) {
 
-      //Recompile to cater to the changes
-      var injector = angular.element(BootstrapService.chatterBaseJQElement).injector();
-      var compileService = injector.get('$compile');
-      table.setAttribute('obi-table', 'true');
-      $(table).addClass('bic');
-      if (newScope) {
-        newScope.$destroy();
+        //Recompile to cater to the changes
+        var injector = angular.element(BootstrapService.chatterBaseJQElement).injector();
+        var compileService = injector.get('$compile');
+        table.setAttribute('obi-table', 'true');
+        $(table).addClass('bic');
+        if (newScope) {
+          newScope.$destroy();
+        }
+        var scope = ((angular.element(table).scope()));
+        newScope = scope.$new();
+        var linkFn = compileService(table, newScope);
+        console.log('linking mutated DOM with scope...');
+        linkFn(newScope);
       }
-      var scope = ((angular.element(table).scope()));
-      newScope = scope.$new();
-      var linkFn = compileService(table, newScope);
-      console.log('linking mutated DOM with scope...');
-      linkFn(newScope);
+
     }
+    else {
+
+      console.log('processing mutations for ', viewElement)
+
+      var ngScoped = $(viewElement).attr('ng-scope');
+
+      if ((typeof ngScoped == typeof undefined) && (!($(viewElement).hasClass('bic')))) {
+        //Recompile to cater to the changes
+        var injector = angular.element(BootstrapService.chatterBaseJQElement).injector();
+        var compileService = injector.get('$compile');
+        viewElement.setAttribute('obi-view', 'true');
+        $(viewElement).addClass('bic');
+        if (newScope) {
+          newScope.$destroy();
+        }
+        var scope = ((angular.element(viewElement).scope()));
+        newScope = scope.$new();
+        var linkFn = compileService(viewElement, newScope);
+        console.log('linking mutated DOM with scope...');
+        linkFn(newScope);
+
+      }
+
+    }
+
+
 
 
   }
@@ -264,7 +295,13 @@ export default class BootstrapService {
         $.each($(targetView).find("[viewtype='tableView'][id*='tableView'],[viewtype='pivotTableView'][id*='pivotTableView']"), function (viewIdx, viewElement) {
 
           // console.log('mutated ' + viewElement.getAttribute('id'));
-          BootstrapService.processMutations(viewElement);
+          BootstrapService.processMutations(viewElement, "table");
+
+        })
+
+        $.each($(targetView).find(".CVView:not([vid*='tableView'],[vid*='pivotTableView'])"), function (viewIdx, viewElement) {
+
+          BootstrapService.processMutations(viewElement, "view");
 
         })
 
