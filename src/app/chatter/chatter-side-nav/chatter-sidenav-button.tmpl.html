@@ -16,7 +16,7 @@
   
 
 <span ng-if='!cellPopoverCtrl.topicsCache.hasPinnedTopics' ng-transclude ns-popover-group='cell-buttons' ns-popover ns-popover-template='http://localhost:3000/app/chatter/chatter-cell-popover/chatter-cell-popover-button.html'
-    ns-popover-hide-on-outside-click='false' ns-popover-timeout='1.5' ns-popover-trigger='mouseover' ns-popover-placement='right|center'
+    ns-popover-hide-on-outside-click='false' ns-popover-timeout='1.5' ns-popover-trigger='mouseover' ns-popover-placement='right|center' 
     ns-popover-theme='slds'>
 
 </span>
@@ -35,12 +35,12 @@
   
 
 <span ng-if='!viewPopoverCtrl.topicsCache.hasPinnedTopics' ng-transclude ns-popover-group='cell-buttons' ns-popover ns-popover-template='http://localhost:3000/app/chatter/chatter-view-popover/chatter-view-popover-button.html'
-    ns-popover-hide-on-outside-click='false' ns-popover-timeout='1.5' ns-popover-trigger='mouseover' ns-popover-placement='right|center'
+    ns-popover-hide-on-outside-click='false' ns-popover-timeout='1.5' ns-popover-scope-event="rootEvent:showPinned"  ns-popover-placement='right|center' ns-popover-target-parent='true'  
     ns-popover-theme='slds'>
 
 </span>
 <span ng-if='viewPopoverCtrl.topicsCache.hasPinnedTopics' ng-transclude ns-popover ns-popover-template='http://localhost:3000/app/chatter/chatter-view-popover/chatter-view-popover-pinned.html'
-    ns-popover-hide-on-outside-click='false' ns-popover-timeout='-1' ns-popover-scope-event="rootEvent:showPinned"  ns-popover-placement='right|center'
+    ns-popover-hide-on-outside-click='false' ns-popover-timeout='-1' ns-popover-scope-event="rootEvent:showPinned"  ns-popover-placement='right|center' ns-popover-target-parent='true' 
     ns-popover-theme='slds'>
 </span>
 

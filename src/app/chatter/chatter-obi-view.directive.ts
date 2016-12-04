@@ -18,7 +18,9 @@ export default function OBIViewDirective(BIGate, MetadataService, $compile) {
         compile: function (tElement, attrs) {
             tElement.removeAttr('obi-view'); // necessary to avoid infinite compile loop
             var cellContents = tElement.html();
-            tElement=tElement.append("<obi-table-view-popover></obi-table-view-popover>")
+            tElement = tElement.append("<obi-table-view-popover></obi-table-view-popover>")
+            tElement.attr("ng-mouseover", "obiViewCtrl.triggerMenu($event)")
+
 
             var fn = $compile(tElement);
 
@@ -33,18 +35,23 @@ export default function OBIViewDirective(BIGate, MetadataService, $compile) {
 }
 
 
-function OBIViewDirectiveController($scope, BIGate, MetadataService, $timeout, TopicService) {
+function OBIViewDirectiveController($scope: ng.IScope, BIGate, MetadataService, $timeout, TopicService) {
 
     var vm = this;
     vm.viewReport = {};
 
+
+    vm.triggerMenu = (event) => {
+        console.log('in triggerMenu');
+        $scope.$broadcast("rootEvent:showPinned");
+    }
 
     function init() {
 
 
         // init controller
 
-        console.log('vm.viewId',vm.viewId)
+        console.log('vm.viewId', vm.viewId)
 
         var reportRegex = /~r:(.*?)~v:/;
 
@@ -70,7 +77,7 @@ function OBIViewDirectiveController($scope, BIGate, MetadataService, $timeout, T
         var level3ContextHash = level3Context ? SHA1(JSON.stringify(level3Context)).toString() : level3Context;
         var level4ContextHash = level4Context ? SHA1(JSON.stringify(level4Context)).toString() : level4Context;
 
-        vm.combinedHash=SHA1(JSON.stringify(level1ContextHash+level2ContextHash+level3ContextHash+level4ContextHash)).toString();
+        vm.combinedHash = SHA1(JSON.stringify(level1ContextHash + level2ContextHash + level3ContextHash + level4ContextHash)).toString();
         vm.topicsCache = TopicService.getContextValueCache(vm.combinedHash);
 
 

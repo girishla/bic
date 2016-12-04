@@ -16,14 +16,16 @@ export default function ChatterViewPopoverDirective($parse, $compile, $timeout, 
         bindToController: true,
         compile: function (tElm, tAttrs) {
 
-            return function (scope, elm, attr, controllers, transclude) {
+            return function (scope: ng.IScope, elm, attr, controllers, transclude) {
 
-                transclude(function (transcludeEl) {
+
+                transclude(function (transcludeEl, tScope) {
                     // transcludeScope.context = controllers[0].context;
                     // transcludeScope.topicsCache = controllers[0].topicsCache;
                     controllers[1].context = controllers[0].context;
                     controllers[1].topicsCache = controllers[0].topicsCache;
                     console.log('controllers[0].context', controllers[0].context)
+
 
 
                     scope.$watch(function () {
@@ -36,9 +38,9 @@ export default function ChatterViewPopoverDirective($parse, $compile, $timeout, 
 
                         //show popover after a slight delay
 
-                        console.log("processing watch",newVal)
+                        console.log("processing watch", newVal)
 
-                        if (newVal && newVal.hasPinnedTopics==true) {
+                        if (newVal && newVal.hasPinnedTopics == true) {
 
                             setTimeout(function () {
                                 scope.$broadcast("rootEvent:showPinned");
@@ -52,9 +54,13 @@ export default function ChatterViewPopoverDirective($parse, $compile, $timeout, 
                         }
 
 
-                    },true);
+                    }, true);
+
+
+
 
                 });
+
 
 
 
@@ -85,7 +91,7 @@ function ChatterViewPopoverController($scope, $mdDialog, $mdMedia, $timeout, $sc
     vm.showChatterDialog = function (ev) {
 
 
-        console.log('event:',ev)
+        console.log('event:', ev)
 
         $mdDialog.show({
             controller: 'chatterDialogController',
