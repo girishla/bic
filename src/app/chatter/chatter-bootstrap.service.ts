@@ -245,17 +245,18 @@ export default class BootstrapService {
     }
     else {
 
-      console.log('processing mutations for ', viewElement)
-
 
       var ngScoped = $(viewElement).attr('ng-scope');
 
       if ((typeof ngScoped == typeof undefined) && (!($(viewElement).hasClass('bic')))) {
 
-
+        console.log('processing mutations for ', viewElement)
+        var injector = angular.element(BootstrapService.chatterBaseJQElement).injector();        
+        var BIGate = injector.get('BIGate');
+        BIGate.resetPrompts();
 
         //Recompile to cater to the changes
-        var injector = angular.element(BootstrapService.chatterBaseJQElement).injector();
+
         var compileService = injector.get('$compile');
         viewElement.setAttribute('obi-view', 'true');
         $(viewElement).addClass('bic');
@@ -305,10 +306,10 @@ export default class BootstrapService {
 
       });
 
-      viewObserver.observe(targetView, {
-        childList: true,
-        subtree: true
-      });
+      // viewObserver.observe(targetView, {
+      //   childList: true,
+      //   subtree: true
+      // });
 
 
 
