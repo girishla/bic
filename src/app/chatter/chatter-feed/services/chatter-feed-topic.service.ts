@@ -27,19 +27,20 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
         contextCache[contextCacheIndex] = contextCache[contextCacheIndex] + 1
       }
 
-      console.log('contextCache[contextCacheIndex] is:', contextCache[contextCacheIndex])
+      if (typeof contextValueCache[contextCacheIndex] == 'undefined') {
+        contextValueCache[contextCacheIndex] = {};
+        contextValueCache[contextCacheIndex].topics = [];
+      }
+
+      contextValueCache[contextCacheIndex].topics.push({ topic: cache[data.id] });
+      if (cache[data.id].pinned == true) {
+        contextValueCache[contextCacheIndex].hasPinnedTopics = true
+        contextValueCache[contextCacheIndex];
+      }
 
     }
-    if (typeof contextValueCache[contextCacheIndex] == 'undefined') {
-      contextValueCache[contextCacheIndex] = {};
-      contextValueCache[contextCacheIndex].topics = [];
-    }
 
-    contextValueCache[contextCacheIndex].topics.push({ topic: cache[data.id] });
-    if (cache[data.id].pinned == true) {
-      contextValueCache[contextCacheIndex].hasPinnedTopics = true
-      contextValueCache[contextCacheIndex];
-    }
+
 
     if (!(cache[data.id].hasOwnProperty('comments'))) {
       cache[data.id].comments = [];
@@ -174,11 +175,36 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
   };
 
 
+  Topic.deleteTopicFromValueCache = (contextCacheIndex, topicId) => {
+    var pinnedTopicsExist = false;
+    angular.forEach(contextValueCache[contextCacheIndex].topics, (topicItem, topicIndex) => {
+      console.log('deleteTopicFromValueCache', topicItem.topic.id, topicId)
+
+      if (topicId == topicItem.topic.id) {
+
+        contextValueCache[contextCacheIndex].topics.splice(topicIndex, 1)
+        console.log('deleted contextValueCache[contextCacheIndex].topics', contextValueCache[contextCacheIndex].topics)
+      }
+      else {
+        if (topicItem.topic.pinned == true) {
+          pinnedTopicsExist = true;
+        }
+      }
+
+
+
+    })
+    contextValueCache[contextCacheIndex].hasPinnedTopics = pinnedTopicsExist;
+  }
+
+
   Topic.prototype.remove = function () {
     var self = this;
 
     var apiResult = TopicApi.remove({ id: self.id }).$promise.then(
       function () {
+
+
 
         if (cache.hasOwnProperty(self.id)) {
           var contextCacheIndex = SHA1(JSON.stringify(self.level1ContextHash + self.level2ContextHash + self.level3ContextHash + self.level4ContextHash)).toString();
@@ -186,6 +212,7 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
           contextCache[contextCacheIndex] = contextCache[contextCacheIndex] > 0 ? contextCache[contextCacheIndex] - 1 : 0;
           //console.log(contextCache[contextCacheIndex]);
           delete cache[self.id];
+          Topic.deleteTopicFromValueCache(contextCacheIndex, self.id)
           if (contextCache[contextCacheIndex] == 0) delete contextCache[contextCacheIndex];
           console.log('deleted self.id ', self.id, 'contextCache[contextCacheIndex]:', contextCache[contextCacheIndex]);
         }
@@ -323,6 +350,7 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
       // here we can find the Topic in the cache by its ID and remove it
       if (contextCache[contextCacheIndex] == 0) delete contextCache[contextCacheIndex];
       delete cache[id];
+      Topic.deleteTopicFromValueCache(contextCacheIndex, id)
 
     }
 
