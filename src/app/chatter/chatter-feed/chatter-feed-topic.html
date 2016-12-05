@@ -22,7 +22,17 @@
 
 			<div class="slds-grid slds-grid--align-end">
 
-				<md-menu md-position-mode="target-right target">
+
+				<button class="slds-button slds-button--icon" title="Topic Settings" ns-popover ns-popover-template="popover-topic-menu.html"
+					ns-popover-trigger="click" ns-popover-placement="left" ns-popover-container="body" ns-popover-theme='slds'>
+					<svg aria-hidden="true"	class="slds-button__icon slds-button__icon--hint slds-button__icon--small">
+							<use xlink:href="#down"></use>
+					</svg>
+					<span class="slds-assistive-text">Topic Settings</span>
+				</button>
+
+
+				<!--<md-menu md-position-mode="target-right target">
 					<button ng-click="$mdOpenMenu($event)" class="slds-button slds-button--icon-border-filled slds-button--icon-x-small slds-shrink-none">
 						<svg aria-hidden="true"
 							class="slds-button__icon slds-button__icon--hint slds-button__icon--small">
@@ -36,7 +46,10 @@
 							</md-button>
 						</md-menu-item>
 					</md-menu-content>
-				</md-menu>
+				</md-menu>-->
+
+
+
 
 			</div>
 		</div>

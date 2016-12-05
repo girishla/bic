@@ -13,15 +13,15 @@
 <!--This script tag is to hold Angular Template Cache Items for the Chatter Feed. This will be processed by Angular when the feed directive is compiled-->
 
 <script type="text/ng-template" id="chatter-cell-popover.html">
-  
 
-<span ng-if='!cellPopoverCtrl.topicsCache.hasPinnedTopics' ng-transclude ns-popover-group='cell-buttons' ns-popover ns-popover-template='http://localhost:3000/app/chatter/chatter-cell-popover/chatter-cell-popover-button.html'
-    ns-popover-hide-on-outside-click='false' ns-popover-timeout='1.5' ns-popover-trigger='mouseover' ns-popover-placement='right|center' 
+
+  <span ng-if='!cellPopoverCtrl.topicsCache.topics[0].topic.pinned' ng-transclude ns-popover-group='cell-buttons' ns-popover ns-popover-template='http://localhost:3000/app/chatter/chatter-cell-popover/chatter-cell-popover-button.html'
+    ns-popover-hide-on-outside-click='false' ns-popover-timeout='1.5' ns-popover-trigger='mouseover' ns-popover-placement='right|center'
     ns-popover-theme='slds'>
 
 </span>
-<span ng-if='cellPopoverCtrl.topicsCache.hasPinnedTopics' ng-transclude ns-popover ns-popover-template='http://localhost:3000/app/chatter/chatter-cell-popover/chatter-cell-popover-pinned.html'
-    ns-popover-hide-on-outside-click='false' ns-popover-timeout='-1' ns-popover-scope-event="rootEvent:showPinned"  ns-popover-placement='right|center'
+  <span ng-if='cellPopoverCtrl.topicsCache.topics[0].topic.pinned' ng-transclude ns-popover ns-popover-template='http://localhost:3000/app/chatter/chatter-cell-popover/chatter-cell-popover-pinned.html'
+    ns-popover-hide-on-outside-click='false' ns-popover-timeout='-1' ns-popover-scope-event="rootEvent:showPinned" ns-popover-placement='right|center'
     ns-popover-theme='slds'>
 </span>
 
@@ -32,17 +32,50 @@
 
 
 <script type="text/ng-template" id="chatter-view-popover.html">
-  
 
-<span ng-if='!viewPopoverCtrl.topicsCache.hasPinnedTopics' ng-transclude ns-popover-group='cell-buttons' ns-popover ns-popover-template='http://localhost:3000/app/chatter/chatter-view-popover/chatter-view-popover-button.html'
-    ns-popover-hide-on-outside-click='false' ns-popover-timeout='1.5' ns-popover-scope-event="rootEvent:showPinned"  ns-popover-placement='right|center' ns-popover-target-parent='true'  ns-popover-theme='slds'  ns-popover-highlight='true' ns-popover-container='#DashboardPageContentDiv' >
+
+  <span ng-if='!viewPopoverCtrl.topicsCache.topics[0].topic.pinned' ng-transclude ns-popover-group='cell-buttons' ns-popover ns-popover-template='http://localhost:3000/app/chatter/chatter-view-popover/chatter-view-popover-button.html'
+    ns-popover-hide-on-outside-click='false' ns-popover-timeout='1.5' ns-popover-scope-event="rootEvent:showPinned" ns-popover-placement='right|center'
+    ns-popover-target-parent='true' ns-popover-theme='slds' ns-popover-highlight='true' ns-popover-container='#DashboardPageContentDiv'>
 
 </span>
-<span ng-if='viewPopoverCtrl.topicsCache.hasPinnedTopics' ng-transclude  ns-popover ns-popover-template='http://localhost:3000/app/chatter/chatter-view-popover/chatter-view-popover-pinned.html'
-    ns-popover-hide-on-outside-click='false' ns-popover-timeout='-1' ns-popover-scope-event="rootEvent:showPinned"  ns-popover-placement='right|center' ns-popover-target-parent='true' ns-popover-highlight='true' ns-popover-theme='slds' ns-popover-container='#DashboardPageContentDiv'>
+  <span ng-if='viewPopoverCtrl.topicsCache.topics[0].topic.pinned' ng-transclude ns-popover ns-popover-template='http://localhost:3000/app/chatter/chatter-view-popover/chatter-view-popover-pinned.html'
+    ns-popover-hide-on-outside-click='false' ns-popover-timeout='-1' ns-popover-scope-event="rootEvent:showPinned" ns-popover-placement='right|center'
+    ns-popover-target-parent='true' ns-popover-highlight='true' ns-popover-theme='slds' ns-popover-container='#DashboardPageContentDiv'>
 </span>
 
 </script>
+
+
+
+
+
+
+
+
+
+
+<script type="text/ng-template" id="popover-topic-menu.html">
+	<div class="slds-popover slds-popover--panel slds-nubbin--right" role="dialog">
+		<div class="slds-popover__header">
+			<div class="slds-media slds-m-bottom--small slds-media--center">
+				<div class="slds-media__figure"></div>
+				<div class="slds-media__body">
+					<button ng-click="chatterTopicCtrl.topicData.remove()" class="slds-button slds-button--destructive slds-pill__delete" title="Delete Topic">
+						<svg aria-hidden="true" class="slds-button__icon">
+							<use xlink:href="#delete"></use>
+						</svg>
+						<span class="slds-assistive-text">Delete Topic</span>
+					</button>
+					<md-checkbox ng-model="chatterTopicCtrl.topicData.pinned" aria-label="Pinned">
+            Pin Topic
+          </md-checkbox>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+
 
 
 

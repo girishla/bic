@@ -26,6 +26,7 @@ export default function ChatterCellPopoverDirective($parse, $compile, $timeout, 
                     // console.log('controllers[0].topicsCache', transcludeScope, scope)
 
 
+
                     scope.$watch(function () {
                         var combinedHash = controllers[0].context && controllers[0].context.cell.contextLevels.combinedHash
                         TopicService.getContextValueCache(combinedHash);
@@ -36,9 +37,9 @@ export default function ChatterCellPopoverDirective($parse, $compile, $timeout, 
 
                         //show popover after a slight delay
 
-                        console.log("processing watch",newVal)
+                        console.log("processing watch", newVal.topics[0].topic,newVal)
 
-                        if (newVal && newVal.hasPinnedTopics==true) {
+                        if (newVal && newVal.topics[0].topic.pinned==true) {
 
                             setTimeout(function () {
                                 scope.$broadcast("rootEvent:showPinned");
