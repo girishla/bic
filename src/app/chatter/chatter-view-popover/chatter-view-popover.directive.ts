@@ -40,7 +40,7 @@ export default function ChatterViewPopoverDirective($parse, $compile, $timeout, 
 
                         console.log("processing watch", newVal)
 
-                        if (newVal && newVal.topics[0].topic.pinned==true) {
+                        if (newVal && newVal.topics[0] && newVal.topics[0].topic.pinned==true) {
 
                             setTimeout(function () {
                                 scope.$broadcast("rootEvent:showPinned");

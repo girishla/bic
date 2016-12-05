@@ -37,9 +37,9 @@ export default function ChatterCellPopoverDirective($parse, $compile, $timeout, 
 
                         //show popover after a slight delay
 
-                        console.log("processing watch", newVal.topics[0].topic,newVal)
+                        console.log("processing watch", newVal)
 
-                        if (newVal && newVal.topics[0].topic.pinned==true) {
+                        if (newVal && newVal.topics[0] && newVal.topics[0].topic.pinned==true) {
 
                             setTimeout(function () {
                                 scope.$broadcast("rootEvent:showPinned");
