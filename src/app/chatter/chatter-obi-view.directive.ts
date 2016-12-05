@@ -19,11 +19,9 @@ export default function OBIViewDirective(BIGate, MetadataService, $compile) {
             tElement.removeAttr('obi-view'); // necessary to avoid infinite compile loop
             var cellContents = tElement.html();
             tElement = tElement.append("<obi-table-view-popover></obi-table-view-popover>")
-            tElement.attr("ng-mouseover", "obiViewCtrl.triggerMenu($event)")
-
-
+            tElement.attr("ng-mouseenter", "obiViewCtrl.triggerMenu($event)")
+            tElement.attr("ng-mouseleave", "obiViewCtrl.cancelTriggerMenu($event)")
             var fn = $compile(tElement);
-
 
             return function (scope) {
                 fn(scope);
@@ -39,11 +37,19 @@ function OBIViewDirectiveController($scope: ng.IScope, BIGate, MetadataService, 
 
     var vm = this;
     vm.viewReport = {};
+    var timer;
 
 
     vm.triggerMenu = (event) => {
         console.log('in triggerMenu');
-        $scope.$broadcast("rootEvent:showPinned");
+        timer = $timeout(function () {
+            $scope.$broadcast("rootEvent:showPinned");
+        }, 500);
+    }
+
+    vm.cancelTriggerMenu = (event) => {
+        console.log('cencelling trigger of popup');
+        $timeout.cancel(timer);
     }
 
     function init() {

@@ -12,7 +12,7 @@ import ToArrayFilter from "./util/chatter-util-to-array.filter";
 import { SidenavPushInDirective, ObiSideNavDirective } from "./chatter-side-nav/chatter-obi-sidenav.directive";
 import ObiSideNavButtonDirective from "./chatter-side-nav/chatter-obi-sidenav-button.directive";
 import AppUIStateService from "./chatter-app-state.service";
-// import "angular-ui-bootstrap/src/popover"
+import "angular-ui-bootstrap/src/popover"
 import ChatterFeedbackDirective from "./chatter-feedback/chatter-feedback.directive";
 import "./chatter-bi/chatter-bi.module";
 import "oclazyload/dist/ocLazyload.js";
@@ -32,7 +32,7 @@ require("./chatter.scss");
 
 
 export default angular
-  .module('chatter.module', ['ngAria', 'ngAnimate', 'ngMaterial', 'ngResource', 'btford.socket-io',  'angularMoment', 'chatter-bi.module','nsPopover'])
+  .module('chatter.module', ['ngAria', 'ngAnimate', 'ngMaterial', 'ngResource', 'btford.socket-io', 'ui.bootstrap.module.popover', 'angularMoment', 'chatter-bi.module','nsPopover'])
   .config(ChatterConfig)
   .controller('chatterDialogController', ['$mdDialog', '$sce', 'context', ChatterDialogController])
   .controller('waitCtrl', ['$mdDialog','$rootScope', WaitCtrl])
