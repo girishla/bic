@@ -3,7 +3,7 @@ import * as _ from "lodash"
 
 export default function CellDirective($parse, $compile, TopicService, $templateCache) {
 
-  var OBITableCellDirectiveController = ['$scope', '$mdDialog', '$mdMedia', '$timeout', '$sce','TopicService',ChatterCellController];
+  var OBITableCellDirectiveController = ['$scope', '$mdDialog', '$mdMedia', '$timeout', '$sce', 'TopicService', ChatterCellController];
 
   return {
     restrict: 'EA', //Default in 1.3+
@@ -19,6 +19,9 @@ export default function CellDirective($parse, $compile, TopicService, $templateC
 
       var cellContents = tElm.html();
       tElm.empty().append("<obi-table-cell-popover>" + cellContents + "</obi-table-cell-popover>")
+      // tElm.attr("ng-mouseenter", "cellCtrl.triggerMenu($event)")
+      // tElm.attr("ng-mouseleave", "cellCtrl.cancelTriggerMenu($event)")
+
 
       // tElm.empty().append("<div context='cellCtrl.context' ns-popover ns-popover-template='http://localhost:3000/app/chatter/chatter-cell-popover/chatter-cell-popover.html' ns-popover-hide-on-outside-click='false' ns-popover-timeout ='1.5' ns-popover-trigger='mouseover' ns-popover-placement='right|center'  ns-popover-theme='slds'  >" + cellContents + "</div>")
 
@@ -35,7 +38,7 @@ export default function CellDirective($parse, $compile, TopicService, $templateC
 
         //Copy viewId over to the cell
         cellController.viewId = tableController.viewId;
-       
+
 
         var context = $.grep(contextCollection, function (e: any) {
           return e.element == elm.attr('Id');
@@ -47,10 +50,10 @@ export default function CellDirective($parse, $compile, TopicService, $templateC
           cellController.setContext(context[0], tableController.getReportContext());
           cellController.setCellType('Measure');
           // var combinedHash = cellController.context.cell.contextLevels.combinedHash
-          
+
 
           // cellController.topicsCache = TopicService.getContextValueCache(combinedHash);
-          console.log('cellController.topicsCache',cellController.topicsCache)
+          console.log('cellController.topicsCache', cellController.topicsCache)
 
 
           scope.$watch(function () {
@@ -105,20 +108,33 @@ export default function CellDirective($parse, $compile, TopicService, $templateC
         //console.log($parse('cellCtrl.elemId')(scope));
 
         //fn(scope);
-        
+
       };
     }
   };
 }
 
 
-function ChatterCellController($scope, $mdDialog, $mdMedia, $timeout, $sce,TopicService) {
+function ChatterCellController($scope, $mdDialog, $mdMedia, $timeout, $sce, TopicService) {
 
   var vm = this;
   var timer;
 
   $scope.dialogStatus = '  ';
   $scope.dialogCustomFullscreen = $mdMedia('sm');
+
+
+  vm.triggerMenu = (event) => {
+    console.log('in triggerMenu');
+    timer = $timeout(function () {
+      $scope.$broadcast("rootEvent:showPinned");
+    }, 500);
+  }
+
+  vm.cancelTriggerMenu = (event) => {
+    console.log('cencelling trigger of popup');
+    $timeout.cancel(timer);
+  }
 
 
   vm.setContext = function (context, reportContext) {
@@ -140,7 +156,7 @@ function ChatterCellController($scope, $mdDialog, $mdMedia, $timeout, $sce,Topic
   }
 
   function init() {
-  
+
 
   }
 

@@ -26,8 +26,31 @@
 					</button>
 				</div>
 			</div>-->
-			<div class="slds-card__body slds-grid">{{viewPopoverCtrl.topicsCache.topics[0].topic.text}}</div>
+			<div class="slds-card__body slds-grid" style="justify-content: space-between;">
+				<span >{{viewPopoverCtrl.topicsCache.topics[0].topic.text}}</span>
+				<div>
+					<div>
+						<button ng-click="viewPopoverCtrl.topicsCache.topics[0].topic.pinned=false" class="slds-button slds-button--icon-border-filled slds-button--icon-x-small"
+							aria-haspopup="true">
+						<svg aria-hidden="true" class="slds-button__icon">
+							<use xlink:href="#close"></use>
+						</svg>
+						<span class="slds-assistive-text">Unpin Topic</span>
+					</button>
+					</div>
+					<div>
+						<button ng-click="showChatterDialog($event)" class="slds-button slds-button--icon-border-filled slds-button--icon-x-small"
+							aria-haspopup="true">
+						<svg aria-hidden="true" class="slds-button__icon">
+							<use xlink:href="#edit"></use>
+						</svg>
+						<span class="slds-assistive-text">Edit Topic</span>
+					</button>
+					</div>
+				</div>
+			</div>
 			<!--<div class="slds-card__footer">Card Footer</div>-->
 		</article>
+
 	</div>
 </div>

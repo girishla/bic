@@ -16,7 +16,7 @@
 
 
   <span ng-if='!cellPopoverCtrl.topicsCache.topics[0].topic.pinned' ng-transclude ns-popover ns-popover-template='http://localhost:3000/app/chatter/chatter-cell-popover/chatter-cell-popover-button.html'
-    ns-popover-hide-on-outside-click='false' ns-popover-timeout='1.5' ns-popover-trigger='mouseover' ns-popover-placement='right|center'
+    ns-popover-hide-on-outside-click='false' ns-popover-timeout='1.5' ns-popover-trigger='mouseenter' ns-popover-placement='right|center'
     ns-popover-theme='slds'>
 
 </span>
@@ -56,12 +56,12 @@
 
 
 <script type="text/ng-template" id="popover-topic-menu.html">
-	<div class="slds-popover slds-popover--panel slds-nubbin--right" role="dialog">
+	<div class="slds-popover slds-popover--panel slds-nubbin--right" style="width:13rem" role="dialog">
 		<div class="slds-popover__header">
 			<div class="slds-media slds-m-bottom--small slds-media--center">
 				<div class="slds-media__figure"></div>
 				<div class="slds-media__body">
-					<button ng-click="chatterTopicCtrl.topicData.remove()" class="slds-button slds-button--brand slds-pill__delete" title="Delete Topic">
+					<button ng-click="chatterTopicCtrl.topicData.remove()" class="slds-button slds-button--neutral slds-pill__delete" title="Delete Topic">
 						<svg aria-hidden="true" class="slds-button__icon">
 							<use xlink:href="#delete"></use>
 						</svg>
