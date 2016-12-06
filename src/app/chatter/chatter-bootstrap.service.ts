@@ -328,7 +328,7 @@ export default class BootstrapService {
 
         $.each(mutations, (mutationIndex, mutation) => {
 
-          console.log('mutation.removedNodes', mutation.removedNodes)
+          // console.log('mutation.removedNodes', mutation.removedNodes)
 
           $(mutation.removedNodes).each(function (value, index) {
             if (this.nodeType === 1) {
@@ -359,6 +359,8 @@ export default class BootstrapService {
 
         if (needsProcessing) {
           $.each($(targetView).find(".CVView:not([vid*='tableView'],[vid*='pivotTableView'])"), function (viewIdx, viewElement) {
+
+            console.log('processing view after mutation:',viewElement)
 
             BootstrapService.processMutations(viewElement, "view");
 

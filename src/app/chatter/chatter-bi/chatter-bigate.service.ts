@@ -8,7 +8,7 @@ import "crypto-js/sha1.js"
 import * as _ from "lodash"
 //import { demapify } from 'es6-mapify'
 
-export default function BIGateService($http, $q) {
+export default function BIGateService($http, $q,$rootScope:ng.IRootScopeService) {
 
   //var MapVar = <any>require('es6-map/polyfill');;
 
@@ -42,6 +42,7 @@ export default function BIGateService($http, $q) {
     resetPrompts: function () {
 
       gateInstance.instancePromptMap = getDashboardPrompts();
+      $rootScope.$broadcast('rootEvent:refreshPrompts',{filters:gateInstance.instancePromptMap});
 
     },
 

@@ -1,6 +1,6 @@
   <ul ng-if="chatterTopicsCtrl.topics"  class="slds-feed__list">
     <li
-      ng-repeat="topic in chatterTopicsCtrl.topics | toArray | filter:{'level1ContextHash':chatterFeedCtrl.feedContext.level1ContextHash,'level2ContextHash':chatterFeedCtrl.feedContext.level2ContextHash,'level3ContextHash':chatterFeedCtrl.feedContext.level3ContextHash,'level4ContextHash':chatterFeedCtrl.feedContext.level4ContextHash}:false | orderBy:'id': true"
+      ng-repeat="topic in chatterTopicsCtrl.topics | toArray | filter:{'level1ContextHash':chatterFeedCtrl.feedContext.level1ContextHash,'level2ContextHash':chatterFeedCtrl.feedContext.level2ContextHash,'level3ContextHash':chatterFeedCtrl.feedContext.level3ContextHash,'level4ContextHash':chatterTopicsCtrl.filtersHash}:false | orderBy:'id': true"
       class="chatter-topics">
       <!--{{chatterFeedCtrl.feedContext | json}}-->
       <chatter-topic topic-data="topic" feed-mode='chatterFeedCtrl.feedMode'></chatter-topic>
