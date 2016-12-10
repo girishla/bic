@@ -10,8 +10,8 @@
     <div class="slds-media__body">
       <div class="slds-publisher slds-publisher--comment" ng-class="{'slds-is-active': chatterNewCommentCtrl.isActive, 'slds-has-focus':chatterNewCommentCtrl.hasFocus}">
         
-        <textarea ng-focus="chatterNewCommentCtrl.isActive=true" ng-blur="chatterNewCommentCtrl.hasFocus=false" ng-keyup="chatterNewCommentCtrl.hasFocus=true"
-          ng-model="chatterNewCommentCtrl.commentText" class="slds-publisher__input slds-input--bare slds-text-longform" placeholder="Write a comment…"
+        <textarea ng-focus="chatterNewCommentCtrl.isActive=true" ng-blur="chatterNewCommentCtrl.hasFocus=false" 
+          ng-model="chatterNewCommentCtrl.commentText" ng-model-options="{ debounce: 500 }" class="slds-publisher__input slds-input--bare slds-text-longform" placeholder="Write a comment…"
           mentio mentio-id="'newCommentTextArea' + chatterCommentsCtrl.feedMode + chatterCommentsCtrl.topicId"></textarea>
 
         <!--

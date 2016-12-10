@@ -12,8 +12,8 @@
             <dd class="slds-list__item">All Followers</dd>
           </dl>
           
-          <textarea ng-focus="chatterNewTopicCtrl.isActive=true" ng-blur="chatterNewTopicCtrl.hasFocus=false" md-autofocus ng-keyup="chatterNewTopicCtrl.hasFocus=true"
-            ng-model="chatterNewTopicCtrl.topicText" class="slds-publisher__input slds-textarea slds-text-longform" placeholder="Start a new Conversation…" 
+          <textarea ng-focus="chatterNewTopicCtrl.isActive=true" ng-blur="chatterNewTopicCtrl.hasFocus=false" md-autofocus
+            ng-model="chatterNewTopicCtrl.topicText" ng-model-options="{ debounce: 500 }" class="slds-publisher__input slds-textarea slds-text-longform" placeholder="Start a new Conversation…" 
              mentio  mentio-id="'newTopicTextArea' + chatterNewTopicCtrl.feedMode"></textarea>
 
           <mentio-menu mentio-apply-element mentio-for="'newTopicTextArea' + chatterNewTopicCtrl.feedMode" mentio-trigger-char="'@'" mentio-items="chatterNewTopicCtrl.filteredUsers" 
