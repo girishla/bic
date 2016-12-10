@@ -155,6 +155,7 @@ export default class ChatterNewTopicDirective implements ng.IDirective {
 
 
     scope.$watch(() => {
+      console.log('in watch new topic directive');
       return ctrl.topicText
     }, (oldvalue, newvalue) => {
 

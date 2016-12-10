@@ -31,6 +31,7 @@ export default function ChatterViewPopoverDirective($parse, $compile, $timeout, 
                     scope.$watch(function () {
                         var combinedHash = controllers[0].combinedHash
                         TopicService.getContextValueCache(combinedHash);
+                        console.log('in watch obiTableViewPopover');
                         return TopicService.getContextValueCache(combinedHash);
                     }, function (newVal) {
 

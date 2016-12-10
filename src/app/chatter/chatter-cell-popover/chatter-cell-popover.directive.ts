@@ -30,6 +30,7 @@ export default function ChatterCellPopoverDirective($parse, $compile, $timeout, 
                     scope.$watch(function () {
                         var combinedHash = controllers[0].context && controllers[0].context.cell.contextLevels.combinedHash
                         TopicService.getContextValueCache(combinedHash);
+                        console.log('in watch obiTableCellPopover');
                         return TopicService.getContextValueCache(combinedHash);
                     }, function (newVal) {
 

@@ -102,7 +102,7 @@ export default class BootstrapService {
       // BootstrapService.dashboardContentJQElement = $('.DashboardPageContentDiv');
 
 
-
+      $('body').attr('md-no-ink','');
 
       BootstrapService.dashboardContentJQElement = $('.ComponentHeader');
 
@@ -118,6 +118,8 @@ export default class BootstrapService {
       BootstrapService.dashboardContentJQElement.append("<obi-progress-circular></obi-progress-circular>");
 
       console.log('New - Attempt to attach angular to page content DIV');
+
+      
 
       angular.bootstrap(BootstrapService.chatterBaseJQElement, ['chatter.module', 'oc.lazyLoad']);
       console.log('Angular Bootstraped: ' + 'chatter.module');
