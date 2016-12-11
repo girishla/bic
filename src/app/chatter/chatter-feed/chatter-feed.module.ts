@@ -11,6 +11,7 @@ import ViewPopoverDirective from "../chatter-view-popover/chatter-view-popover.d
 import OBITableDirective from "../chatter-obi-table.directive";
 import OBIViewDirective from "../chatter-obi-view.directive";
 import CellDirective from "../chatter-obi-table-cell.directive";
+import ChatterFeedAutoGrow from "./chatter-feed-textarea-grow.directive"
 
 
 require("./chatter-feed.scss")
@@ -21,6 +22,7 @@ require("../chatter-feedback/chatter-feedback.styles.scss")
 
 require("mentio/mentio.directive.js")
 require("mentio/mentio.service.js")
+// require("angular-elastic/elastic.js");
 
 
 export default () => {
@@ -40,5 +42,6 @@ export default () => {
         .directive('chatterTopics', ChatterTopicsDirective.factory())
         .directive('obiTableCellPopover', ['$parse', '$compile', '$timeout', 'TopicService', '$rootScope', CellPopoverDirective])
         .directive('obiTableViewPopover', ['$parse', '$compile', '$timeout', 'TopicService', '$rootScope', ViewPopoverDirective])
+        .directive('autoGrow',ChatterFeedAutoGrow)
 }
 

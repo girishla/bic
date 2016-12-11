@@ -49,8 +49,8 @@ class ChatterNewTopicDirectiveController implements IChatterNewTopicDirectiveCon
       })
 
     }
-    else{
-      mentionedUsers=[];
+    else {
+      mentionedUsers = [];
     }
 
 
@@ -79,7 +79,7 @@ class ChatterNewTopicDirectiveController implements IChatterNewTopicDirectiveCon
           "level2ContextHash": this.feedContext.level2ContextHash,
           "level3ContextHash": this.feedContext.level3ContextHash,
           "level4ContextHash": this.feedContext.level4ContextHash,
-          "pinned":true
+          "pinned": true
 
         }
       );
@@ -120,8 +120,8 @@ class ChatterNewTopicDirectiveController implements IChatterNewTopicDirectiveCon
 
   searchUsers = (term) => {
 
-    return this.UserService.searchUsers(term).then((filteredUsers)=>{
-      this.filteredUsers=filteredUsers;
+    return this.UserService.searchUsers(term).then((filteredUsers) => {
+      this.filteredUsers = filteredUsers;
 
     })
 
