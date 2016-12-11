@@ -12,6 +12,7 @@ class ChatterTopicDirectiveController implements IChatterTopicDirectiveControlle
   topicData:any;
   mdDialogService:any;
   static $inject = ['TopicService','$mdDialog'];
+  pinnedCheckValue:any;
 
   constructor(private TopicService:any,$mdDialog:any) {
   //TODO Do nothing at the moment. Will add more to this

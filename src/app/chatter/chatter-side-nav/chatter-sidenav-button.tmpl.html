@@ -67,7 +67,7 @@
 						</svg>
 						<span class="slds-assistive-text">Delete Topic</span>
 					</button>
-					<md-checkbox ng-model="chatterTopicCtrl.topicData.pinned" aria-label="Pinned">
+					<md-checkbox ng-model="chatterTopicCtrl.topicData.pinned" ng-change="chatterTopicCtrl.topicData.togglePinned()" aria-label="Pinned">
             Pin Topic
           </md-checkbox>
 				</div>

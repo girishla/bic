@@ -201,7 +201,7 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
   Topic.prototype.remove = function () {
     var self = this;
 
-    var apiResult = TopicApi.remove({ id: self.id }).$promise.then(
+    var apiResult = TopicApi.delete({ id: self.id }).$promise.then(
       function () {
 
 
@@ -221,6 +221,21 @@ export default function TopicService($rootScope, $q, TopicApi, CommentApi, Topic
 
 
   };
+
+
+  Topic.prototype.togglePinned = function () {
+    var self = this;
+    // self.pinned = !self.pinned;
+
+    var apiResult = TopicApi.update({ id: self.id, pinned: self.pinned }).$promise.then(
+      function () {
+        console.log('Topic pinned & patched')
+      });
+
+
+  };
+
+
 
 
   Topic.removeComment = function (commentId) {
